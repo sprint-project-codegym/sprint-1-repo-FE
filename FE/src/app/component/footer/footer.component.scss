@@ -1,0 +1,86 @@
+$color_1: inherit;
+$color_2: #fff;
+$color_3: white;
+$color_4: #FFF;
+$font-family_1: 'Poppins', sans-serif;
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+  font-family: $font-family_1;
+  background: #fafafa;
+}
+.wrapper {
+  display: flex;
+  align-items: stretch;
+}
+.sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+}
+.sidebar.active {
+  margin-left: -250px;
+}
+a[data-toggle="collapse"] {
+  position: relative;
+}
+.dropdown-toggle {
+  &::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+  }
+}
+a {
+  color: $color_1;
+  text-decoration: none;
+  transition: all 0.3s;
+  &:hover {
+    color: $color_1;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  &:focus {
+    color: $color_1;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+}
+#sidebar {
+  background: #7386D5;
+  color: $color_2;
+  transition: all 0.3s;
+  .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+  }
+  ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+  }
+}
+li {
+  color: $color_3;
+}
+img {
+  width: 100%;
+}
+.chinh_giua {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $color_4;
+  font-size: 1.5rem;
+}
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -250px;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+}
+
