@@ -63,7 +63,7 @@ export class SecurityLoginComponent implements OnInit {
         this.router.navigateByUrl(this.returnUrl);
         this.shareService.sendClickEvent();
         this.toastr.success("Đăng nhập thành công", "Thông báo", {
-          timeOut: 3000,
+          timeOut: 2000,
           extendedTimeOut: 1500
         });
       },
