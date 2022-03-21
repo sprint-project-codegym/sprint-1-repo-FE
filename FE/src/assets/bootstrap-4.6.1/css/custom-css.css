@@ -1,0 +1,109 @@
+.custom-checkbox {
+    -webkit-appearance: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.custom-checkbox:focus {
+    outline: none;
+}
+
+.label-check {
+    display: inline-block;
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
+.error1{
+    position: absolute;
+    top: -110%;
+    padding: 1% 10%;
+    border-radius: 5px;
+    background-color: #FDCAC4;
+    color: #ED6160;
+    display: none;
+}
+.error2{
+    position: absolute;
+    top: -110%;
+    padding: 1% 10%;
+    border-radius: 5px;
+    background-color: #FDCAC4;
+    color: #ED6160;
+    display: none;
+}
+
+.error1::before{
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 9px solid #FDCAC4;
+    position: absolute;
+    bottom: -21%; left: 10%;
+}
+
+.error2::before{
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+
+    border-top: 9px solid #FDCAC4;
+    position: absolute;
+    bottom: -21%; left: 10%;
+}
+
+.error1:nth-child(2){
+    top: 70px;
+    background-color: #D9F0FD;
+}
+.error2:nth-child(2){
+    top: 70px;
+    background-color: #D9F0FD;
+}
+
+.error1:nth-child(2)::before{
+    border-top: 9px solid #D9F0FD;
+}
+.error2:nth-child(2)::before{
+    border-top: 9px solid #D9F0FD;
+}
+
+.error1:nth-child(3){
+    top: 140px;
+    padding: 1% 18%;
+    background-color: #6DFFA7;
+}
+.error2:nth-child(3){
+    top: 140px;
+    padding: 1% 18%;
+    background-color: #6DFFA7;
+}
+
+.error1:nth-child(3)::before{
+    border-top: 9px solid #6DFFA7;
+}
+.error2:nth-child(3)::before{
+    border-top: 9px solid #6DFFA7;
+}
+
+.error1:nth-child(4){
+    top: 210px;
+    background-color: #ffd866;
+}
+.error2:nth-child(4){
+    top: 210px;
+    background-color: #ffd866;
+}
+
+.error1:nth-child(4)::before{
+    border-top: 9px solid #ffd866;
+}
+.error2:nth-child(4)::before{
+    border-top: 9px solid #ffd866;
+}

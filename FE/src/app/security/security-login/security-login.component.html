@@ -1,1 +1,47 @@
-<p>security-login works!</p>
+<body class="login-body">
+<!--Login Wrapper-->
+<div class="container-fluid login-wrapper">
+  <div class="login-box">
+    <h1 class="text-center mb-5">Đăng Nhập Tài Khoản</h1>
+    <div class="row h-100 justify-content-center align-items-center">
+      <div class="col-md-8 col-sm-6 col-12 login-box-form p-4">
+        <h3 class="mb-2">Đăng Nhập</h3>
+        <small class="text-muted bc-description">Đăng nhập bằng thông tin đăng nhập của bạn</small>
+        <form action="" class="mt-2" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+          <div class="input-group mb-3">
+            <label for="username" class="error1"></label>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control mt-0" placeholder="Tên tài khoản"
+                   aria-label="Tên tài khoản" id="username" formControlName="username"
+                   aria-describedby="basic-addon1">
+          </div>
+
+          <div class="input-group mb-3">
+            <label for="password" class="error2"></label>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon2"><i class="fa fa-lock"></i></span>
+            </div>
+            <input type="password" class="form-control mt-0" placeholder="Mật khẩu"
+                   aria-label="Mật khẩu" id="password" formControlName="password"
+                   aria-describedby="basic-addon2">
+          </div>
+
+          <div class="form-group text-muted bc-description">
+            <input type="checkbox" formControlName="remember_me" id="checkbox-1-1" class="custom-checkbox"/>
+            <label class="label-check" for="checkbox-1-1">Ghi nhớ đăng nhập lần sau</label>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-theme btn-block p-2 mb-1" id="btn-login">Đăng Nhập</button>
+            <a routerLink="/reset-password">
+              <small class="text-theme"><strong>Quên mật khẩu?</strong></small>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>

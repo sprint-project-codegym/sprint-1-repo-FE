@@ -1,8 +1,10 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {SecurityLoginComponent} from "./security/security-login/security-login.component";
 
 
 const routes: Routes = [
+  {path: "", component: SecurityLoginComponent},
   {
     path: 'customer',
     loadChildren: () => import('./customer/customer.module').then(module => module.CustomerModule)
