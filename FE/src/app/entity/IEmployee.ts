@@ -11,6 +11,7 @@ export interface IEmployee {
   employeeAddress: string;
   employeePhone: string;
   employeeSalary: number;
+  urlImage: string;
   deleteFlag: boolean;
   account: IAccount;
   position: IPosition;
