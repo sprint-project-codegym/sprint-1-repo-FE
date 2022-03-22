@@ -28,7 +28,7 @@ export class SecurityLoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/verification';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
 
     this.formGroup = this.formBuild.group({
         username: [''],
