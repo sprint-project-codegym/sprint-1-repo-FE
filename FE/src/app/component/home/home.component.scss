@@ -1,0 +1,12 @@
+$color_4: #FFF;
+img {
+  width: 100%;
+}
+.chinh_giua {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $color_4;
+  font-size: 1.5rem;
+}

@@ -1,10 +1,16 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {SecurityLoginComponent} from "./security/security-login/security-login.component";
+// import {SecurityLoginComponent} from "./security/security-login/security-login.component";
+
+import {HomeComponent} from "./component/home/home.component";
 
 
 const routes: Routes = [
-  {path: "", component: SecurityLoginComponent},
+  // {path: "", component: SecurityLoginComponent},
+  {
+    path: '',
+    component: HomeComponent
+  },
   {
     path: 'customer',
     loadChildren: () => import('./customer/customer.module').then(module => module.CustomerModule)
