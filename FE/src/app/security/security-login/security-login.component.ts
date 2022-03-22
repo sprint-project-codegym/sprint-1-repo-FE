@@ -68,10 +68,10 @@ export class SecurityLoginComponent implements OnInit {
         });
       },
       err => {
-        this.errorMessage = err.error.message;
+        // // this.errorMessage = err.error.message;
         this.authService.isLoggedIn = false;
         this.toastr.error("Sai tên đăng nhập hoặc mật khẩu", "Đăng nhập thất bại: ", {
-          timeOut: 3000,
+          timeOut: 2000,
           extendedTimeOut: 1500
         });
       }
