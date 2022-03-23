@@ -30,7 +30,6 @@ export class GroundService {
 
   addNewGround(groundDto: GroundCreateDTO): Observable<GroundCreateDTO> {
     console.log(JSON.stringify(groundDto));
-    // @ts-ignore
     return this.http.post<GroundCreateDTO>(this.GROUND_API + '/create', JSON.stringify(groundDto), this.httpOptions);
   }
 

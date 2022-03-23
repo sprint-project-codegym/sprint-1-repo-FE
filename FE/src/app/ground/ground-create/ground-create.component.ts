@@ -18,8 +18,6 @@ export class GroundCreateComponent implements OnInit {
   public inputImage: any;
   public filePath = '../../../assets/images/add-image-ground.png';
   private uploading: boolean;
-  private snapshot: any;
-  private urlImg;
 
   constructor(
     public groundService: GroundService,
@@ -60,7 +58,7 @@ export class GroundCreateComponent implements OnInit {
       this.uploading = true;
       const imageName = this.getCurrentDateTime() + this.inputImage.name;
       const fileRef = this.storage.ref(imageName);
-      this.snapshot = this.storage.upload(imageName, this.inputImage).snapshotChanges().pipe(
+      this.storage.upload(imageName, this.inputImage).snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             this.formAddGround.patchValue({image: url});
@@ -85,6 +83,12 @@ export class GroundCreateComponent implements OnInit {
           });
         })
       ).subscribe();
+    } else {
+      this.toastrService.error(
+        'Vui lòng chọn hình ảnh!',
+        'Có lỗi xảy ra',
+        {timeOut: 3000, extendedTimeOut: 1500}
+      );
     }
   }
 
@@ -102,7 +106,7 @@ export class GroundCreateComponent implements OnInit {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
   }
 
-  reset() {
+  resetForm() {
     this.formAddGround.reset();
     this.filePath = '../../../assets/images/add-image-ground.png';
   }
