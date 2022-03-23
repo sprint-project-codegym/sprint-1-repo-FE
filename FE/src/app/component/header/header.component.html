@@ -7,9 +7,9 @@
       </div>
     </div>
 
-    <div class="col-9 pb-2">
+    <div class="col-9">
       <div class="row">
-        <div class="col-11">
+        <div class="col-3">
           <ul class="d-flex justify-content-between align-items-center">
             <li>
               <a href="">Trang chủ</a>
@@ -17,14 +17,21 @@
             <li>
               <a href="">Hỗ trợ</a>
             </li>
+          </ul>
+        </div>
+
+        <div class="col-5">
+          <ul class="d-flex justify-content-between align-items-center">
             <li>
-              <a class="dropdown-toggle" href="" role="button" id="dropdownList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Danh sách
-              </a>
-              <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownList">
-                <a class="dropdown-item" href="">Tầng</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Mặt bằng</a>
+              <div class="dropdown">
+                <a class="dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Danh sách
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="">Tầng</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Mặt bằng</a>
+                </div>
               </div>
             </li>
             <li>
@@ -48,18 +55,23 @@
                 <a class="dropdown-item" href="#" style="color: black">Nhân viên văn phòng</a>
               </div>
             </li>
+          </ul>
+        </div>
+
+        <div class="col-3">
+          <ul class="d-flex justify-content-between align-items-center">
             <li>
-              <b class="nav-link" hidden>
+              <b hidden>
                 Tài khoản: <span style="color: blue"></span>
               </b>
-              <b class="nav-link">Chưa đăng nhập</b>
+              <b>Chưa đăng nhập</b>
             </li>
           </ul>
         </div>
 
         <!-- Login Logout-->
-        <div class="col-1 justify-content-end mt-2" style="display: flex" hidden>
-          <a style="text-decoration: none" class="dropdown-toggle" href="#" role="button" id="dropdownMenuLinkAdmin" data-toggle="dropdownAdmin" aria-haspopup="true" aria-expanded="false">
+        <div class="col-1 justify-content-between align-items-center" style="display: flex" hidden>
+          <a class="dropdown-toggle" style="color: #007bff" href="#" role="button" id="dropdownMenuLinkAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLinkAdmin">
@@ -70,7 +82,7 @@
             <a class="dropdown-item" href="#"><i class="fa fa-power-off pr-2"></i>Đăng xuất</a>
           </div>
         </div>
-        <div class="col-1 justify-content-end mt-2" style="display: flex">
+        <div class="col-1 justify-content-between align-items-center" style="display: flex">
           <a class="dropdown-toggle" style="color: #007bff" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user"></i>
           </a>
