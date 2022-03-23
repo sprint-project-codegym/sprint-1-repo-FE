@@ -26,7 +26,7 @@ export class SecurityVerifyResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       newPassword: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      repeatNewPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]],
+      repeatNewPassword: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
     });
     this.route.queryParams.subscribe(params => {
       let code = params['code'];
