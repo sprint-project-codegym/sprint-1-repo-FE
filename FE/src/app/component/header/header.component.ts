@@ -1,6 +1,7 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {TokenStorageService} from "../../service/token-storage.service";
 import {ShareService} from "../../service/share.service";
+import {Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -15,13 +16,15 @@ import {ShareService} from "../../service/share.service";
 export class HeaderComponent implements OnInit {
 
   username: string;
+  accountId: number;
   idEmployee: string;
   currentUser: string;
   role: string;
   isLoggedIn: boolean = false;
 
   constructor(private tokenStorageService: TokenStorageService,
-              private shareService : ShareService) {
+              private shareService : ShareService,
+              private router: Router) {
     this.shareService.getClickEvent().subscribe(() => {
       this.loadHeader();
     })
@@ -45,11 +48,13 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.tokenStorageService.signOut();
     this.ngOnInit();
+    // this.router.navigateByUrl("/login");
   }
 
   getUsernameAccount(){
     if (this.tokenStorageService.getToken()) {
-      this.idEmployee = this.tokenStorageService.getUser().employee.employeeId;
+      // this.idEmployee= this.tokenStorageService.getUser().employee.employeeId;
+      this.accountId= this.tokenStorageService.getUser().id;
     }
   }
 

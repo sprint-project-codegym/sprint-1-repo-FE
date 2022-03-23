@@ -59,15 +59,15 @@
 
         <!-- Login Logout-->
         <div class="col-1 justify-content-end mt-2" style="display: flex" [hidden]="!isLoggedIn">
-          <a style="text-decoration: none" class="dropdown-toggle" href="#" role="button" id="dropdownMenuLinkAdmin" data-toggle="dropdownAdmin" aria-haspopup="true" aria-expanded="false">
+          <a style="text-decoration: none" class="dropdown-toggle" role="button" id="dropdownMenuLinkAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLinkAdmin">
-            <a class="dropdown-item" href=""><i class="fa fa-user pr-2"></i>Thông tin</a>
+            <a class="dropdown-item" ><i class="fa fa-user pr-2"></i>Thông tin</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href=""><i class="fa fa-th-list pr-2"></i>Nhiệm vụ</a>
+            <a class="dropdown-item" ><i class="fa fa-th-list pr-2"></i>Nhiệm vụ</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="" (click)="logOut()"><i class="fa fa-power-off pr-2"></i>Đăng xuất</a>
+            <a class="dropdown-item" (click)="logOut()"><i class="fa fa-power-off pr-2"></i>Đăng xuất</a>
           </div>
         </div>
         <div class="col-1 justify-content-end mt-2" style="display: flex" [hidden]="isLoggedIn">
@@ -75,7 +75,7 @@
             <i class="fa fa-user"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="" routerLink="login"><i class="fa fa-sign-in-alt pr-2"></i>Đăng nhập</a>
+            <a class="dropdown-item" routerLink="login"><i class="fa fa-sign-in-alt pr-2"></i>Đăng nhập</a>
           </div>
         </div>
 
