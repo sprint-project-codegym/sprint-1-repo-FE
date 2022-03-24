@@ -1,0 +1,119 @@
+<div class="container-fluid">
+  <div class="col-sm-12 col-xs-12 content p-3 pl-0">
+    <h3 class="mb-0"><strong>Chỉnh sửa hợp đồng</strong></h3>
+    <span class="text-secondary">Khách hàng <i class="fa fa-angle-right"></i> Hợp đồng <i
+      class="fa fa-angle-right"></i> Chỉnh sửa hợp đồng</span>
+    <div class="row mt-3">
+      <div class="col-sm-12">
+        <div class="mt-1 mb-3 p-3 button-container bg-white border shadow p-3 mb-5 bg-white rounded">
+          <h4 class="mb-5 text-center text">Chỉnh sửa hợp đồng</h4>
+          <form [formGroup]="formEditContract" (ngSubmit)="editContract()" class="form-horizontal">
+            <div class="form-group row">
+              <div class="col-4">
+
+                <div class="form-group">
+                  <label for="ground">Mặt bằng<span
+                    class="text-danger">*</span></label>
+                  <select [compareWith]="compareFn1" class="form-control" id="ground" formControlName="ground">
+                    <ng-container *ngFor="let ground of groundList">
+                      <option [ngValue]="ground">{{ground.groundId}}</option>
+                    </ng-container>
+                  </select>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="contractDate">Ngày làm hợp đồng<span class="text-danger">*</span></label>
+                  <input type="date" class="form-control" id="contractDate" formControlName="contractDate">
+                  <span class="text-danger">Không được để trống. Vui lòng nhập!</span>
+                </div>
+
+
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="customer">Họ Và Tên Khách Hàng<span
+                    class="text-danger">*</span></label>
+                  (<a class="btn_register" href="#">Đăng Ký</a>)
+                  <select [compareWith]="compareFn2" class="form-control" id="customer" formControlName="customer">
+                    <ng-container *ngFor="let customer of customerList">
+                      <option [ngValue]="customer">{{customer.customerName}}</option>
+                    </ng-container>
+                  </select>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="startDate">Ngày bắt đầu thuê<span
+                    class="text-danger">*</span></label>
+                  <input type="date" class="form-control" id="startDate" formControlName="startDate">
+                  <span class="text-danger">Vui lòng chọn thời gian!</span>
+                </div>
+              </div>
+
+
+              <div class="col-4">
+
+
+                <div class="form-group">
+                  <label for="employee">Họ Và Tên Nhân Viên<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="employee"
+                         formControlName="employee" value="Nguyễn Văn A" readonly>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="endDate">Ngày kết thúc thuê<span
+                    class="text-danger">*</span></label>
+                  <input type="date" class="form-control" id="endDate" formControlName="endDate">
+                  <span class="text-danger">Vui lòng chọn thời gian!</span>
+                </div>
+
+
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-6">
+                <label for="rentCost">Giá Tiền Mỗi Tháng(VNĐ)<span
+                  class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="rentCost" formControlName="rentCost">
+                <span class="text-danger">Không được để trống. Vui lòng nhập!</span>
+              </div>
+              <div class="form-group col-6">
+                <label for="totalCost">Tổng Tiền(VNĐ)<span
+                  class="text-danger">*</span></label>
+                <input placeholder="VD: 35 tỷ" type="text" class="form-control" id="totalCost"
+                       formControlName="totalCost">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-12">
+                <div class="form-group">
+                  <label for="contractContent">Nội Dung Hợp Đồng</label>
+                  <textarea class="form-control" id="contractContent" rows="3"
+                            formControlName="contractContent"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-12 d-flex justify-content-center">
+                <button [routerLink]="['/contract/list']" class="btn btn-success text-white mr-3" type="button">
+                  <i class="fas fa-chevron-left mr-2"></i>
+                  <span>Trở về</span>
+                </button>
+                <button (click)="refresh()" class="btn btn-success text-white mr-3" type="button">
+                  <i class="fas fa-sync mr-2"></i>
+                  <span>Làm mới</span>
+                </button>
+                <button class="btn btn-primary" type="submit" (click)="editContract()">
+                  <i class="fas fa-save mr-2"></i>
+                  <span>Lưu</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
