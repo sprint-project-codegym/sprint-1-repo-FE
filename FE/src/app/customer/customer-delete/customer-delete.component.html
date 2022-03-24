@@ -1,1 +1,6 @@
-<p>customer-delete works!</p>
+<h5>Bạn có chắc muốn xóa khách hàng <label style="color: red"> {{deleteName}}</label> không ?</h5>
+<p style="color: red">Hành động này không thể được hoàn tác !</p>
+<div class="row d-flex justify-content-end">
+  <button class="btn btn-secondary" style="width: 100px;margin-right: 20px" data-dismiss="modal" id="closeModal" >Hủy</button>
+  <button class="btn btn-danger mr-3" style="width: 100px" (click)="deleteCustomer()"  data-dismiss="modal">Xóa</button>
+</div>
