@@ -1,0 +1,27 @@
+.table-striped td, .table-striped th {
+  border: 1px solid #dee2e6;
+  vertical-align: middle;
+  padding: 5px;
+}
+.table-striped {
+  th {
+    &:last-child {
+      width: 170px;
+    }
+  }
+  td {
+    &:last-child {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}
+th {
+  text-align: center;
+}
+.search {
+  width: 200px;
+  border: 0;
+  border-bottom: 1px solid lightgray;
+  border-radius: 0;
+}
