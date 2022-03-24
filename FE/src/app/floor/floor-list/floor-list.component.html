@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách tầng</title>
+</head>
+<body>
+<div class="container-fluid">
+  <h3 class="text-center m-3">DANH SÁCH TẦNG</h3>
+  <div class="row mb-3">
+    <div class="col-4">
+      <button class="btn btn-primary" type="button"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</button>
+    </div>
+    <div class="col-8 ">
+      <div class="row ">
+        <div class="col-12 d-flex justify-content-end">
+          <input class="search form-control mr-3"
+                 placeholder="Tìm kiếm theo tòa nhà">
+          <input class="search form-control mr-3"
+                 placeholder="Tìm kiếm theo tên tầng">
+          <button class="btn btn-light btn-outline-secondary" type="button"><i class="fas fa-search mr-1"></i>Tìm kiếm</button>
+        </div>
+      </div>
+    </div>
+    ​
+  </div>
+  ​
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="text-center" scope="col">Tên tòa nhà</th>
+      <th class="text-center" scope="col">Tên tầng lầu</th>
+      <th class="text-center" scope="col">Mã tầng lầu</th>
+      <th class="text-center" scope="col">Diện tích</th>
+      <th class="text-center" scope="col">Sức chứa</th>
+      <th class="text-center" scope="col">Trạng thái</th>
+      <th class="text-center" scope="col">Loại tầng</th>
+      <th class="text-center" scope="col">Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let floor of floors">
+      <td>{{floor.floorName}}</td>
+      <td>{{floor.building.buildingName}}</td>
+      <td>{{floor.floorId}}</td>
+      <td>{{floor.area}}</td>
+      <td>{{floor.capacity}}</td>
+      <td>{{floor.status}}</td>
+      <td>{{floor.floorType}}</td>
+      <td class="">
+        <button class="btn btn-success"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
+        <button class="btn btn-danger" data-target="#exampleModal" data-toggle="modal" (click)="getCustomerById(floor.floorId)"><i
+          class="fas fa-trash-alt mr-1"></i>Xóa
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  ​
+  <!--  Pagination-->
+  <div class="col-12">
+    <nav aria-label="Page navigation example" class="float-right">
+      <ul class="pagination">
+        <li class="page-item" (click)="onFirst()" [ngClass]="pageClicked==0?'disabled':''">
+          <a class="page-link">Đầu</a>
+        </li>
+        <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
+          <a class="page-link">Trước</a>
+        </li>
+        <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmit(pages[pageClicked-1])">
+          <a class="page-link">{{pageClicked}}</a>
+        </li>
+        <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+            (click)="onSubmit(pages[pageClicked])">
+          <a class="page-link">{{pageClicked + 1}}</a>
+        </li>
+        <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="onSubmit(pages[pageClicked+1])">
+          <a class="page-link">{{pageClicked + 2}}</a>
+        </li>
+        <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
+          <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
+        </li>
+        <li class="page-item" (click)="onNext()" [ngClass]="pageClicked==totalPages-1?'disabled':''">
+          <a class="page-link">Sau</a>
+        </li>
+        <li class="page-item" (click)="onLast()" [ngClass]="pageClicked==totalPages-1?'disabled':''"><a
+          class="page-link">Cuối</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!--  Xoa -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Bạn có chắc chắn muốn xóa tầng 1 không?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteCustomer(id)">Đồng ý</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

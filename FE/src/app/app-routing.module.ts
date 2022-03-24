@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'contract',
     loadChildren: () => import('./contract/contract.module').then(module => module.ContractModule)
+  },
+  {
+    path: 'floor',
+    loadChildren: () => import('./floor/floor.module').then(module => module.FloorModule)
   }
 ];
 
