@@ -30,7 +30,6 @@ export class ContractCreateComponent implements OnInit {
     this.getAllCustomer();
     this.getAllGround();
     this.myForm();
-    console.log(this.formGroup);
     this.formGroup.get('rentCost').valueChanges.subscribe(() => this.formGroup.get('totalCost').updateValueAndValidity({
       onlySelf: true,
       emitEvent: false
@@ -53,7 +52,7 @@ export class ContractCreateComponent implements OnInit {
   smallerThanOtherTime(otherControlName: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.parent) {
-        return null; // Control is not yet associated with a parent.
+        return null;
       }
       const thisValue = control.value;
       const otherValue = control.parent.get(otherControlName).value;
@@ -70,7 +69,7 @@ export class ContractCreateComponent implements OnInit {
   greaterThanOtherTime(otherControlName: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.parent) {
-        return null; // Control is not yet associated with a parent.
+        return null;
       }
       const thisValue = control.value;
       const otherValue = control.parent.get(otherControlName).value;
@@ -88,7 +87,7 @@ export class ContractCreateComponent implements OnInit {
   smallerThan(otherControlName: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.parent) {
-        return null; // Control is not yet associated with a parent.
+        return null;
       }
       const thisValue = +control.value;
       const otherValue = +control.parent.get(otherControlName).value;
@@ -105,7 +104,7 @@ export class ContractCreateComponent implements OnInit {
   greaterThan(otherControlName: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.parent) {
-        return null; // Control is not yet associated with a parent.
+        return null;
       }
       const thisValue = +control.value;
       const otherValue = +control.parent.get(otherControlName).value;
@@ -120,16 +119,6 @@ export class ContractCreateComponent implements OnInit {
   }
 
   myForm() {
-    // const YEAR = new Date().getFullYear();
-    // const MONTH = new Date().getMonth();
-    // const DAY = new Date().getDate();
-    //
-    // console.log(
-    //   YEAR + '-' + MONTH + '-' + DAY
-    // );
-    // @ts-ignore
-
-
     this.formGroup = this.formBuilder.group({
       contractId: ['', [Validators.required, Validators.pattern('^(HD)[-][\\d]{4}$')]],
       contractDate: ['', [Validators.required]],

@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Ngày làm hợp đồng<span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" formControlName="contractDate">
+                  <input type="date" [min]="" class="form-control" formControlName="contractDate">
                   <span class="text-danger" *ngIf="formGroup.controls.contractDate.errors?.required&&formGroup.controls.contractDate.touched">
                     Vui lòng chọn thời gian!
                   </span>
