@@ -21,10 +21,12 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Ngày làm hợp đồng<span class="text-danger">*</span></label>
-                  <input type="date" [min]="" class="form-control" formControlName="contractDate">
-                  <span class="text-danger" *ngIf="formGroup.controls.contractDate.errors?.required&&formGroup.controls.contractDate.touched">
+                  <input [placeholder]="getFormattedDate()" [min]="" class="form-control" formControlName="contractDate"
+                         readonly>
+                  <p class="text-danger"
+                        *ngIf="formGroup.controls.contractDate.errors?.required&&formGroup.controls.contractDate.touched">
                     Vui lòng chọn thời gian!
-                  </span>
+                  </p>
                 </div>
               </div>
               <div class="col-4">
@@ -42,12 +44,13 @@
                   <label for="exampleFormControlInput1">Ngày bắt đầu thuê<span
                     class="text-danger">*</span></label>
                   <input type="date" class="form-control" formControlName="startDate">
-                  <span class="text-danger" *ngIf="formGroup.controls.startDate.errors?.required&&formGroup.controls.startDate.touched">
+                  <p class="text-danger"
+                        *ngIf="formGroup.controls.startDate.errors?.required&&formGroup.controls.startDate.touched">
                     Vui lòng chọn thời gian!
-                  </span>
-                  <span
+                  </p>
+                  <p
                     *ngIf="formGroup.controls.startDate.touched&&formGroup.controls.startDate.errors?.smallerThanOtherTime"
-                    class="text-danger">Phải trước Ngày kết thúc</span>
+                    class="text-danger">Phải trước Ngày kết thúc</p>
                 </div>
               </div>
               <div class="col-4">
@@ -61,12 +64,13 @@
                     class="text-danger">*</span></label>
                   <br>
                   <input type="date" class="form-control" formControlName="endDate">
-                  <span class="text-danger" *ngIf="formGroup.controls.endDate.errors?.required&&formGroup.controls.endDate.touched">
+                  <p class="text-danger"
+                        *ngIf="formGroup.controls.endDate.errors?.required&&formGroup.controls.endDate.touched">
                     Vui lòng chọn thời gian!
-                  </span>
-                  <span
+                  </p>
+                  <p
                     *ngIf="formGroup.controls.endDate.touched&&formGroup.controls.endDate.errors?.greaterThanOtherTime"
-                    class="text-danger">Phải sau Ngày bắt đầu</span>
+                    class="text-danger">Phải sau Ngày bắt đầu</p>
                 </div>
               </div>
             </div>
@@ -75,45 +79,62 @@
                 <label for="exampleFormControlSelect1">Mã Hợp Đồng<span
                   class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="contractId" formControlName="contractId">
-                <span class="text-danger"
+                <p class="text-danger"
                       *ngIf="formGroup.controls.contractId.errors?.required&&formGroup.controls.contractId.touched">
                   Không được để trống. Vui lòng nhập!
-                </span>
-                <span class="text-danger"
+                </p>
+                <p class="text-danger"
                       *ngIf="formGroup.controls.contractId.errors?.pattern&&formGroup.controls.contractId.touched">
                   Mã hợp đồng không đúng định dạng (VD: HD-0001)!
-                </span>
+                </p>
               </div>
               <div class="form-group col-4">
-                <label for="exampleFormControlSelect1">Giá Tiền Mỗi Tháng(VNĐ)<span
-                  class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="rentCost">
-                <span class="text-danger"
+                <!--                <label for="exampleFormControlSelect1">Giá Tiền Mỗi Tháng(VNĐ)<span class="text-danger">*</span></label>-->
+                <div class="d-flex justify-content-between">
+                  <label for="exampleFormControlSelect1">
+                    <span>Giá Tiền Mỗi Tháng(VNĐ)</span>
+                    <span class="text-danger">*</span>
+                  </label>
+                  <span>{{pipeRentCost | currency : "VND"}}</span>
+                </div>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="rentCost"
+                       [(ngModel)]="pipeRentCost">
+                <p class="text-danger"
                       *ngIf="formGroup.controls.rentCost.errors?.required&&formGroup.controls.rentCost.touched">
                   Không được để trống. Vui lòng nhập!
-                </span>
-                <span *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.pattern"
+                </p>
+                <p *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.pattern"
                       class="text-danger">
-                  Không hợp lệ! (VD: 1000.00)
-                </span>
-                <span class="text-danger"
-                      *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.smallerThan">Phải nhỏ hơn hoặc bằng Tổng tiền</span>
+                  Không hợp lệ! Không được bắt đầu từ 0, không được nhập chữ
+                </p>
+                <p class="text-danger"
+                      *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.smallerThan">Phải nhỏ hơn hoặc bằng Tổng tiền</p>
               </div>
               <div class="form-group col-4">
-                <label for="exampleFormControlSelect1">Tổng Tiền(VNĐ)<span
-                  class="text-danger">*</span></label>
+                <div class="d-flex justify-content-between">
+                  <label for="exampleFormControlSelect1">
+                    <span>Tổng Tiền(VNĐ)</span>
+                    <span class="text-danger">*</span>
+                  </label>
+                  <span>{{pipeTotalCost | currency : "VND"}}</span>
+                </div>
                 <input placeholder="VD: 35 tỷ" type="text" class="form-control" id="exampleFormControlInput1"
-                       formControlName="totalCost">
-                <span class="text-danger"
+                       formControlName="totalCost" [(ngModel)]="pipeTotalCost">
+                <p
+                  *ngIf="formGroup.controls.totalCost.dirty&&formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.pattern"
+                  class="text-danger">
+                  Không hợp lệ! Không được bắt đầu từ 0
+                </p>
+                <p class="text-danger"
                       *ngIf="formGroup.controls.totalCost.errors?.required&&formGroup.controls.totalCost.touched">
                   Không được để trống. Vui lòng nhập!
-                </span>
-                <span *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.pattern"
-                      class="text-danger">
-                  Không hợp lệ! (VD: 1000.00)
-                </span>
-                <span *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.greaterThan"
-                      class="text-danger">Phải lớn hơn hoặc bằng Giá tiền mỗi tháng</span>
+                </p>
+                <!--                <span *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.pattern"-->
+                <!--                      class="text-danger">-->
+                <!--                  Không hợp lệ! (VD: 1000.00)-->
+                <!--                </span>-->
+                <p *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.greaterThan"
+                      class="text-danger">Phải lớn hơn hoặc bằng Giá tiền mỗi tháng</p>
               </div>
             </div>
             <div class="form-group row">

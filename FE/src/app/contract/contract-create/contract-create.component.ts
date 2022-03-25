@@ -6,6 +6,7 @@ import {IGround} from '../../entity/IGround';
 import {Router} from '@angular/router';
 import {DateAdapter} from '@angular/material/core';
 import {ToastrService} from 'ngx-toastr';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-contract-create',
@@ -17,6 +18,10 @@ export class ContractCreateComponent implements OnInit {
   public customerList: ICustomer[];
   public groundList: IGround[];
   public formGroup: FormGroup;
+  public datePipe: DatePipe = new DatePipe('en-US');
+  public pipeRentCost = 0;
+  public pipeTotalCost = 0;
+
 
   constructor(private contractService: ContractService,
               private formBuilder: FormBuilder,
@@ -46,6 +51,12 @@ export class ContractCreateComponent implements OnInit {
       onlySelf: true,
       emitEvent: false
     }));
+  }
+
+  getFormattedDate() {
+    const date = new Date();
+    const transformDate = this.datePipe.transform(date, 'yyyy-MM-dd');
+    return transformDate;
 
   }
 
@@ -121,12 +132,12 @@ export class ContractCreateComponent implements OnInit {
   myForm() {
     this.formGroup = this.formBuilder.group({
       contractId: ['', [Validators.required, Validators.pattern('^(HD)[-][\\d]{4}$')]],
-      contractDate: ['', [Validators.required]],
+      contractDate: [this.getFormattedDate()],
       startDate: ['', [Validators.required, this.smallerThanOtherTime('endDate')]],
       endDate: ['', [Validators.required, this.greaterThanOtherTime('startDate')]],
       contractContent: ['', [Validators.required]],
-      rentCost: ['', [Validators.required, Validators.pattern('^-?[0-9]\\d*(\\.\\d)[0-9]*$'), Validators.min(0), this.smallerThan('totalCost')]],
-      totalCost: ['', [Validators.required, Validators.pattern('^-?[0-9]\\d*(\\.\\d)[0-9]*$'), Validators.min(0), this.greaterThan('rentCost')]],
+      rentCost: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$'), Validators.min(0), this.smallerThan('totalCost')]],
+      totalCost: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$'), Validators.min(0), this.greaterThan('rentCost')]],
       customerId: ['', [Validators.required]],
       groundId: ['', [Validators.required]],
       employeeId: ['E006']

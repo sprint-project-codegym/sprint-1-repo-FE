@@ -7,7 +7,7 @@ import { ContractEditComponent } from './contract-edit/contract-edit.component';
 import { ContractDeleteComponent } from './contract-delete/contract-delete.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ContractCreateComponent } from './contract-create/contract-create.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -18,14 +18,15 @@ import {MatInputModule} from '@angular/material/input';
     exports: [
         ContractCreateComponent
     ],
-  imports: [
-    CommonModule,
-    ContractRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule
-  ]
+    imports: [
+        CommonModule,
+        ContractRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule
+    ]
 })
 export class ContractModule { }
