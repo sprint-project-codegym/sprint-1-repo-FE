@@ -21,8 +21,10 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Ngày làm hợp đồng<span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" formControlName="contractDate" value="2000-01-01">
-                  <span class="text-danger">Không được để trống. Vui lòng nhập!</span>
+                  <input type="date" class="form-control" formControlName="contractDate">
+                  <span class="text-danger" *ngIf="formGroup.controls.contractDate.errors?.required&&formGroup.controls.contractDate.touched">
+                    Vui lòng chọn thời gian!
+                  </span>
                 </div>
               </div>
               <div class="col-4">
@@ -40,14 +42,12 @@
                   <label for="exampleFormControlInput1">Ngày bắt đầu thuê<span
                     class="text-danger">*</span></label>
                   <input type="date" class="form-control" formControlName="startDate">
-
-                  <!--                  <br>-->
-                  <!--                  <mat-form-field>-->
-                  <!--                    <input class="form-control" formControlName="startDate" matInput [matDatepicker]="picker" placeholder="Chọn ngày kết thúc">-->
-                  <!--                    <mat-datepicker #picker startView="year"></mat-datepicker>-->
-                  <!--                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-                  <!--                  </mat-form-field>-->
-                  <span class="text-danger">Vui lòng chọn thời gian!</span>
+                  <span class="text-danger" *ngIf="formGroup.controls.startDate.errors?.required&&formGroup.controls.startDate.touched">
+                    Vui lòng chọn thời gian!
+                  </span>
+                  <span
+                    *ngIf="formGroup.controls.startDate.touched&&formGroup.controls.startDate.errors?.smallerThanOtherTime"
+                    class="text-danger">Phải trước Ngày kết thúc</span>
                 </div>
               </div>
               <div class="col-4">
@@ -60,30 +60,13 @@
                   <label for="exampleFormControlInput1">Ngày kết thúc thuê<span
                     class="text-danger">*</span></label>
                   <br>
-                  <!--                  <mat-form-field>-->
-                  <!--                    <input formControlName="endDate" id="datepicker" matInput [matDatepicker]="picker" placeholder="Choose a date">-->
-                  <!--                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-                  <!--                    <mat-datepicker #picker></mat-datepicker>-->
-                  <!--                  </mat-form-field>-->
-                  <mat-form-field>
-                    <mat-label>Choose a date</mat-label>
-                    <input formControlName="endDate" matInput [matDatepicker]="picker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-                  <!--                                    <input type="date" class="form-control" formControlName="endDate">-->
-                  <!--                  <mat-form-field>-->
-                  <!--                    <input class="form-control border-0" formControlName="endDate" matInput [matDatepicker]="picker" placeholder="Chọn ngày kết thúc">-->
-                  <!--                    <mat-datepicker #picker startView="year"></mat-datepicker>-->
-                  <!--                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-                  <!--                  </mat-form-field>-->
-                  <!--                  <mat-form-field>-->
-                  <!--                    <input  matInput [matDatepicker]="picker" placeholder="Choose a date">-->
-                  <!--                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-                  <!--                    <mat-datepicker #picker></mat-datepicker>-->
-                  <!--                  </mat-form-field>-->
-                  <span class="text-danger">Vui lòng chọn thời gian!</span>
-
+                  <input type="date" class="form-control" formControlName="endDate">
+                  <span class="text-danger" *ngIf="formGroup.controls.endDate.errors?.required&&formGroup.controls.endDate.touched">
+                    Vui lòng chọn thời gian!
+                  </span>
+                  <span
+                    *ngIf="formGroup.controls.endDate.touched&&formGroup.controls.endDate.errors?.greaterThanOtherTime"
+                    class="text-danger">Phải sau Ngày bắt đầu</span>
                 </div>
               </div>
             </div>
@@ -93,19 +76,44 @@
                   class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="contractId" formControlName="contractId">
                 <span class="text-danger"
-                      *ngIf="formGroup.controls.contractId.errors?.required&&formGroup.controls.contractId.touched">Không được để trống. Vui lòng nhập!</span>
+                      *ngIf="formGroup.controls.contractId.errors?.required&&formGroup.controls.contractId.touched">
+                  Không được để trống. Vui lòng nhập!
+                </span>
+                <span class="text-danger"
+                      *ngIf="formGroup.controls.contractId.errors?.pattern&&formGroup.controls.contractId.touched">
+                  Mã hợp đồng không đúng định dạng (VD: HD-0001)!
+                </span>
               </div>
               <div class="form-group col-4">
                 <label for="exampleFormControlSelect1">Giá Tiền Mỗi Tháng(VNĐ)<span
                   class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="rentCost">
-                <span class="text-danger">Không được để trống. Vui lòng nhập!</span>
+                <span class="text-danger"
+                      *ngIf="formGroup.controls.rentCost.errors?.required&&formGroup.controls.rentCost.touched">
+                  Không được để trống. Vui lòng nhập!
+                </span>
+                <span *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.pattern"
+                      class="text-danger">
+                  Không hợp lệ! (VD: 1000.00)
+                </span>
+                <span class="text-danger"
+                      *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.smallerThan">Phải nhỏ hơn hoặc bằng Tổng tiền</span>
               </div>
               <div class="form-group col-4">
                 <label for="exampleFormControlSelect1">Tổng Tiền(VNĐ)<span
                   class="text-danger">*</span></label>
                 <input placeholder="VD: 35 tỷ" type="text" class="form-control" id="exampleFormControlInput1"
                        formControlName="totalCost">
+                <span class="text-danger"
+                      *ngIf="formGroup.controls.totalCost.errors?.required&&formGroup.controls.totalCost.touched">
+                  Không được để trống. Vui lòng nhập!
+                </span>
+                <span *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.pattern"
+                      class="text-danger">
+                  Không hợp lệ! (VD: 1000.00)
+                </span>
+                <span *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.greaterThan"
+                      class="text-danger">Phải lớn hơn hoặc bằng Giá tiền mỗi tháng</span>
               </div>
             </div>
             <div class="form-group row">
