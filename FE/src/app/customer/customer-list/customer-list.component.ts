@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {CustomerService} from '../../service/customer.service';
 import {Router} from '@angular/router';
 import {ICustomer} from '../../entity/ICustomer';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-list',
@@ -10,7 +11,7 @@ import {ICustomer} from '../../entity/ICustomer';
 })
 export class CustomerListComponent implements OnInit {
   customers: ICustomer[];
-  size = 2;
+  size = 5;
   pageClicked = 0;
   totalPages = 1;
   pages = [];
@@ -27,7 +28,7 @@ export class CustomerListComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     public router: Router,
-    // private toastrService: ToastrService
+    private toastrService: ToastrService
   ) {
   }
 
@@ -74,10 +75,9 @@ export class CustomerListComponent implements OnInit {
     this.customerService.searchCustomerByIdAndName(this.idInput, this.nameInput, this.size).subscribe(
       data => {
         if (data === null) {
-          this.idInput = '';
-          this.nameInput = '';
-          // this.toastrService.warning("Không tìm thấy khách hàng")
-          // this.errorMessage = 'abc';
+          // this.idInput = '';
+          // this.nameInput = '';
+          this.toastrService.info('Không tìm thấy khách hàng');
           this.onSubmit(0);
         } else {
           this.customers = data['content'];
@@ -88,10 +88,6 @@ export class CustomerListComponent implements OnInit {
       }
       );
   }
-
-  // showToa() {
-  //   this.toastrService.success("nothing","title")
-  // }
 
   deleteSuccess() {
     this.ngOnInit();
