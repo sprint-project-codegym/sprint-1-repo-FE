@@ -4,8 +4,8 @@ import {ContractService} from "../../service/contract.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {IGround} from "../../entity/IGround";
 import {ICustomer} from "../../entity/ICustomer";
-import {IEmployee} from "../../entity/IEmployee";
 import {IContract} from "../../entity/IContract";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-contract-edit',
@@ -18,13 +18,14 @@ export class ContractEditComponent implements OnInit {
   customerList: ICustomer[];
   groundList: IGround[];
   contract: IContract;
-  employee: IEmployee;
+  employee = new Object();
 
   constructor(
     public formBuilder: FormBuilder,
     public contractService: ContractService,
     public router: Router,
-    public activeRoute: ActivatedRoute
+    public activeRoute: ActivatedRoute,
+    public toastService: ToastrService
   ) {
   }
 
@@ -37,8 +38,24 @@ export class ContractEditComponent implements OnInit {
       const id = param.get('id');
       this.contractService.getContractById(id).subscribe(data => {
         this.contract = data;
+
+        delete this.contract.employee.employeeBirthday;
+        delete this.contract.employee.employeeGender;
+        delete this.contract.employee.employeeIdCard;
+        delete this.contract.employee.employeeGmail;
+        delete this.contract.employee.employeeAddress;
+        delete this.contract.employee.employeePhone;
+        delete this.contract.employee.employeeSalary;
+        delete this.contract.employee.urlImage;
+        delete this.contract.employee.deleteFlag;
+        delete this.contract.employee.account;
+        delete this.contract.employee.position;
+        console.log(this.contract.employee);
+
         this.formEditContract.setValue(this.contract);
-        console.log(data);
+        this.employee = this.contract.employee;
+        console.log(this.contract.employee);
+        console.log(this.formEditContract.value);
       })
     })
   }
@@ -50,12 +67,16 @@ export class ContractEditComponent implements OnInit {
         startDate: ["", Validators.required],
         endDate: ["", Validators.required],
         contractDate: ["", Validators.required],
-        rentCost: ["", Validators.required],
-        totalCost: ["", Validators.required],
-        contractContent: ["", Validators.required],
+        rentCost: ["", [Validators.required, Validators.min(10.0), Validators.max(100000000.0)]],
+        totalCost: ["", [Validators.required, Validators.min(10.0), Validators.max(100000000.0)]],
+        contractContent: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
         deleteFlag: [],
         customer: ["", Validators.required],
-        employee: ["", Validators.required],
+        // employee: ["", Validators.required],
+        employee: this.formBuilder.group({
+          employeeName: [],
+          employeeId: [],
+        }),
         ground: ["", Validators.required]
       }
     )
@@ -64,14 +85,14 @@ export class ContractEditComponent implements OnInit {
   getAllCustomer() {
     this.contractService.getAllCustomer().subscribe(data => {
       this.customerList = data;
-      console.log(data);
+      // console.log(data);
     })
   }
 
   getAllGround() {
     this.contractService.getAllGround().subscribe(data => {
       this.groundList = data;
-      console.log(data);
+      // console.log(data);
     })
   }
 
@@ -83,18 +104,20 @@ export class ContractEditComponent implements OnInit {
     return c1 && c2 ? c1.customerId === c2.customerId : c1 === c2;
   }
 
-  onSubmit() {
-    if (this.formEditContract.valid) {
-      this.contractService.updateContract(this.formEditContract.value).subscribe(() => this.router.navigateByUrl("/contract/list"))
-    }
-  }
-
   editContract() {
     console.log(this.formEditContract.value);
-    this.contractService.updateContract(this.formEditContract.value).subscribe(data => {
+    this.contractService.updateContract(this.contract.contractId, this.formEditContract.value).subscribe(data => {
       this.router.navigate(['contract/list']);
+      this.toastService.success("Thêm mới thành công", "Thông báo", {
+        timeOut: 3000,
+        extendedTimeOut: 1500,
+      })
       console.log(data);
     }, error => {
+      this.toastService.success("Thêm mới thất bại", "Thông báo", {
+        timeOut: 3000,
+        extendedTimeOut: 1500,
+      })
       console.log(error);
     });
   }

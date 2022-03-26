@@ -18,13 +18,10 @@ export class ContractService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': "*",
+      'Access-Control-Allow-Methods': 'GET,PUT,PATCH,POST,DELETE,OPTIONS'
     }),
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-    'Authorization': 'Bearer szdp79a2kz4wh4frjzuqu4sz6qeth8m3',
   };
 
   getContractById(contractId): Observable<any> {
@@ -39,8 +36,8 @@ export class ContractService {
     return this.http.get<any>(this.API + '/ground/detail', this.httpOptions);
   }
 
-  updateContract(obj: IContract): Observable<any> {
-    return this.http.patch<any>(this.API + '/contract/edit' + obj.contractId, obj, this.httpOptions);
+  updateContract(id: any,obj: IContract): Observable<any> {
+    return this.http.put<any>(this.API + '/contract/edit/' + id, obj, this.httpOptions);
   }
 
   getAllContract(page: number, size: number): Observable<any> {

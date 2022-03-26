@@ -7,7 +7,7 @@
       <div class="col-sm-12">
         <div class="mt-1 mb-3 p-3 button-container bg-white border shadow p-3 mb-5 bg-white rounded">
           <h4 class="mb-5 text-center text">Chỉnh sửa hợp đồng</h4>
-          <form [formGroup]="formEditContract" (ngSubmit)="editContract()" class="form-horizontal">
+          <form [formGroup]="formEditContract" class="form-horizontal">
             <div class="form-group row">
               <div class="col-4">
 
@@ -19,13 +19,20 @@
                       <option [ngValue]="ground">{{ground.groundId}}</option>
                     </ng-container>
                   </select>
+                  <div
+                    *ngIf="formEditContract.get('ground').getError('required') && formEditContract.get('ground').touched"
+                    class="text-danger">Vui lòng chọn mặt bằng
+                  </div>
                 </div>
 
 
                 <div class="form-group">
                   <label for="contractDate">Ngày làm hợp đồng<span class="text-danger">*</span></label>
                   <input type="date" class="form-control" id="contractDate" formControlName="contractDate">
-                  <span class="text-danger">Không được để trống. Vui lòng nhập!</span>
+                  <div
+                    *ngIf="formEditContract.get('contractDate').getError('required') && formEditContract.get('contractDate').touched"
+                    class="text-danger">Vui lòng chọn ngày làm hợp đồng
+                  </div>
                 </div>
 
 
@@ -40,6 +47,10 @@
                       <option [ngValue]="customer">{{customer.customerName}}</option>
                     </ng-container>
                   </select>
+                  <div
+                    *ngIf="formEditContract.get('customer').getError('required') && formEditContract.get('customer').touched"
+                    class="text-danger">Vui lòng chọn khách hàng
+                  </div>
                 </div>
 
 
@@ -47,7 +58,10 @@
                   <label for="startDate">Ngày bắt đầu thuê<span
                     class="text-danger">*</span></label>
                   <input type="date" class="form-control" id="startDate" formControlName="startDate">
-                  <span class="text-danger">Vui lòng chọn thời gian!</span>
+                  <div
+                    *ngIf="formEditContract.get('startDate').getError('required') && formEditContract.get('startDate').touched"
+                    class="text-danger">Vui lòng chọn ngày mắt đầu thuê
+                  </div>
                 </div>
               </div>
 
@@ -55,18 +69,26 @@
               <div class="col-4">
 
 
-                <div class="form-group">
+                <div class="form-group" formGroupName="employee">
                   <label for="employee">Họ Và Tên Nhân Viên<span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="employee"
-                         formControlName="employee" value="Nguyễn Văn A" readonly>
+                         formControlName="employeeName">
+
+                  <input type="hidden" class="form-control"
+                         formControlName="employeeId">
                 </div>
+
+
 
 
                 <div class="form-group">
                   <label for="endDate">Ngày kết thúc thuê<span
                     class="text-danger">*</span></label>
                   <input type="date" class="form-control" id="endDate" formControlName="endDate">
-                  <span class="text-danger">Vui lòng chọn thời gian!</span>
+                  <div
+                    *ngIf="formEditContract.get('endDate').getError('required') && formEditContract.get('endDate').touched"
+                    class="text-danger">Vui lòng chọn ngày kết thúc hợp đồng
+                  </div>
                 </div>
 
 
@@ -77,21 +99,41 @@
                 <label for="rentCost">Giá Tiền Mỗi Tháng(VNĐ)<span
                   class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="rentCost" formControlName="rentCost">
-                <span class="text-danger">Không được để trống. Vui lòng nhập!</span>
+                <div
+                  *ngIf="formEditContract.get('rentCost').getError('required') && formEditContract.get('rentCost').touched"
+                  class="text-danger">Vui lòng nhập giá thuê
+                </div>
+                <div *ngIf="formEditContract.get('rentCost').invalid" class="text-danger"> Vui lòng
+                  nhập giá tiền mỗi tháng lớn hơn 10 và bé hơn 100000000
+                </div>
               </div>
               <div class="form-group col-6">
                 <label for="totalCost">Tổng Tiền(VNĐ)<span
                   class="text-danger">*</span></label>
-                <input placeholder="VD: 35 tỷ" type="text" class="form-control" id="totalCost"
-                       formControlName="totalCost">
+                <input type="text" class="form-control" id="totalCost" formControlName="totalCost">
+                <div
+                  *ngIf="formEditContract.get('totalCost').getError('required') && formEditContract.get('totalCost').touched"
+                  class="text-danger">Vui lòng nhập tổng tiền
+                </div>
+                <div *ngIf="formEditContract.get('totalCost').invalid" class="text-danger"> Vui lòng
+                  nhập tổng tiền lớn hơn 10 và bé hơn 100000000
+                </div>
               </div>
             </div>
             <div class="form-group row">
               <div class="form-group col-12">
                 <div class="form-group">
-                  <label for="contractContent">Nội Dung Hợp Đồng</label>
+                  <label for="contractContent">Nội Dung Hợp Đồng<span
+                    class="text-danger">*</span></label>
                   <textarea class="form-control" id="contractContent" rows="3"
                             formControlName="contractContent"></textarea>
+                </div>
+                <div
+                  *ngIf="formEditContract.get('contractContent').getError('required') && formEditContract.get('contractContent').touched"
+                  class="text-danger">Vui lòng nhập nội dung hợp đồng
+                </div>
+                <div *ngIf="formEditContract.get('contractContent').errors?.minlength" class="text-danger"> Vui lòng
+                  nhập nhiều hơn 10 ký tự
                 </div>
               </div>
             </div>
@@ -105,7 +147,7 @@
                   <i class="fas fa-sync mr-2"></i>
                   <span>Làm mới</span>
                 </button>
-                <button class="btn btn-primary" type="submit" (click)="editContract()">
+                <button class="btn btn-primary" type="submit" [disabled]="formEditContract.invalid" (click)="editContract()">
                   <i class="fas fa-save mr-2"></i>
                   <span>Lưu</span>
                 </button>

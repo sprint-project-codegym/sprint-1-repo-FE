@@ -10,6 +10,7 @@ import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ContractService} from "./service/contract.service";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import {ContractService} from "./service/contract.service";
     CommonModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [ContractService],
   bootstrap: [AppComponent]
