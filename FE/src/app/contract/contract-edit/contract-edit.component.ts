@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {ContractService} from "../../service/contract.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {IGround} from "../../entity/IGround";
@@ -19,6 +19,8 @@ export class ContractEditComponent implements OnInit {
   groundList: IGround[];
   contract: IContract;
   employee = new Object();
+  public pipeRentCost = 0;
+  public pipeTotalCost = 0;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -58,21 +60,37 @@ export class ContractEditComponent implements OnInit {
         console.log(this.formEditContract.value);
       })
     })
+
+    this.formEditContract.get('rentCost').valueChanges.subscribe(() => this.formEditContract.get('totalCost').updateValueAndValidity({
+      onlySelf: true,
+      emitEvent: false
+    }));
+    this.formEditContract.get('totalCost').valueChanges.subscribe(() => this.formEditContract.get('rentCost').updateValueAndValidity({
+      onlySelf: true,
+      emitEvent: false
+    }));
+    this.formEditContract.get('startDate').valueChanges.subscribe(() => this.formEditContract.get('endDate').updateValueAndValidity({
+      onlySelf: true,
+      emitEvent: false
+    }));
+    this.formEditContract.get('endDate').valueChanges.subscribe(() => this.formEditContract.get('startDate').updateValueAndValidity({
+      onlySelf: true,
+      emitEvent: false
+    }));
   }
 
   createForm() {
     this.formEditContract = this.formBuilder.group(
       {
         contractId: ["", Validators.required],
-        startDate: ["", Validators.required],
-        endDate: ["", Validators.required],
+        startDate: ["", [Validators.required, this.smallerThanOtherTime('endDate')]],
+        endDate: ["", [Validators.required, this.greaterThanOtherTime('startDate')]],
         contractDate: ["", Validators.required],
-        rentCost: ["", [Validators.required, Validators.min(10.0), Validators.max(100000000.0)]],
-        totalCost: ["", [Validators.required, Validators.min(10.0), Validators.max(100000000.0)]],
+        rentCost: ["", [Validators.required, Validators.pattern('^[1-9][0-9]*$'), Validators.min(0), this.smallerThan('totalCost')]],
+        totalCost: ["", [Validators.required, Validators.pattern('^[1-9][0-9]*$'), Validators.min(0), this.greaterThan('rentCost')]],
         contractContent: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
         deleteFlag: [],
         customer: ["", Validators.required],
-        // employee: ["", Validators.required],
         employee: this.formBuilder.group({
           employeeName: [],
           employeeId: [],
@@ -124,5 +142,73 @@ export class ContractEditComponent implements OnInit {
 
   refresh() {
     window.location.reload();
+  }
+
+  smallerThan(otherControlName: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.parent) {
+        return null;
+      }
+      const thisValue = +control.value;
+      const otherValue = +control.parent.get(otherControlName).value;
+      if (thisValue <= otherValue) {
+        return null;
+      }
+
+      return {
+        smallerThan: true
+      };
+    };
+  }
+
+  greaterThan(otherControlName: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.parent) {
+        return null;
+      }
+      const thisValue = +control.value;
+      const otherValue = +control.parent.get(otherControlName).value;
+      if (thisValue >= otherValue) {
+        return null;
+      }
+
+      return {
+        greaterThan: true
+      };
+    };
+  }
+
+  smallerThanOtherTime(otherControlName: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.parent) {
+        return null;
+      }
+      const thisValue = control.value;
+      const otherValue = control.parent.get(otherControlName).value;
+      if (thisValue < otherValue) {
+        return null;
+      }
+
+      return {
+        smallerThanOtherTime: true
+      };
+    };
+  }
+
+  greaterThanOtherTime(otherControlName: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.parent) {
+        return null;
+      }
+      const thisValue = control.value;
+      const otherValue = control.parent.get(otherControlName).value;
+      if (thisValue > otherValue) {
+        return null;
+      }
+
+      return {
+        greaterThanOtherTime: true
+      };
+    };
   }
 }
