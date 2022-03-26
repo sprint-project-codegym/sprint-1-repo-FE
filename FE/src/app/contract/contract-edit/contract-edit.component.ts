@@ -126,13 +126,13 @@ export class ContractEditComponent implements OnInit {
     console.log(this.formEditContract.value);
     this.contractService.updateContract(this.contract.contractId, this.formEditContract.value).subscribe(data => {
       this.router.navigate(['contract/list']);
-      this.toastService.success("Thêm mới thành công", "Thông báo", {
+      this.toastService.success("Chỉnh sửa thành công", "Thông báo", {
         timeOut: 3000,
         extendedTimeOut: 1500,
       })
       console.log(data);
     }, error => {
-      this.toastService.success("Thêm mới thất bại", "Thông báo", {
+      this.toastService.success("Chỉnh sửa thất bại", "Thông báo", {
         timeOut: 3000,
         extendedTimeOut: 1500,
       })

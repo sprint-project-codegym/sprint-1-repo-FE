@@ -95,7 +95,7 @@
                   <span>{{pipeRentCost | currency : "VND"}}</span>
                 </div>
                 <input type="text" class="form-control" id="rentCost" formControlName="rentCost"
-                       [(ngModel)]="pipeRentCost">
+                       [(ngModel)]="pipeRentCost" placeholder="Nhập giá tiền thuê mỗi tháng. Ví dụ: 1000000">
                 <div>
                   <p
                     *ngIf="formEditContract.get('rentCost').getError('required') && formEditContract.get('rentCost').touched"
@@ -118,7 +118,7 @@
                   <span>{{pipeTotalCost | currency : "VND"}}</span>
                 </div>
                 <input type="text" class="form-control" id="totalCost" formControlName="totalCost"
-                       [(ngModel)]="pipeTotalCost">
+                       [(ngModel)]="pipeTotalCost" placeholder="Nhập tổng tiền thuê. Ví dụ: 1000000">
                 <div>
                   <p
                     *ngIf="formEditContract.get('totalCost').getError('required') && formEditContract.get('totalCost').touched"
@@ -140,7 +140,8 @@
                   <label for="contractContent">Nội Dung Hợp Đồng<span
                     class="text-danger">*</span></label>
                   <textarea class="form-control" id="contractContent" rows="3"
-                            formControlName="contractContent"></textarea>
+                            formControlName="contractContent"
+                            placeholder="Nhập nội dung hợp đồng. Ví dụ: Hợp đồng HĐ123 được tạo bởi ... với các nội dung ..."></textarea>
                 </div>
                 <div>
                   <p
