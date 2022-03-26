@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -7,6 +7,14 @@ import {Observable} from "rxjs";
 })
 export class FloorService {
   private API = 'http://localhost:8080/api/home/floor';
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    }),
+    'Access-Control-Allow-Origin': 'http://localhost:4200',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+  };
 
   constructor(
     private _httpClient: HttpClient
@@ -19,14 +27,14 @@ export class FloorService {
   }
 
   //
-  findFloorById(id: string) {
+  findFloorById(id: string): Observable<any> {
     return this._httpClient.get(this.API + '/' + id);
   }
 
   //
-  deleteFloorById(id: string) {
+  deleteFloorById(id: string): Observable<any> {
     // @ts-ignore
-    return this._httpClient.get(this.API + '/' + 'delete' + '/' + id);
+    return this._httpClient.get(this.API + '/' + 'delete' + '/' + id, this.httpOptions);
   }
 
 }

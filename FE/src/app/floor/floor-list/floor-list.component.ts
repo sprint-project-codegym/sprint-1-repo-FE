@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IFloor} from "../../entity/IFloor";
 import {FloorService} from "../../service/floor.service";
 import {Router} from "@angular/router";
@@ -15,12 +15,15 @@ export class FloorListComponent implements OnInit {
   pageClicked = 0;
   totalPages = 1;
   pages = [];
-  public id!: string;
+  public id: string;
+  deleteId: string;
+  deleteName: string;
 
+  @Output()
+  deleteComplete = new EventEmitter<boolean>();
   constructor(
     private floorService: FloorService,
     public router: Router,
-    private toastrService: ToastrService
   ) {
   }
 
@@ -63,19 +66,7 @@ export class FloorListComponent implements OnInit {
     this.onSubmit(this.pageClicked);
   }
 
-  deleteCustomer(id: string) {
-    this.floorService.deleteFloorById(id).subscribe(
-      data =>{
-        this.router.navigateByUrl('floor/list');
-        this.onSubmit(0);
-      }
-    )
-  }
-
-  getCustomerById(id: string) {
-    this.floorService.findFloorById(id).subscribe(
-      data=>{
-        this.id = data.id;
-      });
+  deleteSuccess() {
+    this.onSubmit(0);
   }
 }
