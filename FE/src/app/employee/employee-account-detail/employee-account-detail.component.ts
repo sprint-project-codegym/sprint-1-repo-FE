@@ -12,7 +12,7 @@ export class EmployeeAccountDetailComponent implements OnInit {
   formUpdateEmployee: FormGroup;
   employeeId = 'E007';
   accountName;
-  genderObj = [{name: 'Nam' , value : 1} , {name: 'Nữ' , value : 0}];
+  genderObj = [{name: 'Nam' , value : true} , {name: 'Nữ' , value : false}];
   employeeGender;
 
   constructor(private router: Router,
@@ -33,6 +33,7 @@ export class EmployeeAccountDetailComponent implements OnInit {
     });
     // this.employeeId = this.token.getUser().id;
     this.personalInfoService.findEmployeeByEmployeeId(this.employeeId).subscribe((data1: any) => {
+      console.log(data1);
       this.formUpdateEmployee.patchValue(data1);
       this.employeeId = data1.employeeId;
       this.accountName = data1.account.userName;
@@ -41,6 +42,7 @@ export class EmployeeAccountDetailComponent implements OnInit {
   }
   update() {
     if (this.formUpdateEmployee.valid) {
+      console.log(this.formUpdateEmployee.value);
       this.personalInfoService.updateEmployee(this.formUpdateEmployee.value).subscribe(next => {
 
       });

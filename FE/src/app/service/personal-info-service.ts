@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 export class PersonalInfoService {
   // service của Nhung
   private personalInfoURL = 'http://localhost:8080/api/personal-info/';
-  private changePassURL = 'http://localhost:8080/api/user-change-password/';
+  private changePassURL = 'http://localhost:8080/api/personal-info/change-password/';
 
   httpOptions = {
     headers: new HttpHeaders({

@@ -12,6 +12,9 @@ export class EmployeeChangePasswordComponent implements OnInit {
   formAccount: FormGroup;
   accountId = '10';
   userId;
+  private oldPass;
+  notification: string;
+  notificationPassNew: string;
 
   constructor(
     private router: Router,
@@ -23,6 +26,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
     // this.currentUser = this.token.getUser();
     this.userId = this.accountId;
     this.formAccount = this.fb.group({
+      oldPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]],
       newPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]],
       confirmNewPassword: ['', [Validators.required]]
     }, {validators: this.comparePassword});
@@ -33,6 +37,18 @@ export class EmployeeChangePasswordComponent implements OnInit {
     return (value.newPassword === value.confirmNewPassword) ? null : {
       passwordNotMatch: true
     };
+  }
+
+  updatePassword() {
+    if (this.formAccount.valid) {
+      this.personalInfoService.changePassword(this.userId , this.formAccount.value).subscribe(data => {
+        if (data.message === "1") {
+          this.notification = "Sai mật khẩu, vui lòng nhập lại";
+        } else {
+          this.ngOnInit();
+        }
+      });
+    }
   }
 
 }

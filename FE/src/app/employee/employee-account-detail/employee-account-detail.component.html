@@ -58,10 +58,10 @@
           <div class="row gx-3 mb-3">
             <div class="col-md-6">
               <label class="small mb-1">Giới tính</label>
-              <select class="form-control" ng-model="formData.gender" formControlName="employeeGender" [(ngModel)]="employeeGender">
+              <select class="form-control" formControlName="employeeGender" [(ngModel)]="employeeGender">
                 <option *ngFor="let gender of genderObj"
                         [value]="gender.value"
-                        [selected]="gender.value == employeeGender">
+                        [selected]="gender.value === employeeGender">
                   {{gender.name}}
                 </option>
               </select>
@@ -105,7 +105,7 @@
                 formUpdateEmployee.get('employeeAddress').hasError('pattern')">
               <b>*Tên không đúng định dạng</b></p>
           </div>
-          <a class="btn btn-success text-white mr-3" [routerLink]="['/employee/changepass']" >Đổi mật khẩu</a>
+          <a class="btn btn-success text-white mr-3" [routerLink]="['/employee/change-pw']" >Đổi mật khẩu</a>
           <button class="btn btn-success text-white mr-3" type="submit">Chỉnh sửa thông tin</button>
         </form>
       </div>
