@@ -1,4 +1,6 @@
+// @ts-ignore
 import { Injectable } from '@angular/core';
+// @ts-ignore
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -29,12 +31,8 @@ export class CustomerService {
   }
 
   // search customer by id and name
-  searchCustomerByIdAndName(idSearch: string, name: string, size: number): Observable<any> {
-    return this.http.get(this.API + '?id=' + idSearch + '&name=' + name + '&size' + size);
-  }
-
-  getCustomerById(id: string): Observable<any> {
-    return this.http.get(this.API + '/' + id);
+  searchCustomerByIdAndName(page: number, idSearch: string, name: string): Observable<any> {
+    return this.http.get(this.API + '?page=' + page + '&id=' + idSearch + '&name=' + name);
   }
 
   deleteCustomerById(idDelete: string): Observable<any> {
