@@ -7,11 +7,11 @@
     <div class="col-8 ">
       <div class="row ">
         <div class="col-12 d-flex justify-content-end">
-          <input class="search form-control mr-3" (keydown.enter)="getSearch(0)" [(ngModel)]="id"
+          <input class="search form-control mr-3" (keydown.enter)="getSearch(0)" #id
                  placeholder="Tìm theo mã nhân viên">
-          <input class="search form-control mr-3" (keydown.enter)="getSearch(0)" [(ngModel)]="name"
+          <input class="search form-control mr-3" (keydown.enter)="getSearch(0)" #name
                  placeholder="Tìm theo tên nhân viên">
-          <button class="btn btn-light btn-outline-secondary" type="button" (click)="getSearch(0)"><i class="fas fa-search mr-1"></i>Tìm kiếm</button>
+          <button class="btn btn-light btn-outline-secondary" type="button" (click)="getSearch(0, id, name)"><i class="fas fa-search mr-1"></i>Tìm kiếm</button>
         </div>
       </div>
     </div>
@@ -38,7 +38,10 @@
       <td>{{e.employeeId}}</td>
       <td>{{e.employeeName}}</td>
       <td>{{e.employeeBirthday}}</td>
-      <td>{{e.employeeGender}}</td>
+      <td *ngIf="e.employeeGender;else elseBlock">Nam
+      </td>
+      <ng-template #elseBlock>Nữ
+      </ng-template>
       <td>{{e.employeeAddress}}</td>
       <td>{{e.employeePhone}}</td>
       <td>{{e.employeeGmail}}</td>
@@ -63,14 +66,14 @@
         <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
           <a class="page-link">Trước</a>
         </li>
-        <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmit(pages[pageClicked-1])">
+        <li *ngIf="pageClicked != 0" class="page-item" (click)="getSearch(pages[pageClicked-1])">
           <a class="page-link">{{pageClicked}}</a>
         </li>
         <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
-            (click)="onSubmit(pages[pageClicked])">
+            (click)="getSearch(pages[pageClicked])">
           <a class="page-link">{{pageClicked + 1}}</a>
         </li>
-        <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="onSubmit(pages[pageClicked+1])">
+        <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="getSearch(pages[pageClicked+1])">
           <a class="page-link">{{pageClicked + 2}}</a>
         </li>
         <li *ngIf="pageClicked < pages.length -2" class="page-item">
@@ -87,7 +90,6 @@
       </ul>
     </nav>
   </div>
-<!--  <button (click)="show()">show</button>-->
 <!--  modal-->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

@@ -22,8 +22,8 @@ export class EmployeeService {
   getAllEmployees(page: number, size: number): Observable<any> {
     return this.http.get(this.API_URL + '?page=' + page + '&size=' + size);
   }
-  findEmployeeByIdAndName(id: string, name: string, size:number) {
-    return this.http.get(this.API_URL + '?name=' +name+ '&id=' +id+ '&size=' +size);
+  findEmployeeByIdAndName(id: string, name: string, page:number) {
+    return this.http.get(this.API_URL + '?name=' +name+ '&id=' +id+ '&page=' + page);
   }
 
   deleteEmployeeById(id: string) {

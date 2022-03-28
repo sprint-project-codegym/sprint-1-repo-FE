@@ -10,7 +10,6 @@ import {EmployeeEditComponent} from './employee-edit/employee-edit.component';
 import {EmployeeChangePasswordComponent} from './employee-change-password/employee-change-password.component';
 import {HttpClientModule} from '@angular/common/http';
 import { EmployeeAccountDetailComponent } from './employee-account-detail/employee-account-detail.component';
-import {ToastrModule} from "ngx-toastr";
 import {FormsModule} from "@angular/forms";
 
 
@@ -20,7 +19,6 @@ import {FormsModule} from "@angular/forms";
     CommonModule,
     EmployeeRoutingModule,
     HttpClientModule,
-    ToastrModule.forRoot(),
     FormsModule
   ]
 })
