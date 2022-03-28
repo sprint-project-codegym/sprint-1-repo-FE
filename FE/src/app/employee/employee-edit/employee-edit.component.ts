@@ -119,6 +119,7 @@ export class EmployeeEditComponent implements OnInit {
     }
   }
 
+
   saveImage(){
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const fileRef = this.storage.ref(nameImg);

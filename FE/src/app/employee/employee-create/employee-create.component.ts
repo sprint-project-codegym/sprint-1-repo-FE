@@ -121,4 +121,9 @@ export class EmployeeCreateComponent implements OnInit {
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
   }
+
+  resetForm() {
+    this.formCreate.reset();
+    this.filePath="";
+  }
 }
