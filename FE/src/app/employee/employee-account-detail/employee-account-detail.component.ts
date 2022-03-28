@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PersonalInfoService} from '../../service/personal-info-service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-employee-account-detail',
@@ -17,6 +18,7 @@ export class EmployeeAccountDetailComponent implements OnInit {
 
   constructor(private router: Router,
               private personalInfoService: PersonalInfoService,
+              private toastr: ToastrService,
               private fb: FormBuilder) {
   }
 
@@ -43,8 +45,12 @@ export class EmployeeAccountDetailComponent implements OnInit {
   update() {
     if (this.formUpdateEmployee.valid) {
       console.log(this.formUpdateEmployee.value);
-      this.personalInfoService.updateEmployee(this.formUpdateEmployee.value).subscribe(next => {
-
+      this.personalInfoService.updateEmployee(this.formUpdateEmployee.value).subscribe(data => {
+        this.toastr.success("Cập nhật thông tin cá nhân thành công!", "Thành công: ", {
+          timeOut: 2500,
+          extendedTimeOut: 1500
+        });
+        this.router.navigateByUrl("/employee/acc-detail");
       });
     }
   }

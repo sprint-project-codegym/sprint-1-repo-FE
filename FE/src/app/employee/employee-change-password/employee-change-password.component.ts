@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {PersonalInfoService} from '../../service/personal-info-service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-employee-change-password',
@@ -19,7 +20,8 @@ export class EmployeeChangePasswordComponent implements OnInit {
   constructor(
     private router: Router,
     private personalInfoService: PersonalInfoService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toast: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -43,9 +45,12 @@ export class EmployeeChangePasswordComponent implements OnInit {
     if (this.formAccount.valid) {
       this.personalInfoService.changePassword(this.userId , this.formAccount.value).subscribe(data => {
         if (data.message === "1") {
-          this.notification = "Sai mật khẩu, vui lòng nhập lại";
+          // this.notification = "Sai mật khẩu, vui lòng nhập lại";
+          this.toast.warning("Sai mật khẩu, vui lòng nhập lại", "Thông báo");
         } else {
-          this.ngOnInit();
+          // this.ngOnInit();
+          this.toast.success("Đổi mật khẩu thành công", "Thông báo");
+          this.router.navigateByUrl("/employee/acc-detail");
         }
       });
     }
