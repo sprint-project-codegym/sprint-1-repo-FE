@@ -27,6 +27,6 @@ import {MatInputModule} from '@angular/material/input';
         MatFormFieldModule,
         MatInputModule,
         FormsModule
-    ]
-})
-export class ContractModule { }
+    ])
+export class ContractModule {
+}

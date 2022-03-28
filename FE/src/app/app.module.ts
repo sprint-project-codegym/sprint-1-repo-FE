@@ -13,6 +13,9 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {ToastrModule} from 'ngx-toastr';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ContractService} from './service/contract.service';
 
 @NgModule({
   declarations: [
@@ -30,9 +33,12 @@ import {ToastrModule} from 'ngx-toastr';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule,
+    CommonModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ContractService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

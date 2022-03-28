@@ -7,7 +7,7 @@ export interface IEmployee {
   employeeBirthday: string;
   employeeGender: boolean;
   employeeIdCard: string;
-  employeeEmail: string;
+  employeeGmail: string;
   employeeAddress: string;
   employeePhone: string;
   employeeSalary: number;

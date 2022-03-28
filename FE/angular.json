@@ -128,8 +128,12 @@
       }
     }
   },
+<<<<<<< HEAD
   "defaultProject": "a0321i1-project",
   "cli": {
     "analytics": false
   }
+=======
+  "defaultProject": "a0321i1-project"
+>>>>>>> 6f9789e6abeba135d1646987eda56c7cba8f47ec
 }

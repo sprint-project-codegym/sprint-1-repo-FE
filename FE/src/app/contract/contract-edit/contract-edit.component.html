@@ -1,1 +1,180 @@
-<p>contract-edit works!</p>
+<div class="container-fluid">
+  <div class="col-sm-12 col-xs-12 content p-3 pl-0">
+    <h3 class="mb-0"><strong>Chỉnh sửa hợp đồng</strong></h3>
+    <span class="text-secondary">Khách hàng <i class="fa fa-angle-right"></i> Hợp đồng <i
+      class="fa fa-angle-right"></i> Chỉnh sửa hợp đồng</span>
+    <div class="row mt-3">
+      <div class="col-sm-12">
+        <div class="mt-1 mb-3 p-3 button-container bg-white border shadow p-3 mb-5 bg-white rounded">
+          <h4 class="mb-5 text-center text">Chỉnh sửa hợp đồng</h4>
+          <form [formGroup]="formEditContract" class="form-horizontal mt-4 mb-5 px-3">
+            <div class="form-group row">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="ground">Mặt bằng<span
+                    class="text-danger">*</span></label>
+                  <select [compareWith]="compareFn1" class="form-control" id="ground"
+                          formControlName="ground">
+                    <ng-container *ngFor="let ground of groundList">
+                      <option [ngValue]="ground">{{ground.groundId}}</option>
+                    </ng-container>
+                  </select>
+                  <div
+                    *ngIf="formEditContract.get('ground').getError('required') && formEditContract.get('ground').touched"
+                    class="text-danger">Vui lòng chọn mặt bằng
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="contractDate">Ngày làm hợp đồng<span class="text-danger">*</span></label>
+                  <input type="date" class="form-control" id="contractDate" formControlName="contractDate"
+                         disabled>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="customer">Họ Và Tên Khách Hàng<span
+                    class="text-danger">*</span></label>
+                  (<a class="btn_register" href="#">Đăng Ký</a>)
+                  <select [compareWith]="compareFn2" class="form-control" id="customer"
+                          formControlName="customer">
+                    <ng-container *ngFor="let customer of customerList">
+                      <option [ngValue]="customer">{{customer.customerName}}</option>
+                    </ng-container>
+                  </select>
+                  <div
+                    *ngIf="formEditContract.get('customer').getError('required') && formEditContract.get('customer').touched"
+                    class="text-danger">Vui lòng chọn khách hàng
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="startDate">Ngày bắt đầu thuê<span
+                    class="text-danger">*</span></label>
+                  <input type="date" class="form-control" id="startDate" formControlName="startDate">
+                  <div>
+                    <p
+                      *ngIf="formEditContract.get('startDate').getError('required') && formEditContract.get('startDate').touched"
+                      class="text-danger">Vui lòng chọn ngày mắt đầu thuê
+                    </p>
+                    <p
+                      *ngIf="formEditContract.controls.startDate.touched&&formEditContract.controls.startDate.errors?.smallerThanOtherTime"
+                      class="text-danger">Phải trước Ngày kết thúc
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group" formGroupName="employee">
+                  <label for="employeeName">Họ Và Tên Nhân Viên<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="employeeName"
+                         formControlName="employeeName" disabled>
+                  <input type="hidden" class="form-control"
+                         formControlName="employeeId">
+                </div>
+                <div class="form-group">
+                  <label for="endDate">Ngày kết thúc thuê<span
+                    class="text-danger">*</span></label>
+                  <input type="date" class="form-control" id="endDate" formControlName="endDate">
+                  <div>
+                    <p
+                      *ngIf="formEditContract.get('endDate').getError('required') && formEditContract.get('endDate').touched"
+                      class="text-danger">Vui lòng chọn ngày kết thúc hợp đồng
+                    </p>
+                    <p
+                      *ngIf="formEditContract.controls.endDate.touched&&formEditContract.controls.endDate.errors?.greaterThanOtherTime"
+                      class="text-danger">Phải sau Ngày bắt đầu
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-6">
+                <div class="d-flex justify-content-between">
+                  <label for="rentCost">Giá Tiền Mỗi Tháng(VNĐ)<span
+                    class="text-danger">*</span></label>
+                  <span>{{pipeRentCost | currency : "VND"}}</span>
+                </div>
+                <input type="text" class="form-control" id="rentCost" formControlName="rentCost"
+                       [(ngModel)]="pipeRentCost" placeholder="Nhập giá tiền thuê mỗi tháng. Ví dụ: 1000000">
+                <div>
+                  <p
+                    *ngIf="formEditContract.get('rentCost').getError('required') && formEditContract.get('rentCost').touched"
+                    class="text-danger">Vui lòng nhập giá thuê
+                  </p>
+                  <p
+                    *ngIf="formEditContract.controls.rentCost.touched&&formEditContract.controls.rentCost.errors?.pattern"
+                    class="text-danger">
+                    Không hợp lệ! Không được bắt đầu từ 0, không được nhập chữ
+                  </p>
+                  <p class="text-danger"
+                     *ngIf="formEditContract.controls.rentCost.touched&&formEditContract.controls.rentCost.errors?.smallerThan">
+                    Phải nhỏ hơn hoặc bằng Tổng tiền</p>
+                </div>
+              </div>
+              <div class="form-group col-6">
+                <div class="d-flex justify-content-between">
+                  <label for="totalCost">Tổng Tiền(VNĐ)<span
+                    class="text-danger">*</span></label>
+                  <span>{{pipeTotalCost | currency : "VND"}}</span>
+                </div>
+                <input type="text" class="form-control" id="totalCost" formControlName="totalCost"
+                       [(ngModel)]="pipeTotalCost" placeholder="Nhập tổng tiền thuê. Ví dụ: 1000000">
+                <div>
+                  <p
+                    *ngIf="formEditContract.get('totalCost').getError('required') && formEditContract.get('totalCost').touched"
+                    class="text-danger">Vui lòng nhập tổng tiền
+                  </p>
+                  <p class="text-danger"
+                     *ngIf="formEditContract.controls.totalCost.errors?.required&&formEditContract.controls.totalCost.touched">
+                    Không được để trống. Vui lòng nhập!
+                  </p>
+                  <p class="text-danger"
+                     *ngIf="formEditContract.controls.totalCost.touched&&formEditContract.controls.totalCost.errors?.greaterThan">
+                    Phải lớn hơn hoặc bằng Giá tiền mỗi tháng</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-12">
+                <div class="form-group">
+                  <label for="contractContent">Nội Dung Hợp Đồng<span
+                    class="text-danger">*</span></label>
+                  <textarea class="form-control" id="contractContent" rows="3"
+                            formControlName="contractContent"
+                            placeholder="Nhập nội dung hợp đồng. Ví dụ: Hợp đồng HĐ123 được tạo bởi ... với các nội dung ..."></textarea>
+                </div>
+                <div>
+                  <p
+                    *ngIf="formEditContract.get('contractContent').getError('required') && formEditContract.get('contractContent').touched"
+                    class="text-danger">Vui lòng nhập nội dung hợp đồng
+                  </p>
+                  <p *ngIf="formEditContract.get('contractContent').errors?.minlength" class="text-danger"> Vui lòng
+                    nhập nhiều hơn 10 ký tự
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-12 d-flex justify-content-center">
+                <button [routerLink]="['/contract/list']" class="btn btn-success text-white mr-3" type="button">
+                  <i class="fas fa-chevron-left mr-2"></i>
+                  <span>Trở về</span>
+                </button>
+                <button (click)="refresh()" class="btn btn-success text-white mr-3" type="button">
+                  <i class="fas fa-sync mr-2"></i>
+                  <span>Làm mới</span>
+                </button>
+                <button class="btn btn-primary" type="submit" [disabled]="formEditContract.invalid"
+                        (click)="editContract()">
+                  <i class="fas fa-save mr-2"></i>
+                  <span>Lưu</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
