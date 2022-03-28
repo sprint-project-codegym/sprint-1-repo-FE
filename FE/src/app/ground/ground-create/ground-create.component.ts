@@ -18,6 +18,8 @@ export class GroundCreateComponent implements OnInit {
   public inputImage: any;
   public filePath = '../../../assets/images/add-image-ground.png';
   private uploading: boolean;
+  rentCostVal: number;
+  manageCostVal: number;
 
   constructor(
     public groundService: GroundService,
@@ -74,7 +76,7 @@ export class GroundCreateComponent implements OnInit {
               },
               error => {
                 this.toastrService.error(
-                  'Mã mặt bằng đã tồn tại!',
+                  'Không thể tạo mặt bằng!',
                   'Có lỗi xảy ra',
                   {timeOut: 3000, extendedTimeOut: 1500}
                 );
