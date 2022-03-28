@@ -89,7 +89,6 @@
                 </p>
               </div>
               <div class="form-group col-4">
-                <!--                <label for="exampleFormControlSelect1">Giá Tiền Mỗi Tháng(VNĐ)<span class="text-danger">*</span></label>-->
                 <div class="d-flex justify-content-between">
                   <label for="exampleFormControlSelect1">
                     <span>Giá Tiền Mỗi Tháng(VNĐ)</span>
@@ -129,10 +128,6 @@
                       *ngIf="formGroup.controls.totalCost.errors?.required&&formGroup.controls.totalCost.touched">
                   Không được để trống. Vui lòng nhập!
                 </p>
-                <!--                <span *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.pattern"-->
-                <!--                      class="text-danger">-->
-                <!--                  Không hợp lệ! (VD: 1000.00)-->
-                <!--                </span>-->
                 <p *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.greaterThan"
                       class="text-danger">Phải lớn hơn hoặc bằng Giá tiền mỗi tháng</p>
               </div>
@@ -160,6 +155,7 @@
                   <i class="fas fa-save mr-2"></i>
                   <span>Lưu</span>
                 </button>
+
               </div>
             </div>
           </form>
