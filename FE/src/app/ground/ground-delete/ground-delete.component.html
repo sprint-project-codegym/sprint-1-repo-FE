@@ -1,1 +1,6 @@
-<p>ground-delete works!</p>
+<h5>Bạn có chắc muốn xóa mặt bằng <label style="color: red"> {{deleteId}}</label> không ?</h5>
+<p style="color: red">Hành động này không thể được hoàn tác !</p>
+<div class="row d-flex justify-content-end">
+  <button class="btn btn-secondary" style="width: 100px;margin-right: 20px" data-dismiss="modal" id="closeModal" >Hủy</button>
+  <button class="btn btn-danger mr-3" style="width: 100px" (click)="deleteGround()"  data-dismiss="modal">Xóa</button>
+</div>
