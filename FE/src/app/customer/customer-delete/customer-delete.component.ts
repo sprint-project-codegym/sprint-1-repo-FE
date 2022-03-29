@@ -27,24 +27,14 @@ export class CustomerDeleteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // deleteCustomer(){
-  //   this.customerService.deleteCustomerById(this.deleteId).subscribe(
-  //     data => {
-  //       document.getElementById('closeModal').click();
-  //       this.deleteComplete.emit(true);
-  //       this.toastrService.success('Xóa thành công khách hàng');
-  //     }
-  //   );
-  // }
-
   deleteCustomer(){
     this.customerService.deleteCustomerById(this.deleteId).subscribe(
       data => {
           document.getElementById('closeModal').click();
           this.deleteComplete.emit(true);
-          this.toastrService.success('Xóa thành công khách hàng');
+          this.toastrService.success('Xóa thành công khách hàng', 'Thành công!');
       }, error => {
-        this.toastrService.error('Đã xảy ra lỗi', 'Vui lòng thử lại');
+        this.toastrService.error('Vui lòng thử lại.', 'Đã xảy ra lỗi!');
       }
     );
   }

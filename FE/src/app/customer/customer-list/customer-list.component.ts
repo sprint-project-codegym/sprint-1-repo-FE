@@ -22,7 +22,6 @@ export class CustomerListComponent implements OnInit {
   deleteName: string;
   page = 0;
   status: string;
-  checkFind = true;
   @Output()
   deleteComplete = new EventEmitter<boolean>();
 
@@ -41,12 +40,14 @@ export class CustomerListComponent implements OnInit {
 
   onFirst() {
     this.pageClicked = 0;
+    // @ts-ignore
     this.search(this.pageClicked);
   }
 
   onPrevious() {
     if (this.pageClicked > 0) {
       this.pageClicked--;
+      // @ts-ignore
       this.search(this.pageClicked);
     }
   }
@@ -55,7 +56,7 @@ export class CustomerListComponent implements OnInit {
     this.customerService.getAllCustomer(page, this.size).subscribe(
       data => {
         if (data == null) {
-          this.toastrService.info('Hiện tại chưa có khách hàng');
+          this.toastrService.info('Hiện tại chưa có khách hàng.');
         }else {
           this.customers = data['content'];
           this.pageClicked = page;
@@ -69,12 +70,14 @@ export class CustomerListComponent implements OnInit {
   onNext() {
     if (this.pageClicked < this.totalPages - 1) {
       this.pageClicked++;
+      // @ts-ignore
       this.search(this.pageClicked);
     }
   }
 
   onLast() {
     this.pageClicked = this.totalPages - 1;
+    // @ts-ignore
     this.search(this.pageClicked);
   }
 
@@ -84,7 +87,6 @@ export class CustomerListComponent implements OnInit {
       this.nameInput = name.value;
     }
     if (this.idInput === '' && this.nameInput === '') {
-      // @ts-ignore
       this.router.navigate(['/customer/list'], {
         queryParams: {}
       });
@@ -106,7 +108,7 @@ export class CustomerListComponent implements OnInit {
     this.customerService.searchCustomerByIdAndName(page, this.idInput, this.nameInput).subscribe(
         data => {
           if (data === null) {
-            this.toastrService.info('Không tìm thấy khách hàng theo điều kiện đã tìm kiếm');
+            this.toastrService.info('Không tìm thấy khách hàng với điều kiện đã tìm kiếm.');
             this.onSubmit(0);
             this.idInput = '';
             this.nameInput = '';
