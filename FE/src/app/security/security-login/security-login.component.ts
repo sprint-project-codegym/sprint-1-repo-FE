@@ -62,7 +62,7 @@ export class SecurityLoginComponent implements OnInit {
         this.formGroup.reset();
         this.router.navigateByUrl(this.returnUrl);
         this.shareService.sendClickEvent();
-        this.toastr.success("Đăng nhập thành công", "Thông báo", {
+        this.toastr.success("Đăng nhập thành công!", "Thông báo", {
           timeOut: 2000,
           extendedTimeOut: 1500
         });
@@ -70,7 +70,7 @@ export class SecurityLoginComponent implements OnInit {
       err => {
         // // this.errorMessage = err.error.message;
         this.authService.isLoggedIn = false;
-        this.toastr.error("Sai tên đăng nhập hoặc mật khẩu", "Đăng nhập thất bại: ", {
+        this.toastr.error("Sai tên đăng nhập hoặc mật khẩu!", "Đăng nhập thất bại", {
           timeOut: 2000,
           extendedTimeOut: 1500
         });

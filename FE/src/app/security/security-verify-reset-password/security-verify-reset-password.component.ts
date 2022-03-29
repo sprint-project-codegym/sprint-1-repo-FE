@@ -67,8 +67,8 @@ export class SecurityVerifyResetPasswordComponent implements OnInit {
   validation_messages = {
     'password': [
       {type: 'required', message: 'Trường này không được để trống!'},
-      {type: 'minlength', message: 'Mật khẩu tối thiểu 3 ký tự'},
-      {type: 'maxlength', message: 'Mật khẩu tối đa 30 ký tự'},
+      {type: 'minlength', message: 'Mật khẩu tối thiểu 3 ký tự!'},
+      {type: 'maxlength', message: 'Mật khẩu tối đa 30 ký tự!'},
     ]
   };
 

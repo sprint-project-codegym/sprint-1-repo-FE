@@ -33,14 +33,14 @@ export class SecurityResetPasswordComponent implements OnInit {
     this.isSubmited=true;
     this.authService.resetPassword(this.formGroup.value.username).subscribe(
       data => {
-        this.toastr.success("Email đã được gửi!","Thành công: ",{
+        this.toastr.success("Email đã được gửi!","Thành công",{
           timeOut: 2500,
           extendedTimeOut:1500
         });
         this.router.navigateByUrl("/verify-reset-password");
       },
       err => {
-        this.toastr.error("Sai tên đăng nhập hoặc tên đăng nhập chưa được đăng ký","Gửi email thất bại: ",{
+        this.toastr.error("Sai tên đăng nhập hoặc tên đăng nhập chưa được đăng ký!","Gửi email thất bại ",{
           timeOut: 3000,
           extendedTimeOut:1500
         });
