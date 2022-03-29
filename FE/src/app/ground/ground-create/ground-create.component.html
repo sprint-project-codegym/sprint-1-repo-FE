@@ -23,7 +23,7 @@
                     class="text-danger">*</span></label>
                   <input type="text" class="form-control" formControlName="groundId" id="exampleFormControlInput2">
                   <p class="text-danger" *ngIf="formAddGround.controls.groundId.errors?.required &&
-                  formAddGround.controls.groundId.touched">Vui lòng nhập mã mặt bằng!</p>
+                  formAddGround.controls.groundId.touched">Không được để trống!</p>
                   <p class="text-danger" *ngIf="formAddGround.controls.groundId.errors?.pattern &&
                   formAddGround.controls.groundId.touched">Sai dịnh dạng mã mặt bằng (MB-xxxx)!</p>
                 </div>
@@ -34,7 +34,7 @@
                     class="text-danger">*</span></label>
                   <input type="number" class="form-control" formControlName="area" id="exampleFormControlInput3">
                   <p class="text-danger" *ngIf="formAddGround.controls.area.errors?.required &&
-                  formAddGround.controls.area.touched">Vui lòng nhập diện tích mặt bằng!</p>
+                  formAddGround.controls.area.touched">Không được để trống!</p>
                   <p class="text-danger" *ngIf="formAddGround.controls.area.errors?.min &&
                   formAddGround.controls.area.touched">Diện tích phải là số dương!</p>
                 </div>
@@ -94,7 +94,7 @@
                       <input type="number" class="form-control" [(ngModel)]="rentCostVal" formControlName="rentCost"
                              id="exampleFormControlInput4">
                       <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.required &&
-                  formAddGround.controls.rentCost.touched">Vui lòng nhập giá tiền thuê!</p>
+                  formAddGround.controls.rentCost.touched">Không được để trống!</p>
                       <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.min &&
                   formAddGround.controls.rentCost.touched">Giá tiền thuê phải là số dương!</p>
                     </div>
@@ -109,9 +109,9 @@
                       <input type="number" class="form-control" [(ngModel)]="manageCostVal" formControlName="manageCost"
                              id="exampleFormControlInput5">
                       <p class="text-danger" *ngIf="formAddGround.controls.manageCost.errors?.required &&
-                  formAddGround.controls.manageCost.touched">Vui lòng nhập phí quản lý!</p>
-                      <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.min &&
-                  formAddGround.controls.rentCost.touched">Phí quản lý phải là số dương!</p>
+                  formAddGround.controls.manageCost.touched">Không được để trống!</p>
+                      <p class="text-danger" *ngIf="formAddGround.controls.manageCost.errors?.min &&
+                  formAddGround.controls.manageCost.touched">Phí quản lý phải là số dương!</p>
                     </div>
                   </div>
                 </div>
