@@ -25,12 +25,15 @@ export class GroundService {
   };
 
   getAllFloor(): Observable<any> {
-    return this.http.get(this.FLOOR_API + '/list');
+    return this.http.get(this.FLOOR_API + '/list', this.httpOptions);
   }
 
   addNewGround(groundDto: GroundCreateDTO): Observable<GroundCreateDTO> {
-    console.log(JSON.stringify(groundDto));
     return this.http.post<GroundCreateDTO>(this.GROUND_API + '/create', JSON.stringify(groundDto), this.httpOptions);
+  }
+
+  getGroundById(id: string): Observable<any> {
+    return this.http.get<any>(this.GROUND_API + '/list/' + id, this.httpOptions);
   }
 
 }

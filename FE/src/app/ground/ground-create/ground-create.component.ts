@@ -18,8 +18,9 @@ export class GroundCreateComponent implements OnInit {
   public inputImage: any;
   public filePath = '../../../assets/images/add-image-ground.png';
   private uploading: boolean;
-  rentCostVal: number;
-  manageCostVal: number;
+  public rentCostVal: number;
+  public manageCostVal: number;
+  public ground = null;
 
   constructor(
     public groundService: GroundService,
@@ -56,6 +57,23 @@ export class GroundCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    this.groundService.getGroundById(this.formAddGround.value.groundId).subscribe(
+      data => {
+        this.ground = data;
+        if (this.ground != null) {
+          this.toastrService.error(
+            'Mã mặt bằng đã tồn tại!',
+            'Có lỗi xảy ra',
+            {timeOut: 1000, extendedTimeOut: 1500}
+          );
+        } else {
+          this.addNewGround();
+        }
+      }
+    );
+  }
+
+  addNewGround() {
     if (this.inputImage != null) {
       this.uploading = true;
       const imageName = this.getCurrentDateTime() + this.inputImage.name;
@@ -64,21 +82,21 @@ export class GroundCreateComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             this.formAddGround.patchValue({image: url});
-            console.log(this.formAddGround);
             this.groundService.addNewGround(this.formAddGround.value).subscribe(data => {
                 this.formAddGround.reset();
+                this.inputImage = null;
                 this.filePath = '../../../assets/images/add-image-ground.png';
                 this.toastrService.success(
                   'Thêm mới thành công!',
                   'Thông báo!',
-                  {timeOut: 3000, extendedTimeOut: 1500}
+                  {timeOut: 1000, extendedTimeOut: 1500}
                 );
               },
               error => {
                 this.toastrService.error(
                   'Không thể tạo mặt bằng!',
                   'Có lỗi xảy ra',
-                  {timeOut: 3000, extendedTimeOut: 1500}
+                  {timeOut: 1000, extendedTimeOut: 1500}
                 );
               }
             );
@@ -89,7 +107,7 @@ export class GroundCreateComponent implements OnInit {
       this.toastrService.error(
         'Vui lòng chọn hình ảnh!',
         'Có lỗi xảy ra',
-        {timeOut: 3000, extendedTimeOut: 1500}
+        {timeOut: 1000, extendedTimeOut: 1500}
       );
     }
   }

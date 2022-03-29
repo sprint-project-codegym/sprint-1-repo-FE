@@ -60,6 +60,7 @@
                     <option>Mặt tiền</option>
                     <option>Mặt cắt</option>
                     <option>Mặt đứng</option>
+                    <option>Mặt sau</option>
                   </select>
                   <p class="text-danger" *ngIf="formAddGround.controls.groundType.errors?.required &&
                   formAddGround.controls.groundType.touched">Vui lòng chọn loại mặt bằng!</p>
@@ -73,6 +74,7 @@
                     <option>Đã bàn giao</option>
                     <option>Chưa bàn giao</option>
                     <option>Đang sửa chữa</option>
+                    <option>Đang vào ở</option>
                   </select>
                   <p class="text-danger" *ngIf="formAddGround.controls.status.errors?.required &&
                   formAddGround.controls.status.touched">Vui lòng chọn trạng thái!</p>
