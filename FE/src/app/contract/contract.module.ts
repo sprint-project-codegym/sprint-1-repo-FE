@@ -16,7 +16,8 @@ import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [ContractListComponent, ContractEditComponent, ContractDeleteComponent, ContractCreateComponent],
   exports: [
-    ContractCreateComponent
+    ContractCreateComponent,
+    ContractListComponent
   ],
   imports: [
     CommonModule,
