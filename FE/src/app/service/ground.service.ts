@@ -9,7 +9,6 @@ import {GroundCreateDTO} from '../dto/GroundCreateDTO';
 export class GroundService {
 
   private GROUND_API = 'http://localhost:8080/api/manager/ground';
-  private FLOOR_API = 'http://localhost:8080/api/manager/floor';
 
   constructor(
     public http: HttpClient
@@ -25,7 +24,7 @@ export class GroundService {
   };
 
   getAllFloor(): Observable<any> {
-    return this.http.get(this.FLOOR_API + '/list', this.httpOptions);
+    return this.http.get(this.GROUND_API + '/listFloor', this.httpOptions);
   }
 
   addNewGround(groundDto: GroundCreateDTO): Observable<GroundCreateDTO> {
