@@ -11,9 +11,6 @@ import {EmployeeChangePasswordComponent} from './employee-change-password/employ
 import {HttpClientModule} from '@angular/common/http';
 import { EmployeeAccountDetailComponent } from './employee-account-detail/employee-account-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -24,7 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
         CommonModule,
         EmployeeRoutingModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
     ]
 })
 export class EmployeeModule {

@@ -53,7 +53,7 @@
             <p class="text-danger"
                *ngIf="formUpdateEmployee.get('employeeName').hasError('required') ||
                 formUpdateEmployee.get('employeeName').hasError('pattern')">
-              <b>*Tên không đúng định dạng</b></p>
+              <b>*Tên không đúng định dạng!</b></p>
           </div>
           <div class="row gx-3 mb-3">
             <div class="col-md-6">
@@ -81,7 +81,7 @@
               <p class="text-danger"
                  *ngIf="formUpdateEmployee.get('employeeGmail').hasError('required') ||
                 formUpdateEmployee.get('employeeGmail').hasError('pattern')">
-                <b>*Tên không đúng định dạng</b></p>
+                <b>*Email không đúng định dạng!</b></p>
             </div>
             <div class="col-md-6">
               <label class="small mb-1" for="employeePhone">Số điện thoại</label>
@@ -90,7 +90,7 @@
               <p class="text-danger"
                  *ngIf="formUpdateEmployee.get('employeePhone').hasError('required') ||
                 formUpdateEmployee.get('employeePhone').hasError('pattern')">
-                <b>*Tên không đúng định dạng</b></p>
+                <b>*Số điện thoại không đúng định dạng!</b></p>
             </div>
 
 
@@ -103,10 +103,10 @@
             <p class="text-danger"
                *ngIf="formUpdateEmployee.get('employeeAddress').hasError('required') ||
                 formUpdateEmployee.get('employeeAddress').hasError('pattern')">
-              <b>*Tên không đúng định dạng</b></p>
+              <b>*Địa chỉ không đúng định dạng!</b></p>
           </div>
-          <a class="btn btn-success text-white mr-3" [routerLink]="['/employee/change-pw']" >Đổi mật khẩu</a>
-          <button class="btn btn-success text-white mr-3" type="submit">Chỉnh sửa thông tin</button>
+           <button class="btn btn-success text-white mr-3" type="submit" [disabled]="formUpdateEmployee.invalid"><i class="fas fa-pencil-alt mr-1" style="color: white"></i>Chỉnh sửa</button>
+          <a class="btn btn-success text-white mr-3" [routerLink]="['/employee/change-pw']" ><i class="fas fa-pencil-alt mr-1" style="color: white"></i>Đổi mật khẩu</a>
         </form>
       </div>
     </div>

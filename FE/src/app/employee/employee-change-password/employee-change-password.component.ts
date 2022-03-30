@@ -26,6 +26,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
 
   ngOnInit(): void {
     // this.currentUser = this.token.getUser();
+    // this.userId = this.currentUser.getAccount().getId();
     this.userId = this.accountId;
     this.formAccount = this.fb.group({
       oldPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]],

@@ -35,7 +35,6 @@ export class EmployeeAccountDetailComponent implements OnInit {
     });
     // this.employeeId = this.token.getUser().id;
     this.personalInfoService.findEmployeeByEmployeeId(this.employeeId).subscribe((data1: any) => {
-      console.log(data1);
       this.formUpdateEmployee.patchValue(data1);
       this.employeeId = data1.employeeId;
       this.accountName = data1.account.userName;
@@ -44,7 +43,6 @@ export class EmployeeAccountDetailComponent implements OnInit {
   }
   update() {
     if (this.formUpdateEmployee.valid) {
-      console.log(this.formUpdateEmployee.value);
       this.personalInfoService.updateEmployee(this.formUpdateEmployee.value).subscribe(data => {
         this.toastr.success("Cập nhật thông tin cá nhân thành công!", "Thành công: ", {
           timeOut: 2500,
