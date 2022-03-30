@@ -1,0 +1,109 @@
+<div class="container-fluid">
+  <h3 class="text-center m-3">DANH SÁCH NHÂN VIÊN</h3>
+  <div class="row mb-3">
+    <div class="col-4">
+      <button class="btn btn-primary" type="button"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</button>
+    </div>
+    <div class="col-8 ">
+      <div class="row ">
+        <div class="col-12 d-flex justify-content-end">
+          <input class="search form-control mr-3" (keydown.enter)="getSearch(0)" #id
+                 placeholder="Tìm theo mã nhân viên">
+          <input class="search form-control mr-3" (keydown.enter)="getSearch(0)" #name
+                 placeholder="Tìm theo tên nhân viên">
+          <button class="btn btn-light btn-outline-secondary" type="button" (click)="getSearch(0, id, name)"><i class="fas fa-search mr-1"></i>Tìm kiếm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">STT</th>
+      <th scope="col">Mã Nhân Viên</th>
+      <th scope="col">Họ Tên</th>
+      <th scope="col">Ngày Sinh</th>
+      <th scope="col">Giới Tính</th>
+      <th scope="col">Địa Chỉ</th>
+      <th scope="col">SĐT</th>
+      <th scope="col">Email</th>
+      <th scope="col">Cấp bậc lương</th>
+      <th scope="col">Bộ Phận</th>
+      <th scope="col">Thao Tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let e of employees; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{e.employeeId}}</td>
+      <td>{{e.employeeName}}</td>
+      <td>{{e.employeeBirthday}}</td>
+      <td *ngIf="e.employeeGender;else elseBlock">Nam
+      </td>
+      <ng-template #elseBlock>Nữ
+      </ng-template>
+      <td>{{e.employeeAddress}}</td>
+      <td>{{e.employeePhone}}</td>
+      <td>{{e.employeeGmail}}</td>
+      <td>{{e.employeeSalary}}</td>
+      <td>{{e.position.positionName}}</td>
+      <td>
+        <button class="btn btn-success"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
+        <button class="btn btn-danger" (click)="deleteId=e.employeeId; deleteName=e.employeeName" data-toggle="modal" data-target="#exampleModal">
+          <i class="fas fa-trash-alt mr-1"></i>Xóa
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <!--  Pagination-->
+  <div class="col-12">
+    <nav aria-label="Page navigation example" class="float-right">
+      <ul class="pagination">
+        <li class="page-item" (click)="onFirst()" [ngClass]="pageClicked==0?'disabled':''">
+          <a class="page-link">Đầu</a>
+        </li>
+        <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
+          <a class="page-link">Trước</a>
+        </li>
+        <li *ngIf="pageClicked != 0" class="page-item" (click)="getSearch(pages[pageClicked-1])">
+          <a class="page-link">{{pageClicked}}</a>
+        </li>
+        <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+            (click)="getSearch(pages[pageClicked])">
+          <a class="page-link">{{pageClicked + 1}}</a>
+        </li>
+        <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="getSearch(pages[pageClicked+1])">
+          <a class="page-link">{{pageClicked + 2}}</a>
+        </li>
+        <li *ngIf="pageClicked < pages.length -2" class="page-item">
+          <a class="page-link">...</a>
+        </li>
+        <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
+          <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
+        </li>
+        <li class="page-item" (click)="onNext()" [ngClass]="pageClicked==totalPages-1?'disabled':''">
+          <a class="page-link">Sau</a>
+        </li>
+        <li class="page-item" (click)="onLast()" [ngClass]="pageClicked==totalPages-1?'disabled':''"><a
+          class="page-link">Cuối</a></li>
+      </ul>
+    </nav>
+  </div>
+<!--  modal-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-employee-delete [deleteId]="deleteId" [deleteName]="deleteName" (deleteComplete)="deleteSuccess()"></app-employee-delete>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
