@@ -108,10 +108,11 @@ export class CustomerListComponent implements OnInit {
     this.customerService.searchCustomerByIdAndName(page, this.idInput, this.nameInput).subscribe(
         data => {
           if (data === null) {
-            this.toastrService.info('Không tìm thấy khách hàng với điều kiện đã tìm kiếm.');
-            this.onSubmit(0);
-            this.idInput = '';
-            this.nameInput = '';
+            // this.toastrService.info('Không tìm thấy khách hàng với điều kiện đã tìm kiếm.');
+            this.customers = [];
+            // this.onSubmit(0);
+            // this.idInput = '';
+            // this.nameInput = '';
           } else {
             this.customers = data['content'];
             this.pageClicked = page;

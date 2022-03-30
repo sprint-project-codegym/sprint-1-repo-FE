@@ -32,9 +32,10 @@ export class CustomerDeleteComponent implements OnInit {
       data => {
           document.getElementById('closeModal').click();
           this.deleteComplete.emit(true);
-          this.toastrService.success('Xóa thành công khách hàng', 'Thành công!');
+          this.toastrService.success('Xóa thành công khách hàng.', 'Thành công!');
       }, error => {
         this.toastrService.error('Vui lòng thử lại.', 'Đã xảy ra lỗi!');
+        this.ngOnInit();
       }
     );
   }
