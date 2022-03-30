@@ -6,6 +6,7 @@ import {ToastrService} from 'ngx-toastr';
 import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-ground-create',
@@ -27,6 +28,7 @@ export class GroundCreateComponent implements OnInit {
     public fb: FormBuilder,
     public router: Router,
     public toastrService: ToastrService,
+    private spinner: NgxSpinnerService,
     @Inject(AngularFireStorage) private storage: AngularFireStorage
   ) {
   }
@@ -75,6 +77,11 @@ export class GroundCreateComponent implements OnInit {
 
   addNewGround() {
     if (this.inputImage != null) {
+      this.spinner.show();
+      setTimeout(() => {
+        /** spinner ends after 3 seconds */
+        this.spinner.hide();
+      }, 3000);
       this.uploading = true;
       const imageName = this.getCurrentDateTime() + this.inputImage.name;
       const fileRef = this.storage.ref(imageName);
