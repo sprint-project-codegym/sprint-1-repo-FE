@@ -100,7 +100,7 @@ export class EmployeeListComponent implements OnInit {
     }
       this.employeeService.findEmployeeByIdAndName(this.idSearch, this.nameSearch, page).subscribe(data => {
         if (data === null) {
-          this.toast.info("không có dữ liệu","thao tác");
+          this.toast.info("không có dữ liệu","Thông báo");
           this.onSubmit(0);
           this.idSearch = "";
           this.nameSearch = "";

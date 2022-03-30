@@ -26,8 +26,8 @@ export class EmployeeDeleteComponent implements OnInit {
       this.employeeService.deleteEmployeeById(this.deleteId).subscribe(data => {
         document.getElementById('closeModal').click();
         this.deleteComplete.emit(true);
-        this.toast.success("Xóa thành công","Thao tác");
+        this.toast.success("Xóa thành công","Thông báo");
 
-      }, error => {this.toast.success("Xóa không thành công","Thao tác");})
+      }, error => {this.toast.success("Xóa không thành công","Thông báo");})
   }
 }
