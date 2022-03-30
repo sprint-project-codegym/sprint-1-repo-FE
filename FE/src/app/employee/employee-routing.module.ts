@@ -26,10 +26,10 @@ const routes: Routes = [
     path: 'list/:id', component: EmployeeDetailComponent
   },
   {
-    path: 'change-pw/:id', component: EmployeeChangePasswordComponent
+    path: 'change-pw', component: EmployeeChangePasswordComponent
   },
   {
-    path: 'acc-detail/:id', component: EmployeeAccountDetailComponent
+    path: 'acc-detail', component: EmployeeAccountDetailComponent
   }
 ];
 

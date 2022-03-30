@@ -8,10 +8,10 @@ import {SecurityModule} from "./security/security.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ToastrModule} from "ngx-toastr";
-
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { HomeComponent } from './component/home/home.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,9 +27,9 @@ import { HomeComponent } from './component/home/home.component';
     HttpClientModule,
     SecurityModule,
     ReactiveFormsModule,
+    CommonModule,
     FormsModule,
     ToastrModule.forRoot()
-
   ],
   providers: [],
   bootstrap: [AppComponent]
