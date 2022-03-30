@@ -32,10 +32,10 @@ export class ContractService {
   createContract(contractDTO: ContractDTO): Observable<ContractDTO> {
     console.log(JSON.stringify(contractDTO));
     return this.httpClient.post<ContractDTO>(this.API + '/create', JSON.stringify(contractDTO), this.httpOptions);
-  };
+  }
 
   getContractById(contractId): Observable<any> {
-    return this.httpClient.get(this.API + '/' + contractId, this.httpOptions);
+    return this.httpClient.get<any>(this.API + '/' + contractId, this.httpOptions);
   }
 
   updateContract(id: any, obj: IContract): Observable<any> {
@@ -43,10 +43,10 @@ export class ContractService {
   }
 
   getAllContract(page: number, size: number): Observable<any> {
-    return this.httpClient.get(this.API + '/list?page=' + page + '&size=' + size, this.httpOptions);
+    return this.httpClient.get<any>(this.API + '/list?page=' + page + '&size=' + size, this.httpOptions);
   }
 
   searchContractByIdAndCusName(id: string, cusName: string) {
-    return this.httpClient.get(this.API + '/list/' + '?id=' + id + '&customerName=' + cusName, this.httpOptions);
+    return this.httpClient.get<any>(this.API + '/list/' + '?id=' + id + '&customerName=' + cusName, this.httpOptions);
   }
 }
