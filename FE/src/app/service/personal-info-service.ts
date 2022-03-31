@@ -30,7 +30,7 @@ export class PersonalInfoService {
     };
   }
 
-  findEmployeeByEmployeeId(id) {
+  findEmployeeByAccountId(id) {
     return this.http.get(this.personalInfoURL + id, this.httpOptions);
   }
 

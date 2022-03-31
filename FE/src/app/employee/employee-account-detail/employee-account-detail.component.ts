@@ -12,7 +12,7 @@ import {TokenStorageService} from "../../service/token-storage.service";
 })
 export class EmployeeAccountDetailComponent implements OnInit {
   formUpdateEmployee: FormGroup;
-  employeeId = 'E007';
+  accountId;
   // employeeId;
   accountName;
   genderObj = [{name: 'Nam' , value : true} , {name: 'Nữ' , value : false}];
@@ -22,7 +22,7 @@ export class EmployeeAccountDetailComponent implements OnInit {
               private personalInfoService: PersonalInfoService,
               private toastr: ToastrService,
               private fb: FormBuilder,
-              private tokenStorageService: TokenStorageService,) {
+              private tokenStorageService: TokenStorageService, ) {
   }
 
   ngOnInit(): void {
@@ -32,15 +32,14 @@ export class EmployeeAccountDetailComponent implements OnInit {
       employeeGender: new FormControl('', [Validators.required]),
       employeeBirthday: ['', [Validators.required]],
       employeePhone: new FormControl('', [Validators.required, Validators.pattern(/^(0)[35789][0-9]{8}$/)]),
-      employeeGmail: new FormControl(''),
+      employeeGmail: new FormControl('', [Validators.required, Validators.pattern(/\b[\w.%-]+@[-.\w]+\.[A-Za-z]{2,4}\b/)]),
       employeeAddress: new FormControl('', [Validators.required, Validators.pattern(/^([A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+)[ ])+[A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]*)$/)]),
       urlImage: new FormControl('img'),
     });
-    // this.employeeId = this.token.getUser().id;
-    // this.employeeId = this.tokenStorageService.getUser().id;
-    this.personalInfoService.findEmployeeByEmployeeId(this.employeeId).subscribe((data1: any) => {
+    this.accountId = this.tokenStorageService.getUser().id;
+    this.personalInfoService.findEmployeeByAccountId(this.accountId).subscribe((data1: any) => {
       this.formUpdateEmployee.patchValue(data1);
-      this.employeeId = data1.employeeId;
+      this.accountId = data1.account.accountId;
       this.accountName = data1.account.userName;
       this.employeeGender = data1.employeeGender;
     });

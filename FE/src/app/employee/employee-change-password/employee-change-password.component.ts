@@ -3,6 +3,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {PersonalInfoService} from '../../service/personal-info-service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import {TokenStorageService} from "../../service/token-storage.service";
 
 @Component({
   selector: 'app-employee-change-password',
@@ -23,7 +24,8 @@ export class EmployeeChangePasswordComponent implements OnInit {
     private personalInfoService: PersonalInfoService,
     private fb: FormBuilder,
     private toast: ToastrService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private tokenStorageService: TokenStorageService
   ) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
@@ -31,9 +33,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.currentUser = this.token.getUser();
-    // this.userId = this.currentUser.getAccount().getId();
-    // this.userId = this.accountId;
+    this.userId = this.tokenStorageService.getUser().id;
     this.formAccount = this.fb.group({
       // oldPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]],
       // newPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]],
