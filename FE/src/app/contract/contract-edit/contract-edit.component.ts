@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
-import {ContractService} from "../../service/contract.service";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {IGround} from "../../entity/IGround";
-import {ICustomer} from "../../entity/ICustomer";
-import {IContract} from "../../entity/IContract";
-import {ToastrService} from "ngx-toastr";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {ContractService} from '../../service/contract.service';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {IGround} from '../../entity/IGround';
+import {ICustomer} from '../../entity/ICustomer';
+import {IContract} from '../../entity/IContract';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-contract-edit',
@@ -16,6 +16,7 @@ export class ContractEditComponent implements OnInit {
   public formEditContract: FormGroup;
   public contractOfId;
   customerList: ICustomer[];
+  public dataFields: Object = {text: 'customerName', value: 'customerId', groupBy: 'customerName'};
   groundList: IGround[];
   contract: IContract;
   employee = new Object();
@@ -58,8 +59,8 @@ export class ContractEditComponent implements OnInit {
         this.employee = this.contract.employee;
         console.log(this.contract.employee);
         console.log(this.formEditContract.value);
-      })
-    })
+      });
+    });
 
     this.formEditContract.get('rentCost').valueChanges.subscribe(() => this.formEditContract.get('totalCost').updateValueAndValidity({
       onlySelf: true,
@@ -82,36 +83,36 @@ export class ContractEditComponent implements OnInit {
   createForm() {
     this.formEditContract = this.formBuilder.group(
       {
-        contractId: ["", Validators.required],
-        startDate: ["", [Validators.required, this.smallerThanOtherTime('endDate')]],
-        endDate: ["", [Validators.required, this.greaterThanOtherTime('startDate')]],
-        contractDate: ["", Validators.required],
-        rentCost: ["", [Validators.required, Validators.pattern('^[1-9][0-9]*$'), Validators.min(0), this.smallerThan('totalCost')]],
-        totalCost: ["", [Validators.required, Validators.pattern('^[1-9][0-9]*$'), Validators.min(0), this.greaterThan('rentCost')]],
-        contractContent: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
+        contractId: ['', Validators.required],
+        startDate: ['', [Validators.required, this.smallerThanOtherTime('endDate')]],
+        endDate: ['', [Validators.required, this.greaterThanOtherTime('startDate')]],
+        contractDate: ['', Validators.required],
+        rentCost: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$'), Validators.min(0), this.smallerThan('totalCost')]],
+        totalCost: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$'), Validators.min(0), this.greaterThan('rentCost')]],
+        contractContent: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
         deleteFlag: [],
-        customer: ["", Validators.required],
+        customer: ['', Validators.required],
         employee: this.formBuilder.group({
           employeeName: [],
           employeeId: [],
         }),
-        ground: ["", Validators.required]
+        ground: ['', Validators.required]
       }
-    )
+    );
   }
 
   getAllCustomer() {
     this.contractService.getAllCustomer().subscribe(data => {
       this.customerList = data;
-      // console.log(data);
-    })
+      console.log(data);
+    });
   }
 
   getAllGround() {
     this.contractService.getAllGround().subscribe(data => {
       this.groundList = data;
-      // console.log(data);
-    })
+      console.log(data);
+    });
   }
 
   compareFn1(c1: IGround, c2: IGround): boolean {
@@ -126,16 +127,16 @@ export class ContractEditComponent implements OnInit {
     console.log(this.formEditContract.value);
     this.contractService.updateContract(this.contract.contractId, this.formEditContract.value).subscribe(data => {
       this.router.navigate(['contract/list']);
-      this.toastService.success("Chỉnh sửa thành công", "Thông báo", {
+      this.toastService.success('Chỉnh sửa thành công!', 'Thông báo', {
         timeOut: 3000,
         extendedTimeOut: 1500,
-      })
+      });
       console.log(data);
     }, error => {
-      this.toastService.success("Chỉnh sửa thất bại", "Thông báo", {
+      this.toastService.error('Chỉnh sửa thất bại!', 'Thông báo', {
         timeOut: 3000,
         extendedTimeOut: 1500,
-      })
+      });
       console.log(error);
     });
   }

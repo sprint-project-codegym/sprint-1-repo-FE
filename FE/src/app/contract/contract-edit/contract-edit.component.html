@@ -15,13 +15,11 @@
                     class="text-danger">*</span></label>
                   <select [compareWith]="compareFn1" class="form-control" id="ground"
                           formControlName="ground">
-                    <ng-container *ngFor="let ground of groundList">
-                      <option [ngValue]="ground">{{ground.groundId}}</option>
-                    </ng-container>
+                    <option *ngFor="let ground of groundList" [ngValue]="ground">{{ground.groundId}}</option>
                   </select>
                   <div
                     *ngIf="formEditContract.get('ground').getError('required') && formEditContract.get('ground').touched"
-                    class="text-danger">Vui lòng chọn mặt bằng
+                    class="text-danger">Vui lòng chọn mặt bằng!
                   </div>
                 </div>
                 <div class="form-group">
@@ -34,16 +32,14 @@
                 <div class="form-group">
                   <label for="customer">Họ Và Tên Khách Hàng<span
                     class="text-danger">*</span></label>
-                  (<a class="btn_register" href="#">Đăng Ký</a>)
                   <select [compareWith]="compareFn2" class="form-control" id="customer"
                           formControlName="customer">
-                    <ng-container *ngFor="let customer of customerList">
-                      <option [ngValue]="customer">{{customer.customerName}}</option>
-                    </ng-container>
+                    <option *ngFor="let customer of customerList"
+                            [ngValue]="customer" value="customer">{{customer.customerName}}</option>
                   </select>
                   <div
                     *ngIf="formEditContract.get('customer').getError('required') && formEditContract.get('customer').touched"
-                    class="text-danger">Vui lòng chọn khách hàng
+                    class="text-danger">Vui lòng chọn khách hàng!
                   </div>
                 </div>
                 <div class="form-group">
@@ -53,11 +49,11 @@
                   <div>
                     <p
                       *ngIf="formEditContract.get('startDate').getError('required') && formEditContract.get('startDate').touched"
-                      class="text-danger">Vui lòng chọn ngày mắt đầu thuê
+                      class="text-danger">Vui lòng chọn ngày mắt đầu thuê!
                     </p>
                     <p
                       *ngIf="formEditContract.controls.startDate.touched&&formEditContract.controls.startDate.errors?.smallerThanOtherTime"
-                      class="text-danger">Phải trước Ngày kết thúc
+                      class="text-danger">Phải trước Ngày kết thúc!
                     </p>
                   </div>
                 </div>
@@ -77,11 +73,11 @@
                   <div>
                     <p
                       *ngIf="formEditContract.get('endDate').getError('required') && formEditContract.get('endDate').touched"
-                      class="text-danger">Vui lòng chọn ngày kết thúc hợp đồng
+                      class="text-danger">Vui lòng chọn ngày kết thúc hợp đồng!
                     </p>
                     <p
                       *ngIf="formEditContract.controls.endDate.touched&&formEditContract.controls.endDate.errors?.greaterThanOtherTime"
-                      class="text-danger">Phải sau Ngày bắt đầu
+                      class="text-danger">Phải sau Ngày bắt đầu!
                     </p>
                   </div>
                 </div>
@@ -99,16 +95,16 @@
                 <div>
                   <p
                     *ngIf="formEditContract.get('rentCost').getError('required') && formEditContract.get('rentCost').touched"
-                    class="text-danger">Vui lòng nhập giá thuê
+                    class="text-danger">Vui lòng nhập giá thuê!
                   </p>
                   <p
                     *ngIf="formEditContract.controls.rentCost.touched&&formEditContract.controls.rentCost.errors?.pattern"
                     class="text-danger">
-                    Không hợp lệ! Không được bắt đầu từ 0, không được nhập chữ
+                    Không hợp lệ! Không được bắt đầu từ 0, không được nhập chữ!
                   </p>
                   <p class="text-danger"
                      *ngIf="formEditContract.controls.rentCost.touched&&formEditContract.controls.rentCost.errors?.smallerThan">
-                    Phải nhỏ hơn hoặc bằng Tổng tiền</p>
+                    Phải nhỏ hơn hoặc bằng Tổng tiền!</p>
                 </div>
               </div>
               <div class="form-group col-6">
@@ -122,15 +118,16 @@
                 <div>
                   <p
                     *ngIf="formEditContract.get('totalCost').getError('required') && formEditContract.get('totalCost').touched"
-                    class="text-danger">Vui lòng nhập tổng tiền
+                    class="text-danger">Vui lòng nhập tổng tiền!
                   </p>
-                  <p class="text-danger"
-                     *ngIf="formEditContract.controls.totalCost.errors?.required&&formEditContract.controls.totalCost.touched">
-                    Không được để trống. Vui lòng nhập!
+                  <p
+                    *ngIf="formEditContract.controls.totalCost.touched&&formEditContract.controls.totalCost.errors?.pattern"
+                    class="text-danger">
+                    Không hợp lệ! Không được bắt đầu từ 0, không được nhập chữ!
                   </p>
                   <p class="text-danger"
                      *ngIf="formEditContract.controls.totalCost.touched&&formEditContract.controls.totalCost.errors?.greaterThan">
-                    Phải lớn hơn hoặc bằng Giá tiền mỗi tháng</p>
+                    Phải lớn hơn hoặc bằng Giá tiền mỗi tháng!</p>
                 </div>
               </div>
             </div>
@@ -146,10 +143,10 @@
                 <div>
                   <p
                     *ngIf="formEditContract.get('contractContent').getError('required') && formEditContract.get('contractContent').touched"
-                    class="text-danger">Vui lòng nhập nội dung hợp đồng
+                    class="text-danger">Vui lòng nhập nội dung hợp đồng!
                   </p>
                   <p *ngIf="formEditContract.get('contractContent').errors?.minlength" class="text-danger"> Vui lòng
-                    nhập nhiều hơn 10 ký tự
+                    nhập nhiều hơn 10 ký tự!
                   </p>
                 </div>
               </div>
@@ -177,4 +174,3 @@
     </div>
   </div>
 </div>
-
