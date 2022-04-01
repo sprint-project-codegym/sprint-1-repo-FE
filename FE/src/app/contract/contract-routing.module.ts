@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'create', component: ContractCreateComponent
-  }
+  },
   {
     path: 'edit/:id', component: ContractEditComponent
   },
