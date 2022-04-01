@@ -10,6 +10,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
 import {GroundDTO} from '../../dto/GroundDTO';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-ground-edit',
@@ -23,8 +24,6 @@ export class GroundEditComponent implements OnInit {
   public inputImage: any;
   public filePath ;
   private uploading: boolean;
-  private snapshot: any;
-  public urlImg;
   public floorType;
   public editId;
 
@@ -36,11 +35,13 @@ export class GroundEditComponent implements OnInit {
               private fb: FormBuilder,
               private router: Router,
               public toastrService: ToastrService,
+              private spinner: NgxSpinnerService,
               @Inject(AngularFireStorage) private storage: AngularFireStorage
   ) {
   }
 
   ngOnInit(): void {
+
     this.groundService.getAllFloor().subscribe(data => {
       this.floorList = data;
     }, error => {
@@ -82,6 +83,11 @@ export class GroundEditComponent implements OnInit {
 
   onSubmit() {
     if (this.inputImage != null) {
+      this.spinner.show();
+      setTimeout(() => {
+        /** spinner ends after 3 seconds */
+        this.spinner.hide();
+      }, 3000);
       this.uploading = true;
       const imageName = this.getCurrentDateTime() + this.inputImage.name;
       const fileRef = this.storage.ref(imageName);
@@ -91,16 +97,16 @@ export class GroundEditComponent implements OnInit {
             this.formEditGround.patchValue({image: url});
             console.log(this.formEditGround);
             this.groundService.updateGround(this.formEditGround.value, this.editId).subscribe(data => {
-                this.router.navigateByUrl("/list");
+                this.router.navigateByUrl('ground/list');
                 this.toastrService.success(
-                  'Chinh sua thành công!',
+                  'Chỉnh sửa thành công!',
                   'Thông báo!',
                   {timeOut: 3000, extendedTimeOut: 1500}
                 );
               },
               error => {
                 this.toastrService.error(
-                  'Khong the sua mat bang!',
+                  'Không thể chỉnh sửa mặt bằng!',
                   'Có lỗi xảy ra',
                   {timeOut: 3000, extendedTimeOut: 1500}
                 );
@@ -111,16 +117,16 @@ export class GroundEditComponent implements OnInit {
       ).subscribe();
     } else {
       this.groundService.updateGround(this.formEditGround.value, this.editId).subscribe(data => {
-          this.router.navigateByUrl("/list");
+          this.router.navigateByUrl('ground/list');
           this.toastrService.success(
-            'Chinh sua thành công!',
+            'Chỉnh sửa thành công!',
             'Thông báo!',
             {timeOut: 3000, extendedTimeOut: 1500}
           );
         },
         error => {
           this.toastrService.error(
-            'Khong the sua mat bang!',
+            'Không thể chỉnh sửa mặt bằng!',
             'Có lỗi xảy ra',
             {timeOut: 3000, extendedTimeOut: 1500}
           );
@@ -142,5 +148,9 @@ export class GroundEditComponent implements OnInit {
 
   private getCurrentDateTime() {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
+  }
+
+  refresh() {
+    window.location.reload();
   }
 }

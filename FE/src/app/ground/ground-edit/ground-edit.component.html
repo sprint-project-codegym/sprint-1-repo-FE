@@ -14,6 +14,7 @@
       <div class="col-sm-12">
         <div class="mt-1 mb-3 p-3 button-container bg-white border shadow p-3 mb-5 bg-white rounded">
           <h4 class="my-3 text-center text"><strong>Chỉnh sửa mặt bằng</strong></h4>
+
           <form [formGroup]="formEditGround" method="post" class="form-horizontal mt-4 mb-3 px-5" (ngSubmit)="onSubmit()">
             <div class="form-group row">
               <div class="col-4">
@@ -28,11 +29,7 @@
                 <div class="form-group mb-0">
                   <label for="exampleFormControlInput2">Mã mặt bằng<span
                     class="text-danger">*</span></label>
-                  <input type="text" class="form-control" formControlName="groundId" id="exampleFormControlInput2">
-                  <p class="text-danger" *ngIf="formEditGround.controls.groundId.errors?.required &&
-                  formEditGround.controls.groundId.touched">Vui lòng nhập mã mặt bằng!</p>
-                  <p class="text-danger" *ngIf="formEditGround.controls.groundId.errors?.pattern &&
-                  formEditGround.controls.groundId.touched">Sai dịnh dạng mã mặt bằng (MB-xxxx)!</p>
+                  <input disabled type="text"class="form-control" formControlName="groundId" id="exampleFormControlInput2">
                 </div>
               </div>
               <div class="col-4">
@@ -41,7 +38,7 @@
                     class="text-danger">*</span></label>
                   <input type="number" class="form-control" formControlName="area" id="exampleFormControlInput3">
                   <p class="text-danger" *ngIf="formEditGround.controls.area.errors?.required &&
-                  formEditGround.controls.area.touched">Vui lòng nhập diện tích mặt bằng!</p>
+                  formEditGround.controls.area.touched">Vui lòng nhập diện tích!</p>
                   <p class="text-danger" *ngIf="formEditGround.controls.area.errors?.min &&
                   formEditGround.controls.area.touched">Diện tích phải là số dương!</p>
                 </div>
@@ -51,9 +48,10 @@
 
               <div class="col-4">
                 <div class="form-group mb-0">
+<!--                  sửa thành select search-->
                   <label for="exampleFormControlSelect2">Tầng<span
                     class="text-danger">*</span></label>
-                  <select class="form-control" formControlName="floorId" id="exampleFormControlSelect2">
+                  <select data-live-search="true" class="form-control selectpicker" formControlName="floorId" id="exampleFormControlSelect2">
                     <option [ngValue]="floor.floorId" *ngFor="let floor of floorList" [selected]="floorType == floor.floorId">{{floor.floorName}}</option>
                   </select>
                   <p class="text-danger" *ngIf="formEditGround.controls.floorId.errors?.required &&
@@ -68,7 +66,7 @@
                     <option selected>Chọn...</option>
                     <option>Mặt tiền</option>
                     <option>Mặt cắt</option>
-                    <option>Mặt đứng</option>
+                    <option>Mặt sau</option>
                   </select>
                 </div>
               </div>
@@ -78,9 +76,9 @@
                     class="text-danger">*</span></label>
                   <select class="form-control" formControlName="status" id="exampleFormControlSelect3">
                     <option selected>Chọn...</option>
-                    <option>Đã bàn giao</option>
-                    <option>Chưa bàn giao</option>
-                    <option>Đang sửa chữa</option>
+                    <option>Đang được thuê</option>
+                    <option>Chưa thuê</option>
+                    <option>Đang bảo dưỡng</option>
                   </select>
                   <p class="text-danger" *ngIf="formEditGround.controls.status.errors?.required &&
                   formEditGround.controls.status.touched">Vui lòng chọn trạng thái!</p>
@@ -135,21 +133,22 @@
             <div class="form-group row">
 
               <div class="form-group col-12 d-flex justify-content-center">
-                <button class="btn btn-success text-white mr-3" type="button">
-                  <i class="fas fa-chevron-left"></i>
+                <button [routerLink]="['/ground/list']" class="btn btn-success text-white mr-3" type="button">
+                  <i class="fas fa-chevron-left mr-2"></i>
                   <span>Trở về</span>
                 </button>
-                <button class="btn btn-success text-white mr-3" type="button">
-                  <i class="fas fa-sync"></i>
+                <button (click)="refresh()" class="btn btn-success text-white mr-3" type="button">
+                  <i class="fas fa-sync mr-2"></i>
                   <span>Làm mới</span>
                 </button>
                 <button class="btn btn-primary" type="submit" [disabled]="formEditGround.invalid">
-                  <i class="fas fa-save"></i>
+                  <i class="fas fa-save mr-2"></i>
                   <span>Lưu</span>
                 </button>
               </div>
             </div>
           </form>
+          <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
         </div>
       </div>
     </div>

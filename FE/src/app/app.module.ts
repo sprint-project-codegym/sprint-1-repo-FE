@@ -9,6 +9,7 @@ import { FooterComponent } from './component/footer/footer.component';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgxSpinnerModule} from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ToastrModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],

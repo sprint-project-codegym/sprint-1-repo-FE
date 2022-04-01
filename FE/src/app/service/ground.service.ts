@@ -6,9 +6,9 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class GroundService {
-  public GROUND_API = 'http://localhost:8080/api/ground/list';
-  public EDIT_GROUND_API = 'http://localhost:8080/api/ground/edit';
-  private FLOOR_API = 'http://localhost:8080/api/floor';
+  public GROUND_API = 'http://localhost:8080/api/manager/ground/list';
+  public EDIT_GROUND_API = 'http://localhost:8080/api/manager/ground/edit';
+  private FLOOR_API = 'http://localhost:8080/api/manager/ground/listFloor';
 
   constructor(
     public http: HttpClient
@@ -24,7 +24,7 @@ export class GroundService {
   };
 
   getAllFloor(): Observable<any> {
-    return this.http.get(this.FLOOR_API + '/list', this.httpOptions);
+    return this.http.get(this.FLOOR_API, this.httpOptions);
   }
 
   getAllGround(): Observable<any> {
