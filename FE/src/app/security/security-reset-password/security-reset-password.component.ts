@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {AuthService} from "../../service/auth.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-security-reset-password',
@@ -12,21 +13,17 @@ import {Router} from "@angular/router";
 export class SecurityResetPasswordComponent implements OnInit {
 
   formGroup:FormGroup;
-  isSuccessful = false;
-  isSignUpFailed = false;
-  errorMessage = '';
   isSubmited = false;
-  formValid = false;
   constructor(private formBuilder:FormBuilder,
               private authService:AuthService,
               private toastr:ToastrService,
-              private router:Router) { }
+              private router:Router,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       username:['']
     })
-
   }
 
   onSubmit() {
@@ -34,13 +31,13 @@ export class SecurityResetPasswordComponent implements OnInit {
     this.authService.resetPassword(this.formGroup.value.username).subscribe(
       data => {
         this.toastr.success("Email đã được gửi!","Thành công",{
-          timeOut: 2500,
-          extendedTimeOut:1500
+          timeOut: 2000,
+          extendedTimeOut:1000
         });
         this.router.navigateByUrl("/verify-reset-password");
       },
       err => {
-        this.toastr.error("Sai tên đăng nhập hoặc tên đăng nhập chưa được đăng ký!","Gửi email thất bại ",{
+        this.toastr.error("Sai tên tài khoản hoặc tên tài khoản chưa được đăng ký!","Gửi email thất bại ",{
           timeOut: 3000,
           extendedTimeOut:1500
         });
@@ -48,4 +45,11 @@ export class SecurityResetPasswordComponent implements OnInit {
     );
   }
 
+  load() {
+    this.spinner.show();
+    setTimeout(() => {
+      /** spinner ends after 2 seconds */
+      this.spinner.hide();
+    }, 2000);
+  }
 }

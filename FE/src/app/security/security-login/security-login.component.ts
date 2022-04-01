@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {AuthService} from "../../service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -18,6 +18,8 @@ export class SecurityLoginComponent implements OnInit {
   roles: string[] = [];
   returnUrl: string;
 
+  @ViewChild('user') user: ElementRef;
+
   constructor(private formBuild: FormBuilder,
               private tokenStorageService: TokenStorageService,
               private authService: AuthService,
@@ -29,10 +31,11 @@ export class SecurityLoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-
+    // Username không được trống, tối thiểu 4 ký tự,tối đa 30 ký tự, không chứa ký tự đặc biệt(trừ . và @) và khoảng trắng
+    // Mật khẩu không được trống, tối thiểu 3 ký tự,tối đa 15 ký tự
     this.formGroup = this.formBuild.group({
-        username: [''],
-        password: [''],
+        username: ['', [Validators.required, Validators.pattern('^\\S[a-zA-Z0-9@.]{3,29}$')]],
+        password: ['', [Validators.required, Validators.pattern('^[-@.\\/#&+\\w\\s]{3,15}$')]],
         remember_me: ['']
       }
     );
@@ -44,6 +47,13 @@ export class SecurityLoginComponent implements OnInit {
       this.username = this.tokenStorageService.getUser().username;
     }
   }
+
+  validation_messages = {
+    'user_pass': [
+      {type: 'required', message: 'Trường này không được để trống!'},
+      {type: 'pattern', message: 'Trường này không đúng định dạng!'},
+    ]
+  };
 
   onSubmit() {
     this.authService.login(this.formGroup.value).subscribe(
@@ -68,12 +78,12 @@ export class SecurityLoginComponent implements OnInit {
         });
       },
       err => {
-        // // this.errorMessage = err.error.message;
         this.authService.isLoggedIn = false;
         this.toastr.error("Sai tên đăng nhập hoặc mật khẩu!", "Đăng nhập thất bại", {
           timeOut: 2000,
           extendedTimeOut: 1500
         });
+        this.user.nativeElement.focus();
       }
     );
   }
