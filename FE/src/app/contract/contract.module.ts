@@ -6,6 +6,7 @@ import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractEditComponent } from './contract-edit/contract-edit.component';
 import { ContractDeleteComponent } from './contract-delete/contract-delete.component';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     CommonModule,
     ContractRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ]
 })
 export class ContractModule { }
