@@ -50,7 +50,7 @@
                   </p>
                   <p
                     *ngIf="formGroup.controls.startDate.touched&&formGroup.controls.startDate.errors?.smallerThanOtherTime"
-                    class="text-danger">Phải trước Ngày kết thúc</p>
+                    class="text-danger">Ngày bắt đàu phải trước Ngày kết thúc!</p>
                 </div>
               </div>
               <div class="col-4">
@@ -70,7 +70,7 @@
                   </p>
                   <p
                     *ngIf="formGroup.controls.endDate.touched&&formGroup.controls.endDate.errors?.greaterThanOtherTime"
-                    class="text-danger">Phải sau Ngày bắt đầu</p>
+                    class="text-danger">Ngày kết thúc phải sau Ngày bắt đầu!</p>
                 </div>
               </div>
             </div>
@@ -104,7 +104,7 @@
                 </p>
                 <p *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.pattern"
                       class="text-danger">
-                  Không hợp lệ! Không được bắt đầu từ 0, không được nhập chữ
+                  Không hợp lệ! Giá tiền không được bắt đầu từ 0 và không được nhập chữ!
                 </p>
                 <p class="text-danger"
                       *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.smallerThan">Phải nhỏ hơn hoặc bằng Tổng tiền</p>
@@ -122,14 +122,14 @@
                 <p
                   *ngIf="formGroup.controls.totalCost.dirty&&formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.pattern"
                   class="text-danger">
-                  Không hợp lệ! Không được bắt đầu từ 0
+                  Không hợp lệ! Tổng tiền hông được bắt đầu từ 0!
                 </p>
                 <p class="text-danger"
                       *ngIf="formGroup.controls.totalCost.errors?.required&&formGroup.controls.totalCost.touched">
                   Không được để trống. Vui lòng nhập!
                 </p>
                 <p *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.greaterThan"
-                      class="text-danger">Phải lớn hơn hoặc bằng Giá tiền mỗi tháng</p>
+                      class="text-danger">Tổng tiền phải lớn hơn hoặc bằng Giá tiền mỗi tháng!</p>
               </div>
             </div>
             <div class="form-group row">
@@ -143,11 +143,11 @@
             </div>
             <div class="form-group row">
               <div class="form-group col-12 d-flex justify-content-center">
-                <button class="btn btn-success text-white mr-3" type="button">
+                <button [routerLink]="['/contract/list']" class="btn btn-success text-white mr-3" type="button">
                   <i class="fas fa-chevron-left mr-2"></i>
                   <span>Trở về</span>
                 </button>
-                <button class="btn btn-success text-white mr-3" type="button">
+                <button class="btn btn-success text-white mr-3" type="reset">
                   <i class="fas fa-sync mr-2"></i>
                   <span>Làm mới</span>
                 </button>

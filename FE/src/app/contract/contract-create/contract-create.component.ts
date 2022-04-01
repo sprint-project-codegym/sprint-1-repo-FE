@@ -3,7 +3,7 @@ import {ICustomer} from '../../entity/ICustomer';
 import {ContractService} from '../../service/contract.service';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {IGround} from '../../entity/IGround';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DateAdapter} from '@angular/material/core';
 import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
@@ -21,11 +21,13 @@ export class ContractCreateComponent implements OnInit {
   public datePipe: DatePipe = new DatePipe('en-US');
   public pipeRentCost = 0;
   public pipeTotalCost = 0;
+  origMenaces = [];
 
 
   constructor(private contractService: ContractService,
               private formBuilder: FormBuilder,
               private route: Router,
+              private routeActive: ActivatedRoute,
               private toastrService: ToastrService,
               private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('en-GB');
@@ -158,6 +160,9 @@ export class ContractCreateComponent implements OnInit {
 
   onSubmit() {
     console.log(this.formGroup.value);
+    if (this.formGroup.invalid) {
+      (document.getElementById('button') as HTMLInputElement).disabled = false;
+    }
     this.contractService.createContract(this.formGroup.value).subscribe(data => {
         this.toastrService.success(
           'Thêm mới thành công!',
