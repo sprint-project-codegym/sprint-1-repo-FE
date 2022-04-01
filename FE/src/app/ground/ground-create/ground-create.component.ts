@@ -22,6 +22,7 @@ export class GroundCreateComponent implements OnInit {
   public rentCostVal: number;
   public manageCostVal: number;
   public ground = null;
+  public id = null;
 
   constructor(
     public groundService: GroundService,
@@ -59,7 +60,12 @@ export class GroundCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.groundService.getGroundById(this.formAddGround.value.groundId).subscribe(
+    if (this.formAddGround.value.groundId == null){
+      this.id = 'a';
+    }else {
+      this.id = this.formAddGround.value.groundId;
+    }
+    this.groundService.getGroundById(this.id).subscribe(
       data => {
         this.ground = data;
         if (this.ground != null) {
@@ -71,6 +77,13 @@ export class GroundCreateComponent implements OnInit {
         } else {
           this.addNewGround();
         }
+      },
+      error => {
+        this.toastrService.error(
+          'Không thể tạo mặt bằng!',
+          'Có lỗi xảy ra',
+          {timeOut: 1000, extendedTimeOut: 1500}
+        );
       }
     );
   }
