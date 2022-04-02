@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GroundCreateDTO} from '../dto/GroundCreateDTO';
+import { EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,11 @@ export class GroundService {
   }
 
   getGroundById(id: string): Observable<any> {
-    return this.http.get<any>(this.GROUND_API + '/list/' + id, this.httpOptions);
+    if (id == null){
+      return EMPTY;
+    }else {
+      return this.http.get<any>(this.GROUND_API + '/list/' + id, this.httpOptions);
+    }
   }
 
 }

@@ -10,38 +10,38 @@
           <form class="form-horizontal mt-4 mb-3 px-5" method="post" [formGroup]="formAddGround"
                 (ngSubmit)="onSubmit()">
             <div class="form-group row">
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlInput1">Tên tòa nhà</label>
                   <input type="text" class="form-control" id="exampleFormControlInput1"
                          value="Codegym Đà Nẵng" readonly>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlInput2">Mã mặt bằng<span
                     class="text-danger">*</span></label>
-                  <input type="text" class="form-control" formControlName="groundId" id="exampleFormControlInput2">
+                  <input type="text" class="form-control" #groundId formControlName="groundId" id="exampleFormControlInput2">
                   <p class="text-danger" *ngIf="formAddGround.controls.groundId.errors?.required &&
-                  formAddGround.controls.groundId.touched">Không được để trống!</p>
+                  formAddGround.controls.groundId.touched">Mã mặt bằng không được để trống!</p>
                   <p class="text-danger" *ngIf="formAddGround.controls.groundId.errors?.pattern &&
                   formAddGround.controls.groundId.touched">Sai dịnh dạng mã mặt bằng (MB-xxxx)!</p>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlInput3">Diện tích (m<sup>2</sup>)<span
                     class="text-danger">*</span></label>
-                  <input type="number" class="form-control" formControlName="area" id="exampleFormControlInput3">
+                  <input type="text" class="form-control" formControlName="area" id="exampleFormControlInput3">
                   <p class="text-danger" *ngIf="formAddGround.controls.area.errors?.required &&
-                  formAddGround.controls.area.touched">Không được để trống!</p>
-                  <p class="text-danger" *ngIf="formAddGround.controls.area.errors?.min &&
+                  formAddGround.controls.area.touched">Diện tích không được để trống!</p>
+                  <p class="text-danger" *ngIf="formAddGround.controls.area.errors?.pattern &&
                   formAddGround.controls.area.touched">Diện tích phải là số dương!</p>
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlSelect1">Tầng<span
                     class="text-danger">*</span></label>
@@ -52,7 +52,7 @@
                   formAddGround.controls.floorDTO.touched">Vui lòng chọn tầng!</p>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlSelect2">Loại mặt bằng<span
                     class="text-danger">*</span></label>
@@ -66,7 +66,7 @@
                   formAddGround.controls.groundType.touched">Vui lòng chọn loại mặt bằng!</p>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlSelect3">Trạng thái<span
                     class="text-danger">*</span></label>
@@ -82,7 +82,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group">
                   <div class="col-12 mb-3 p-0">
                     <div class="form-group mb-0">
@@ -91,11 +91,11 @@
                           class="text-danger">*</span></label>
                         <span>{{rentCostVal | currency: "VND"}}</span>
                       </div>
-                      <input type="number" class="form-control" [(ngModel)]="rentCostVal" formControlName="rentCost"
+                      <input type="text" class="form-control" [(ngModel)]="rentCostVal" formControlName="rentCost"
                              id="exampleFormControlInput4">
                       <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.required &&
-                  formAddGround.controls.rentCost.touched">Không được để trống!</p>
-                      <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.min &&
+                  formAddGround.controls.rentCost.touched">Giá tiền thuê không được để trống!</p>
+                      <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.pattern &&
                   formAddGround.controls.rentCost.touched">Giá tiền thuê phải là số dương!</p>
                     </div>
                   </div>
@@ -106,24 +106,24 @@
                           class="text-danger">*</span></label>
                         <span>{{manageCostVal | currency: "VND"}}</span>
                       </div>
-                      <input type="number" class="form-control" [(ngModel)]="manageCostVal" formControlName="manageCost"
+                      <input type="text" class="form-control" [(ngModel)]="manageCostVal" formControlName="manageCost"
                              id="exampleFormControlInput5">
                       <p class="text-danger" *ngIf="formAddGround.controls.manageCost.errors?.required &&
-                  formAddGround.controls.manageCost.touched">Không được để trống!</p>
-                      <p class="text-danger" *ngIf="formAddGround.controls.manageCost.errors?.min &&
+                  formAddGround.controls.manageCost.touched">Phí quản lý không được để trống!</p>
+                      <p class="text-danger" *ngIf="formAddGround.controls.manageCost.errors?.pattern &&
                   formAddGround.controls.manageCost.touched">Phí quản lý phải là số dương!</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label class="control-label" for="area-note">Ghi chú</label>
                   <textarea rows="5" class="form-control" formControlName="note" id="area-note"
                             placeholder=""></textarea>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label class="control-label">Chọn hình ảnh<span class="text-danger">*</span></label><br>
                   <label for="image-picker">

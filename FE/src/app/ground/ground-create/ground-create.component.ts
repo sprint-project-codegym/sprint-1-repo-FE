@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {GroundService} from '../../service/ground.service';
 import {Router} from '@angular/router';
@@ -22,7 +22,7 @@ export class GroundCreateComponent implements OnInit {
   public rentCostVal: number;
   public manageCostVal: number;
   public ground = null;
-  public id = null;
+  @ViewChild('groundId') groundId: ElementRef;
 
   constructor(
     public groundService: GroundService,
@@ -48,11 +48,11 @@ export class GroundCreateComponent implements OnInit {
     this.formAddGround = this.fb.group({
       groundId: ['', [Validators.required, Validators.pattern('^(MB)[-][\\d]{4}$')]],
       groundType: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      area: ['', [Validators.required, Validators.min(0)]],
+      area: ['', [Validators.required, Validators.min(0), Validators.pattern('^[\\.0-9]*$')]],
       image: [''],
       status: ['', [Validators.required]],
-      rentCost: ['', [Validators.required, Validators.min(0)]],
-      manageCost: ['', [Validators.required, Validators.min(0)]],
+      rentCost: ['', [Validators.required, Validators.min(0), Validators.pattern('^[\\.0-9]*$')]],
+      manageCost: ['', [Validators.required, Validators.min(0), Validators.pattern('^[\\.0-9]*$')]],
       note: [''],
       version: [1],
       floorDTO: ['', [Validators.required]]
@@ -60,32 +60,36 @@ export class GroundCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.formAddGround.value.groundId == null){
-      this.id = 'a';
-    }else {
-      this.id = this.formAddGround.value.groundId;
-    }
-    this.groundService.getGroundById(this.id).subscribe(
-      data => {
-        this.ground = data;
-        if (this.ground != null) {
+    if (this.formAddGround.invalid) {
+      this.toastrService.error(
+        'Không thể tạo mặt bằng!',
+        'Có lỗi xảy ra',
+        {timeOut: 1000, extendedTimeOut: 1500}
+      );
+    } else {
+      this.groundService.getGroundById(this.formAddGround.value.groundId).subscribe(
+        data => {
+          this.ground = data;
+          if (this.ground != null) {
+            this.groundId.nativeElement.focus();
+            this.toastrService.error(
+              'Mã mặt bằng đã tồn tại!',
+              'Có lỗi xảy ra',
+              {timeOut: 1000, extendedTimeOut: 1500}
+            );
+          } else {
+            this.addNewGround();
+          }
+        },
+        error => {
           this.toastrService.error(
-            'Mã mặt bằng đã tồn tại!',
+            'Không thể tạo mặt bằng!',
             'Có lỗi xảy ra',
             {timeOut: 1000, extendedTimeOut: 1500}
           );
-        } else {
-          this.addNewGround();
         }
-      },
-      error => {
-        this.toastrService.error(
-          'Không thể tạo mặt bằng!',
-          'Có lỗi xảy ra',
-          {timeOut: 1000, extendedTimeOut: 1500}
-        );
-      }
-    );
+      );
+    }
   }
 
   addNewGround() {
