@@ -3,6 +3,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {PersonalInfoService} from '../../service/personal-info-service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import {TokenStorageService} from "../../service/token-storage.service";
 
 @Component({
   selector: 'app-employee-change-password',
@@ -22,8 +23,9 @@ export class EmployeeChangePasswordComponent implements OnInit {
     private router: Router,
     private personalInfoService: PersonalInfoService,
     private fb: FormBuilder,
-    private toast: ToastrService,
-    private activatedRoute: ActivatedRoute
+    private toastr: ToastrService,
+    private activatedRoute: ActivatedRoute,
+    private tokenStorageService: TokenStorageService
   ) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
@@ -31,9 +33,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.currentUser = this.token.getUser();
-    // this.userId = this.currentUser.getAccount().getId();
-    // this.userId = this.accountId;
+    this.userId = this.tokenStorageService.getUser().id;
     this.formAccount = this.fb.group({
       // oldPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]],
       // newPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]],
@@ -52,17 +52,20 @@ export class EmployeeChangePasswordComponent implements OnInit {
 
   updatePassword() {
     if (this.formAccount.valid) {
-      this.personalInfoService.changePassword(this.userId, this.formAccount.value).subscribe(data => {
-        if (data === "1") {
-          // this.notification = "Sai mật khẩu, vui lòng nhập lại";
-          this.toast.warning("Sai mật khẩu, vui lòng nhập lại", "Thông báo");
-        } else {
-          // this.ngOnInit();
-          this.toast.success("Đổi mật khẩu thành công", "Thông báo");
+      this.personalInfoService.changePassword(this.userId, this.formAccount.value).subscribe(
+        () => {
+          this.toastr.success("Cập nhật thông tin cá nhân thành công!", "Thành công: ", {
+            timeOut: 2500,
+            extendedTimeOut: 1500
+          });
           this.router.navigateByUrl("/employee/acc-detail");
-        }
+        });
+    } else {
+      this.toastr.error("Mật khẩu không đúng, vui lòng nhập lại!", "Thất bại: ", {
+        timeOut: 2500,
+        extendedTimeOut: 1500
       });
     }
   }
-
 }
+

@@ -23,11 +23,11 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
 
   constructor(private tokenStorageService: TokenStorageService,
-              private shareService : ShareService,
+              private shareService: ShareService,
               private router: Router) {
     this.shareService.getClickEvent().subscribe(() => {
       this.loadHeader();
-    })
+    });
   }
 
   loadHeader(): void {
@@ -47,9 +47,7 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.tokenStorageService.signOut();
-    // this.ngOnInit();
-    // location.reload();
-    window.location.assign("/home");
+    window.location.assign("/");
   }
 
 
