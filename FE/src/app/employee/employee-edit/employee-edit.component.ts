@@ -36,12 +36,6 @@ export class EmployeeEditComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     this.getAllPosition();
-    // this.activeRouter.paramMap.subscribe(
-    //   (param: ParamMap) => {
-    //     const id = param.get('id');
-    //     console.log(id);
-    //
-    //   })
     this.activeRouter.paramMap.subscribe(
       (param: ParamMap) => {
         console.log(param);
