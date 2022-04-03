@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PersonalInfoService} from '../../service/personal-info-service';
@@ -15,20 +15,20 @@ export class EmployeeAccountDetailComponent implements OnInit {
   accountId;
   // employeeId;
   accountName;
-  genderObj = [{name: 'Nam' , value : true} , {name: 'Nữ' , value : false}];
+  genderObj = [{name: 'Nam', value: true}, {name: 'Nữ', value: false}];
   employeeGender;
 
   constructor(private router: Router,
               private personalInfoService: PersonalInfoService,
               private toastr: ToastrService,
               private fb: FormBuilder,
-              private tokenStorageService: TokenStorageService, ) {
+              private tokenStorageService: TokenStorageService,) {
   }
 
   ngOnInit(): void {
     this.formUpdateEmployee = this.fb.group({
       employeeId: new FormControl(''),
-      employeeName: new FormControl('', [Validators.required, Validators.pattern(/^([A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+)[ ])+[A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]*)$/)]),
+      employeeName: new FormControl('', [Validators.required, Validators.max(50), Validators.pattern(/^([A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+)[ ])+[A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]*)$/)]),
       employeeGender: new FormControl('', [Validators.required]),
       employeeBirthday: ['', [Validators.required]],
       employeePhone: new FormControl('', [Validators.required, Validators.pattern(/^(0)[35789][0-9]{8}$/)]),
@@ -44,6 +44,7 @@ export class EmployeeAccountDetailComponent implements OnInit {
       this.employeeGender = data1.employeeGender;
     });
   }
+
   update() {
     if (this.formUpdateEmployee.valid) {
       this.personalInfoService.updateEmployee(this.formUpdateEmployee.value).subscribe(data => {
@@ -53,7 +54,11 @@ export class EmployeeAccountDetailComponent implements OnInit {
         });
         this.router.navigateByUrl("/employee/acc-detail");
       });
+    } else {
+      this.toastr.error("Cập nhật thông tin cá nhân không thành công!", "Thất bại: ", {
+        timeOut: 2500,
+        extendedTimeOut: 1500
+      });
     }
   }
-
 }

@@ -1,17 +1,16 @@
-
 <div class="container-xl px-4 mt-4">
   <!-- Account page navigation-->
-<!--  <nav class="nav nav-borders">-->
-<!--    <a class="nav-link active ms-0" href=""-->
-<!--       target="__blank">Trang chủ</a>-->
-<!--    <a class="nav-link" href="" target="__blank">My profile</a>-->
-<!--    <a class="nav-link" href="" target="__blank">Nhân-->
-<!--      viên</a>-->
-<!--    <a class="nav-link" href="" target="__blank">Khách-->
-<!--      hàng</a>-->
-<!--    <a class="nav-link" href="" target="__blank">Hợp-->
-<!--      đồng</a>-->
-<!--  </nav>-->
+  <!--  <nav class="nav nav-borders">-->
+  <!--    <a class="nav-link active ms-0" href=""-->
+  <!--       target="__blank">Trang chủ</a>-->
+  <!--    <a class="nav-link" href="" target="__blank">My profile</a>-->
+  <!--    <a class="nav-link" href="" target="__blank">Nhân-->
+  <!--      viên</a>-->
+  <!--    <a class="nav-link" href="" target="__blank">Khách-->
+  <!--      hàng</a>-->
+  <!--    <a class="nav-link" href="" target="__blank">Hợp-->
+  <!--      đồng</a>-->
+  <!--  </nav>-->
   <hr class="mt-0 mb-4">
   <div class="row">
     <div class="col-xl-4">
@@ -35,29 +34,29 @@
       <div class="card-body">
         <form [formGroup]="formUpdateEmployee" (ngSubmit)="update()">
           <div class="mb-3">
-            <label class="small mb-1" for="employeeAccount">Tên người dùng (Tên sẽ hiển thị
-              với những người dùng khác trên trang web)</label>
+            <label class="small mb-1" for="employeeAccount"><h6>Tên người dùng (Tên sẽ hiển thị
+              với những người dùng khác trên trang web)</h6></label>
             <input class="form-control" id="employeeAccount" type="text"
-                   [value]="accountName" readonly >
+                   [value]="accountName" readonly>
           </div>
 
+          <!--          <div class="mb-3">-->
+          <!--            <label class="small mb-1" for="inputPassword"><h6>Mật khẩu</h6></label>-->
+          <!--            <input class="form-control" id="inputPassword" type="text"-->
+          <!--                   value="********" readonly>-->
+          <!--          </div>-->
           <div class="mb-3">
-            <label class="small mb-1" for="inputPassword">Mật khẩu</label>
-            <input class="form-control" id="inputPassword" type="text"
-                   value="********" readonly>
-          </div>
-          <div class="mb-3">
-            <label class="small mb-1" for="employeeName">Họ và tên</label>
+            <label class="small mb-1" for="employeeName"><h6>Họ và tên</h6></label>
             <input class="form-control" id="employeeName" type="text"
                    formControlName="employeeName">
             <p class="text-danger"
                *ngIf="formUpdateEmployee.get('employeeName').hasError('required') ||
                 formUpdateEmployee.get('employeeName').hasError('pattern')">
-              <b>*Tên không đúng định dạng!</b></p>
+              <b class="text-danger">*Tên không đúng định dạng!</b></p>
           </div>
           <div class="row gx-3 mb-3">
             <div class="col-md-6">
-              <label class="small mb-1">Giới tính</label>
+              <label class="small mb-1"><h6>Giới tính</h6></label>
               <select class="form-control" formControlName="employeeGender" [(ngModel)]="employeeGender">
                 <option *ngFor="let gender of genderObj"
                         [value]="gender.value"
@@ -67,46 +66,49 @@
               </select>
             </div>
             <div class="col-md-6">
-              <label class="small mb-1" for="employeeBirthday">Ngày sinh</label>
+              <label class="small mb-1" for="employeeBirthday"><h6>Ngày sinh</h6></label>
               <input class="form-control" id="employeeBirthday" type="date"
-                     formControlName="employeeBirthday" >
+                     formControlName="employeeBirthday">
             </div>
           </div>
 
           <div class="row gx-3 mb-3">
             <div class="col-md-6">
-              <label class="small mb-1" for="employeeGmail">Email</label>
+              <label class="small mb-1" for="employeeGmail"><h6>Email</h6></label>
               <input class="form-control" id="employeeGmail" type="email" name="employeeGmail"
-                     formControlName="employeeGmail" >
+                     formControlName="employeeGmail">
               <p class="text-danger"
                  *ngIf="formUpdateEmployee.get('employeeGmail').hasError('required') ||
                 formUpdateEmployee.get('employeeGmail').hasError('pattern')">
-                <b>*Email không đúng định dạng!</b></p>
+                <b class="text-danger">*Email không đúng định dạng!</b></p>
             </div>
             <div class="col-md-6">
-              <label class="small mb-1" for="employeePhone">Số điện thoại</label>
+              <label class="small mb-1" for="employeePhone"><h6>Số điện thoại</h6></label>
               <input class="form-control" id="employeePhone" type="tel"
-                     placeholder="Enter your phone number" formControlName="employeePhone" >
+                     placeholder="Enter your phone number" formControlName="employeePhone">
               <p class="text-danger"
                  *ngIf="formUpdateEmployee.get('employeePhone').hasError('required') ||
                 formUpdateEmployee.get('employeePhone').hasError('pattern')">
-                <b>*Số điện thoại không đúng định dạng!</b></p>
+                <b class="text-danger">*Số điện thoại không đúng định dạng!</b></p>
             </div>
 
 
           </div>
 
           <div class="mb-3">
-            <label class="small mb-1" for="employeeAddress">Địa chỉ</label>
+            <label class="small mb-1" for="employeeAddress"><h6>Địa chỉ</h6></label>
             <input class="form-control" id="employeeAddress" type="text"
-            formControlName="employeeAddress" >
+                   formControlName="employeeAddress">
             <p class="text-danger"
                *ngIf="formUpdateEmployee.get('employeeAddress').hasError('required') ||
                 formUpdateEmployee.get('employeeAddress').hasError('pattern')">
-              <b>*Địa chỉ không đúng định dạng!</b></p>
+              <b class="text-danger">*Địa chỉ không đúng định dạng!</b></p>
           </div>
-           <button class="btn btn-success text-white mr-3" type="submit" [disabled]="formUpdateEmployee.invalid"><i class="fas fa-pencil-alt mr-1" style="color: white"></i>Chỉnh sửa</button>
-          <a class="btn btn-success text-white mr-3" [routerLink]="['/employee/change-pw']" ><i class="fas fa-pencil-alt mr-1" style="color: white"></i>Đổi mật khẩu</a>
+          <button class="btn btn-success text-white mr-3" type="submit" [disabled]="formUpdateEmployee.invalid"><i
+            class="fas fa-pencil-alt mr-1" style="color: white"></i>Chỉnh sửa
+          </button>
+          <a class="btn btn-success text-white mr-3" [routerLink]="['/employee/change-pw']"><i
+            class="fas fa-pencil-alt mr-1" style="color: white"></i>Đổi mật khẩu</a>
         </form>
       </div>
     </div>
