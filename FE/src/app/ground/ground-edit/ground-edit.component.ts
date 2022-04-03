@@ -72,8 +72,8 @@ export class GroundEditComponent implements OnInit {
       area: ['', [Validators.required, Validators.min(0)]],
       image: [''],
       status: ['', [Validators.required]],
-      rentCost: ['', [Validators.required, Validators.min(0)]],
-      manageCost: ['', [Validators.required, Validators.min(0)]],
+      rentCost: ['', [Validators.required, Validators.min(0), Validators.pattern('^[\\.0-9]*$')]],
+      manageCost: ['', [Validators.required, Validators.min(0), Validators.pattern('^[\\.0-9]*$')]],
       note: [''],
       version: [1],
       floorId: ['', [Validators.required]]

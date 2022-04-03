@@ -10,7 +10,7 @@
 
           <form [formGroup]="formEditGround" method="post" class="form-horizontal mt-4 mb-3 px-5" (ngSubmit)="onSubmit()">
             <div class="form-group row">
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlInput1">Tên tòa nhà<span
                     class="text-danger">*</span></label>
@@ -18,14 +18,14 @@
                          value="Codegym Đà Nẵng" readonly>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlInput2">Mã mặt bằng<span
                     class="text-danger">*</span></label>
                   <input disabled type="text"class="form-control" formControlName="groundId" id="exampleFormControlInput2">
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlInput3">Diện tích (m<sup>2</sup>)<span
                     class="text-danger">*</span></label>
@@ -39,9 +39,8 @@
             </div>
             <div class="form-group row">
 
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
-<!--                  sửa thành select search-->
                   <label for="exampleFormControlSelect2">Tầng<span
                     class="text-danger">*</span></label>
                   <select class="form-control" formControlName="floorId" id="exampleFormControlSelect2">
@@ -51,7 +50,7 @@
                   formEditGround.controls.floorId.touched">Vui lòng chọn tầng!</p>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlSelect1">Loại mặt bằng<span
                     class="text-danger">*</span></label>
@@ -64,7 +63,7 @@
                   </select>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label for="exampleFormControlSelect3">Trạng thái<span
                     class="text-danger">*</span></label>
@@ -80,7 +79,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group">
                   <div class="col-12 mb-3 p-0">
                     <div class="form-group mb-0">
@@ -89,7 +88,7 @@
                         class="text-danger">*</span></label>
                         <span>{{rentCostVal | currency: "VND"}}</span>
                       </div>
-                      <input type="number" class="form-control" [(ngModel)]="rentCostVal" formControlName="rentCost" id="exampleFormControlInput4">
+                      <input type="text" class="form-control" [(ngModel)]="rentCostVal" formControlName="rentCost" id="exampleFormControlInput4">
                       <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.required &&
                   formEditGround.controls.rentCost.touched">Vui lòng nhập giá tiền thuê!</p>
                       <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.min &&
@@ -103,7 +102,7 @@
                         class="text-danger">*</span></label>
                         <span>{{manageCostVal | currency: "VND"}}</span>
                       </div>
-                      <input type="number" class="form-control" [(ngModel)]="manageCostVal" formControlName="manageCost" id="exampleFormControlInput5">
+                      <input type="text" class="form-control" [(ngModel)]="manageCostVal" formControlName="manageCost" id="exampleFormControlInput5">
                       <p class="text-danger" *ngIf="formEditGround.controls.manageCost.errors?.required &&
                   formEditGround.controls.manageCost.touched">Vui lòng nhập phí quản lý!</p>
                       <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.min &&
@@ -113,13 +112,13 @@
                   </div>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label class="control-label" for="area-note">Ghi chú</label>
                   <textarea rows="5" class="form-control" formControlName="note" id="area-note" placeholder=""></textarea>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group mb-0">
                   <label class="control-label">Chọn hình ảnh<span class="text-danger">*</span></label><br>
                   <label for="image-picker">

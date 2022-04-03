@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EMPTY, Observable} from 'rxjs';
-import {GroundDTO} from "../dto/GroundDTO";
+import {GroundDTO} from '../dto/GroundDTO';
 
 @Injectable({
   providedIn: 'root'
