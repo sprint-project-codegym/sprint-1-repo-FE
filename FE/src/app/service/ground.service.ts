@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from "rxjs";
+import {EMPTY, Observable} from 'rxjs';
+import {GroundDTO} from "../dto/GroundDTO";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroundService {
-  public GROUND_API = 'http://localhost:8080/api/manager/ground/list';
-  public EDIT_GROUND_API = 'http://localhost:8080/api/manager/ground/edit';
-  private FLOOR_API = 'http://localhost:8080/api/manager/ground/listFloor';
+  public GROUND_API = 'http://localhost:8080/api/manager/ground';
 
   constructor(
     public http: HttpClient
@@ -24,19 +23,19 @@ export class GroundService {
   };
 
   getAllFloor(): Observable<any> {
-    return this.http.get(this.FLOOR_API, this.httpOptions);
+    return this.http.get(this.GROUND_API + '/listFloor', this.httpOptions);
   }
 
-  getAllGround(): Observable<any> {
-    return this.http.get(this.GROUND_API);
+  getGroundById(id: string): Observable<any> {
+    if (id == null) {
+      return EMPTY;
+    } else {
+      return this.http.get<any>(this.GROUND_API + '/list/' + id, this.httpOptions);
+    }
   }
 
-  findById(id: any): Observable<any> {
-    return this.http.get(this.GROUND_API + '/' + id, this.httpOptions);
-  }
-
-  updateGround(obj: any, id: string): Observable<any> {
-    return this.http.put(this.EDIT_GROUND_API + '/' + id, obj, this.httpOptions);
+  updateGround(groundDto: GroundDTO, id: string): Observable<GroundDTO> {
+    return this.http.put<GroundDTO>(this.GROUND_API + '/edit/' + id, JSON.stringify(groundDto), this.httpOptions);
   }
 
 }

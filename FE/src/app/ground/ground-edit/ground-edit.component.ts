@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {IGround} from '../../entity/IGround';
 // @ts-ignore
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
@@ -22,12 +21,12 @@ export class GroundEditComponent implements OnInit {
   ground: GroundDTO;
   public floorList;
   public inputImage: any;
-  public filePath ;
+  public filePath;
   private uploading: boolean;
+  public rentCostVal: number;
+  public manageCostVal: number;
   public floorType;
   public editId;
-
-
 
 
   constructor(private activeRouter: ActivatedRoute,
@@ -52,7 +51,7 @@ export class GroundEditComponent implements OnInit {
     this.activeRouter.paramMap.subscribe(
       (param: ParamMap) => {
         const id = param.get('id');
-        this.groundService.findById(id).subscribe(
+        this.groundService.getGroundById(id).subscribe(
           data => {
             this.ground = data;
             this.formEditGround.patchValue(this.ground);
@@ -68,7 +67,7 @@ export class GroundEditComponent implements OnInit {
 
   private initEditForm() {
     this.formEditGround = this.fb.group({
-      groundId: ['', [Validators.required, Validators.pattern('^(MB)[-][\\d]{4}$')]],
+      groundId: [''],
       groundType: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       area: ['', [Validators.required, Validators.min(0)]],
       image: [''],

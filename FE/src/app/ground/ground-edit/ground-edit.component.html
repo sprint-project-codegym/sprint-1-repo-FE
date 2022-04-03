@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Chỉnh sửa mặt bằng</title>
-</head>
-<body>
 <div class="container-fluid">
   <div class="col-sm-12 col-xs-12 content p-3 pl-0">
     <h3 class="mb-0"><strong>Chỉnh sửa mặt bằng</strong></h3>
@@ -38,7 +31,7 @@
                     class="text-danger">*</span></label>
                   <input type="number" class="form-control" formControlName="area" id="exampleFormControlInput3">
                   <p class="text-danger" *ngIf="formEditGround.controls.area.errors?.required &&
-                  formEditGround.controls.area.touched">Vui lòng nhập diện tích!</p>
+                  formEditGround.controls.area.touched">Diện tích không được để trống!</p>
                   <p class="text-danger" *ngIf="formEditGround.controls.area.errors?.min &&
                   formEditGround.controls.area.touched">Diện tích phải là số dương!</p>
                 </div>
@@ -51,7 +44,7 @@
 <!--                  sửa thành select search-->
                   <label for="exampleFormControlSelect2">Tầng<span
                     class="text-danger">*</span></label>
-                  <select data-live-search="true" class="form-control selectpicker" formControlName="floorId" id="exampleFormControlSelect2">
+                  <select class="form-control" formControlName="floorId" id="exampleFormControlSelect2">
                     <option [ngValue]="floor.floorId" *ngFor="let floor of floorList" [selected]="floorType == floor.floorId">{{floor.floorName}}</option>
                   </select>
                   <p class="text-danger" *ngIf="formEditGround.controls.floorId.errors?.required &&
@@ -66,6 +59,7 @@
                     <option selected>Chọn...</option>
                     <option>Mặt tiền</option>
                     <option>Mặt cắt</option>
+                    <option>Mặt đứng</option>
                     <option>Mặt sau</option>
                   </select>
                 </div>
@@ -75,10 +69,10 @@
                   <label for="exampleFormControlSelect3">Trạng thái<span
                     class="text-danger">*</span></label>
                   <select class="form-control" formControlName="status" id="exampleFormControlSelect3">
-                    <option selected>Chọn...</option>
-                    <option>Đang được thuê</option>
-                    <option>Chưa thuê</option>
-                    <option>Đang bảo dưỡng</option>
+                    <option>Đã bàn giao</option>
+                    <option>Chưa bàn giao</option>
+                    <option>Đang sửa chữa</option>
+                    <option>Đang vào ở</option>
                   </select>
                   <p class="text-danger" *ngIf="formEditGround.controls.status.errors?.required &&
                   formEditGround.controls.status.touched">Vui lòng chọn trạng thái!</p>
@@ -90,9 +84,12 @@
                 <div class="form-group">
                   <div class="col-12 mb-3 p-0">
                     <div class="form-group mb-0">
+                      <div class="d-flex justify-content-between">
                       <label for="exampleFormControlInput4">Giá tiền thuê (VNĐ)<span
                         class="text-danger">*</span></label>
-                      <input type="number" class="form-control" formControlName="rentCost" id="exampleFormControlInput4">
+                        <span>{{rentCostVal | currency: "VND"}}</span>
+                      </div>
+                      <input type="number" class="form-control" [(ngModel)]="rentCostVal" formControlName="rentCost" id="exampleFormControlInput4">
                       <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.required &&
                   formEditGround.controls.rentCost.touched">Vui lòng nhập giá tiền thuê!</p>
                       <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.min &&
@@ -101,9 +98,12 @@
                   </div>
                   <div class="col-12 mb-3 p-0">
                     <div class="form-group mb-0">
+                      <div class="d-flex justify-content-between">
                       <label for="exampleFormControlInput5">Phí quản lý (VNĐ)<span
                         class="text-danger">*</span></label>
-                      <input type="number" class="form-control" formControlName="manageCost" id="exampleFormControlInput5">
+                        <span>{{manageCostVal | currency: "VND"}}</span>
+                      </div>
+                      <input type="number" class="form-control" [(ngModel)]="manageCostVal" formControlName="manageCost" id="exampleFormControlInput5">
                       <p class="text-danger" *ngIf="formEditGround.controls.manageCost.errors?.required &&
                   formEditGround.controls.manageCost.touched">Vui lòng nhập phí quản lý!</p>
                       <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.min &&
@@ -154,5 +154,4 @@
     </div>
   </div>
 </div>
-</body>
-</html>
+
