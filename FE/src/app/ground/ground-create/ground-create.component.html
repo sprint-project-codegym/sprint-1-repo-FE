@@ -1,0 +1,158 @@
+<div class="container-fluid">
+  <div class="col-sm-12 col-xs-12 content p-3 pl-0">
+    <h3 class="mb-0"><strong>Thêm mới mặt bằng</strong></h3>
+    <span class="text-secondary">Tòa nhà <i class="fa fa-angle-right"></i> Mặt bằng <i
+      class="fa fa-angle-right"></i> Thêm mặt bằng</span>
+    <div class="row mt-3">
+      <div class="col-sm-12">
+        <div class="mt-1 mb-3 p-3 button-container bg-white border shadow p-3 mb-5 bg-white rounded">
+          <h4 class="my-3 text-center text"><strong>Thông tin mặt bằng</strong></h4>
+          <form class="form-horizontal mt-4 mb-3 px-5" method="post" [formGroup]="formAddGround"
+                (ngSubmit)="onSubmit()">
+            <div class="form-group row">
+              <div class="col-sm-4">
+                <div class="form-group mb-0">
+                  <label for="exampleFormControlInput1">Tên tòa nhà</label>
+                  <input type="text" class="form-control" id="exampleFormControlInput1"
+                         value="Codegym Đà Nẵng" readonly>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group mb-0">
+                  <label for="exampleFormControlInput2">Mã mặt bằng<span
+                    class="text-danger">*</span></label>
+                  <input type="text" class="form-control" #groundId formControlName="groundId" id="exampleFormControlInput2">
+                  <p class="text-danger" *ngIf="formAddGround.controls.groundId.errors?.required &&
+                  formAddGround.controls.groundId.touched">Mã mặt bằng không được để trống!</p>
+                  <p class="text-danger" *ngIf="formAddGround.controls.groundId.errors?.pattern &&
+                  formAddGround.controls.groundId.touched">Sai dịnh dạng mã mặt bằng (MB-xxxx)!</p>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group mb-0">
+                  <label for="exampleFormControlInput3">Diện tích (m<sup>2</sup>)<span
+                    class="text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="area" id="exampleFormControlInput3">
+                  <p class="text-danger" *ngIf="formAddGround.controls.area.errors?.required &&
+                  formAddGround.controls.area.touched">Diện tích không được để trống!</p>
+                  <p class="text-danger" *ngIf="formAddGround.controls.area.errors?.pattern &&
+                  formAddGround.controls.area.touched">Diện tích phải là số dương!</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-4">
+                <div class="form-group mb-0">
+                  <label for="exampleFormControlSelect1">Tầng<span
+                    class="text-danger">*</span></label>
+                  <select class="form-control" formControlName="floorDTO" id="exampleFormControlSelect1">
+                    <option [ngValue]="floor" *ngFor="let floor of floorList">{{floor.floorName}}</option>
+                  </select>
+                  <p class="text-danger" *ngIf="formAddGround.controls.floorDTO.errors?.required &&
+                  formAddGround.controls.floorDTO.touched">Vui lòng chọn tầng!</p>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group mb-0">
+                  <label for="exampleFormControlSelect2">Loại mặt bằng<span
+                    class="text-danger">*</span></label>
+                  <select class="form-control" formControlName="groundType" id="exampleFormControlSelect2">
+                    <option>Mặt tiền</option>
+                    <option>Mặt cắt</option>
+                    <option>Mặt đứng</option>
+                    <option>Mặt sau</option>
+                  </select>
+                  <p class="text-danger" *ngIf="formAddGround.controls.groundType.errors?.required &&
+                  formAddGround.controls.groundType.touched">Vui lòng chọn loại mặt bằng!</p>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group mb-0">
+                  <label for="exampleFormControlSelect3">Trạng thái<span
+                    class="text-danger">*</span></label>
+                  <select class="form-control" formControlName="status" id="exampleFormControlSelect3">
+                    <option>Đã bàn giao</option>
+                    <option>Chưa bàn giao</option>
+                    <option>Đang sửa chữa</option>
+                    <option>Đang vào ở</option>
+                  </select>
+                  <p class="text-danger" *ngIf="formAddGround.controls.status.errors?.required &&
+                  formAddGround.controls.status.touched">Vui lòng chọn trạng thái!</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <div class="col-12 mb-3 p-0">
+                    <div class="form-group mb-0">
+                      <div class="d-flex justify-content-between">
+                        <label for="exampleFormControlInput4">Giá tiền thuê (VNĐ)<span
+                          class="text-danger">*</span></label>
+                        <span>{{rentCostVal | currency: "VND"}}</span>
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="rentCostVal" formControlName="rentCost"
+                             id="exampleFormControlInput4">
+                      <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.required &&
+                  formAddGround.controls.rentCost.touched">Giá tiền thuê không được để trống!</p>
+                      <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.pattern &&
+                  formAddGround.controls.rentCost.touched">Giá tiền thuê phải là số dương!</p>
+                    </div>
+                  </div>
+                  <div class="col-12 mb-3 p-0">
+                    <div class="form-group mb-0">
+                      <div class="d-flex justify-content-between">
+                        <label for="exampleFormControlInput4">Phí quản lý (VNĐ)<span
+                          class="text-danger">*</span></label>
+                        <span>{{manageCostVal | currency: "VND"}}</span>
+                      </div>
+                      <input type="text" class="form-control" [(ngModel)]="manageCostVal" formControlName="manageCost"
+                             id="exampleFormControlInput5">
+                      <p class="text-danger" *ngIf="formAddGround.controls.manageCost.errors?.required &&
+                  formAddGround.controls.manageCost.touched">Phí quản lý không được để trống!</p>
+                      <p class="text-danger" *ngIf="formAddGround.controls.manageCost.errors?.pattern &&
+                  formAddGround.controls.manageCost.touched">Phí quản lý phải là số dương!</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group mb-0">
+                  <label class="control-label" for="area-note">Ghi chú</label>
+                  <textarea rows="5" class="form-control" formControlName="note" id="area-note"
+                            placeholder=""></textarea>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group mb-0">
+                  <label class="control-label">Chọn hình ảnh<span class="text-danger">*</span></label><br>
+                  <label for="image-picker">
+                    <img class="img-fluid rounded" id="image-preview" [src]="filePath"/>
+                  </label>
+                  <input id="image-picker" (change)="selectImage($event)" type="file"
+                         accept=".jpg,.jpeg,.png"/>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-12 d-flex justify-content-center">
+                <button class="btn btn-success text-white mr-3" routerLink="/ground/list" type="button"><i
+                  class="fas fa-chevron-left"></i> Trở về
+                </button>
+                <button class="btn btn-success text-white mr-3" type="button" (click)="resetForm()"><i
+                  class="fas fa-sync"></i> Làm mới
+                </button>
+                <button class="btn btn-primary" type="submit" [disabled]="formAddGround.invalid"><i
+                  class="fas fa-save"></i> Lưu
+                </button>
+              </div>
+            </div>
+          </form>
+          <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
