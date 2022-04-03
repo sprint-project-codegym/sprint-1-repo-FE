@@ -1,14 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {IEmployee} from "../../model/employee-create/IEmployee";
+import {IEmployee} from "../../dto/IEmployee";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {EmployeeService} from "../../service/employee.service";
 import {ToastrService} from "ngx-toastr";
 import {AngularFireStorage} from "@angular/fire/storage";
-import {IPosition} from "../../model/employee-create/IPosition";
+import {IPosition} from "../../dto/IPosition";
 import {finalize} from "rxjs/operators";
 import {formatDate} from "@angular/common";
-import {EmployeeCustomValidator} from "../../model/employee-create/EmployeeCustomValidator";
+import {EmployeeCustomValidator} from "../../dto/EmployeeCustomValidator";
 @Component({
   selector: 'app-employee-edit',
   templateUrl: './employee-edit.component.html',
