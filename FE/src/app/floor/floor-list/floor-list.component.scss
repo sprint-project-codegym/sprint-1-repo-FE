@@ -1,3 +1,6 @@
+.header_top{
+  margin-top: 75px;
+}
 .table-striped td, .table-striped th {
   border: 1px solid #dee2e6;
   vertical-align: middle;
@@ -15,10 +18,25 @@
 ​
 th {
   text-align: center;
+  background: #607D8B;
+  color: white;
+}
+.background_th{
+  text-align: center;
+  background: #607D8B;
+  color: white;
 }
 .search {
   width: 200px;
-  border: 0;
-  border-bottom: 1px solid lightgray;
+  //border: 1px;
+  border: 1px solid lightgray;
   border-radius: 0
+}
+.text_overflow{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  //white-space: nowrap;
+  overflow: hidden;
+  //text-overflow: ellipsis;
 }

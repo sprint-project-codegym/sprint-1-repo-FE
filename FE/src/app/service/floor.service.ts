@@ -33,7 +33,6 @@ export class FloorService {
 
   //
   deleteFloorById(id: string): Observable<any> {
-    // @ts-ignore
     return this._httpClient.get(this.API + '/' + 'delete' + '/' + id, this.httpOptions);
   }
 

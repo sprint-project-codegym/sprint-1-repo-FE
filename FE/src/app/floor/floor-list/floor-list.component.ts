@@ -3,6 +3,8 @@ import {IFloor} from "../../entity/IFloor";
 import {FloorService} from "../../service/floor.service";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {TokenStorageService} from "../../service/token-storage.service";
+import {ShareService} from "../../service/share.service";
 
 @Component({
   selector: 'app-floor-list',
@@ -11,24 +13,32 @@ import {ToastrService} from "ngx-toastr";
 })
 export class FloorListComponent implements OnInit {
   floors: IFloor[];
-  size = 2;
+  size = 10;
   pageClicked = 0;
   totalPages = 1;
   pages = [];
   public id: string;
   deleteId: string;
   deleteName: string;
+  role: string;
+  currentUser: string;
+  username: string;
+  accountId: number;
+  isLoggedIn: boolean = false;
 
   @Output()
   deleteComplete = new EventEmitter<boolean>();
   constructor(
     private floorService: FloorService,
     public router: Router,
+    private tokenStorageService: TokenStorageService,
+    private shareService : ShareService,
   ) {
   }
 
   ngOnInit(): void {
     this.onSubmit(0);
+    this.loadHeader()
   }
 
   onFirst() {
@@ -68,5 +78,21 @@ export class FloorListComponent implements OnInit {
 
   deleteSuccess() {
     this.onSubmit(0);
+  }
+
+  loadHeader(): void {
+    if (this.tokenStorageService.getToken()) {
+      this.currentUser = this.tokenStorageService.getUser().username;
+      this.role = this.tokenStorageService.getUser().roles[0];
+      this.username = this.tokenStorageService.getUser().username;
+    }
+    this.isLoggedIn = this.username != null;
+    this.getUsernameAccount();
+  }
+
+  getUsernameAccount(){
+    if (this.tokenStorageService.getToken()) {
+      this.accountId= this.tokenStorageService.getUser().id;
+    }
   }
 }

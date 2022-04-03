@@ -47,7 +47,9 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.tokenStorageService.signOut();
-    location.reload();
+    // location.reload();
+    window.location.assign("/");
+    // this.ngOnInit();
   }
 
   getUsernameAccount(){

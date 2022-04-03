@@ -1,28 +1,28 @@
 <!--Header-->
-<div class="row shadow-sm">
+<div class="row shadow-sm fixed-top clearfix">
   <!--Logo-->
-  <div class="col-3 d-flex align-items-center justify-content-center" style="background: #0d47a1">
+  <div class="col-3 d-flex align-items-center justify-content-center">
     <div>
-      <h3 style="color: white; background: #0d47a1"><a href="#" style="color: white"><i style="color: white" class="fa fa-home"></i>A0321I1</a></h3>
+      <img class="tranform_img" src="../../../assets/img/logo.png" height="163" width="300"/>
     </div>
   </div>
 
   <div class="col-9">
-    <div class="row">
+    <div class="row text_header">
       <div class="col-3 none_padding">
-        <ul class="d-flex justify-content-between align-items-center">
-          <li>
-            <a href="">Trang chủ</a>
+        <ul class="d-flex justify-content-between align-items-center nav">
+          <li class="nav-item">
+            <a [routerLink]="['home']">Trang chủ</a>
           </li>
-          <li>
+          <li class="nav-item">
             <a href="#about">Giới thiệu</a>
           </li>
         </ul>
       </div>
 
       <div class="col-5 none_padding">
-        <ul class="d-flex justify-content-between align-items-center">
-          <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1 || ['ROLE_USER'].indexOf(role)!==-1">
+        <ul class="d-flex justify-content-between align-items-center nav">
+          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1 || ['ROLE_USER'].indexOf(role)!==-1">
             <div class="dropdown">
               <a class="dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Danh sách
@@ -34,19 +34,19 @@
               </div>
             </div>
           </li>
-          <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1 || ['ROLE_USER'].indexOf(role)!==-1">
+          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1 || ['ROLE_USER'].indexOf(role)!==-1">
             <a class="dropdown-toggle" href="" role="button" id="dropdownCustomer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Khách hàng
             </a>
             <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownCustomer">
-              <a class="dropdown-item" href="">Danh sách khách hàng</a>
-              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">Danh sách khách hàng</a>
+              <div class="dropdown-divider" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"></div>
               <a class="dropdown-item" href="#">Hợp đồng</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Dịch vụ</a>
             </div>
           </li>
-          <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1; else elseBlock">
+          <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1; else elseBlock">
             <a href="#" class="dropdown-toggle" id="dropdownEmployee" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">Nhân viên</a>
             <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownEmployee">
@@ -59,8 +59,8 @@
       </div>
 
       <div class="col-3 none_padding">
-        <ul class="d-flex justify-content-between align-items-center">
-          <li>
+        <ul class="d-flex justify-content-between align-items-center nav">
+          <li class="nav-item">
             <b [hidden]="!isLoggedIn">
               Tài khoản: <span style="color: blue">{{username}}</span>
             </b>
@@ -75,11 +75,11 @@
           <i class="fa fa-user"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLinkAdmin">
-          <a class="dropdown-item"><i class="fa fa-user pr-2"></i>Thông tin</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-user pr-2"></i>Thông tin</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item"><i class="fa fa-th-list pr-2"></i>Nhiệm vụ</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-th-list pr-2"></i>Nhiệm vụ</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logOut()"><i class="fa fa-power-off pr-2"></i>Đăng xuất</a>
+          <a class="dropdown-item" (click)="logOut()" href="#"><i class="fa fa-power-off pr-2"></i>Đăng xuất</a>
         </div>
       </div>
       <div class="col-1 justify-content-between align-items-center none_padding" style="display: flex" [hidden]="isLoggedIn">
@@ -97,3 +97,4 @@
 <ng-template #elseBlock>
   <li style="color: white">&emsp;</li>
 </ng-template>
+
