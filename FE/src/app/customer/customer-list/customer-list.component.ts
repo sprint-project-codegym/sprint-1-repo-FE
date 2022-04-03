@@ -11,7 +11,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class CustomerListComponent implements OnInit {
   customers: ICustomer[];
-  size = 5;
+  size = 10;
   pageClicked = 0;
   totalPages = 1;
   pages = [];
@@ -56,7 +56,7 @@ export class CustomerListComponent implements OnInit {
     this.customerService.getAllCustomer(page, this.size).subscribe(
       data => {
         if (data == null) {
-          this.toastrService.info('Hiện tại chưa có khách hàng.');
+          this.customers = [];
         }else {
           this.customers = data['content'];
           this.pageClicked = page;
@@ -108,11 +108,7 @@ export class CustomerListComponent implements OnInit {
     this.customerService.searchCustomerByIdAndName(page, this.idInput, this.nameInput).subscribe(
         data => {
           if (data === null) {
-            // this.toastrService.info('Không tìm thấy khách hàng với điều kiện đã tìm kiếm.');
             this.customers = [];
-            // this.onSubmit(0);
-            // this.idInput = '';
-            // this.nameInput = '';
           } else {
             this.customers = data['content'];
             this.pageClicked = page;
@@ -126,4 +122,15 @@ export class CustomerListComponent implements OnInit {
   deleteSuccess() {
     this.ngOnInit();
   }
+
+  // renderToolTip(str: string, limit = 40) {
+  //   if (str.length > limit) {
+  //     return `<span>${str}</span>`;
+  //   }
+  //
+  //   return str;
+  // }
+
+
+
 }

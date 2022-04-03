@@ -24,17 +24,17 @@ export class CustomerService {
   ) {
   }
 
-  // NgaLT
-  // get customer with pagination
+  // NgaLT get customer with pagination
   getAllCustomer(page: number, size: number): Observable<any> {
     return this.http.get(this.API + '?page=' + page + '&size=' + size);
   }
 
-  // search customer by id and name
+  // NgaLT search customer by id and name
   searchCustomerByIdAndName(page: number, idSearch: string, name: string): Observable<any> {
     return this.http.get(this.API + '?page=' + page + '&id=' + idSearch + '&name=' + name);
   }
 
+// NgaLT delete customer
   deleteCustomerById(idDelete: string): Observable<any> {
     return this.http.get(this.API + '/' + 'delete' + '/' + idDelete, this.httpOptions);
   }
