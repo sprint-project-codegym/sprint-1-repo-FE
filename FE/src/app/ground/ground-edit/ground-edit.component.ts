@@ -69,7 +69,7 @@ export class GroundEditComponent implements OnInit {
     this.formEditGround = this.fb.group({
       groundId: [''],
       groundType: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      area: ['', [Validators.required, Validators.min(0)]],
+      area: ['', [Validators.required, Validators.min(0), Validators.pattern('^[\\.0-9]*$')]],
       image: [''],
       status: ['', [Validators.required]],
       rentCost: ['', [Validators.required, Validators.min(0), Validators.pattern('^[\\.0-9]*$')]],

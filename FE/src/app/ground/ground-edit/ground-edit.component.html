@@ -29,10 +29,10 @@
                 <div class="form-group mb-0">
                   <label for="exampleFormControlInput3">Diện tích (m<sup>2</sup>)<span
                     class="text-danger">*</span></label>
-                  <input type="number" class="form-control" formControlName="area" id="exampleFormControlInput3">
+                  <input type="text" class="form-control" formControlName="area" id="exampleFormControlInput3">
                   <p class="text-danger" *ngIf="formEditGround.controls.area.errors?.required &&
                   formEditGround.controls.area.touched">Diện tích không được để trống!</p>
-                  <p class="text-danger" *ngIf="formEditGround.controls.area.errors?.min &&
+                  <p class="text-danger" *ngIf="formEditGround.controls.area.errors?.pattern &&
                   formEditGround.controls.area.touched">Diện tích phải là số dương!</p>
                 </div>
               </div>
@@ -91,7 +91,7 @@
                       <input type="text" class="form-control" [(ngModel)]="rentCostVal" formControlName="rentCost" id="exampleFormControlInput4">
                       <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.required &&
                   formEditGround.controls.rentCost.touched">Vui lòng nhập giá tiền thuê!</p>
-                      <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.min &&
+                      <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.pattern &&
                   formEditGround.controls.rentCost.touched">Giá tiền thuê phải là số dương!</p>
                     </div>
                   </div>
@@ -105,7 +105,7 @@
                       <input type="text" class="form-control" [(ngModel)]="manageCostVal" formControlName="manageCost" id="exampleFormControlInput5">
                       <p class="text-danger" *ngIf="formEditGround.controls.manageCost.errors?.required &&
                   formEditGround.controls.manageCost.touched">Vui lòng nhập phí quản lý!</p>
-                      <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.min &&
+                      <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.pattern &&
                   formEditGround.controls.manageCost.touched">Phí quản lý phải là số dương!</p>
 
                     </div>
