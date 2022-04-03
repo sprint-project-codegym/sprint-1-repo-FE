@@ -8,6 +8,7 @@ import {AngularFireStorage} from "@angular/fire/storage";
 import {IPosition} from "../../model/employee-create/IPosition";
 import {finalize} from "rxjs/operators";
 import {formatDate} from "@angular/common";
+import {EmployeeCustomValidator} from "../../model/employee-create/EmployeeCustomValidator";
 @Component({
   selector: 'app-employee-edit',
   templateUrl: './employee-edit.component.html',
@@ -19,9 +20,11 @@ export class EmployeeEditComponent implements OnInit {
   listPosition: IPosition[];
   selectedImage: any = null;
   url: string;
-  id: any = 'E120844';
-  public filePath = '../../../assets/images/add-image-employee.png';
   fileChange = false;
+  id: any;
+  public employeeCustomValidator: EmployeeCustomValidator = new EmployeeCustomValidator();
+  showLoading = false;
+  public filePath = 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png';
 
   constructor(private activeRouter: ActivatedRoute,
              private fb: FormBuilder,
@@ -39,19 +42,28 @@ export class EmployeeEditComponent implements OnInit {
     //     console.log(id);
     //
     //   })
-    this.employeeService.getEmployeeById(this.id).subscribe(
-      (data => {
-        this.employee = data;
+    this.activeRouter.paramMap.subscribe(
+      (param: ParamMap) => {
+        console.log(param);
+        const id = param.get('id');
+        console.log(id);
+        this.id = id;
+        this.employeeService.getEmployeeById(id).subscribe(
+          (data => {
+            this.employee = data;
 
-        this.deleteKeyNotUse();
+            this.deleteKeyNotUse();
 
 
-        this.formEdit.setValue(this.employee);
-        console.log(this.employee);
-        console.log(this.formEdit.value);
-        this.filePath = this.employee.urlImage;
+            this.formEdit.setValue(this.employee);
+            console.log(this.employee);
+            console.log(this.formEdit.value);
+            this.filePath = this.employee.urlImage;
+            console.log(this.employee);
+          })
+        );
       })
-    );
+
   };
 
   deleteKeyNotUse(): void {
@@ -70,15 +82,15 @@ export class EmployeeEditComponent implements OnInit {
 
   createForm(){
     this.formEdit = this.fb.group({
-      employeeName: ['',[Validators.required, Validators.pattern(/^([\D])+$/gmu)]],
-      employeeBirthday: ['',[Validators.required]],
+      employeeName: ['',[Validators.required,Validators.maxLength(30), Validators.pattern(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/)]],
+      employeeBirthday: ['',[Validators.required, Validators.compose([this.employeeCustomValidator.ageLimitValidator(18, 30)])]],
       employeeGender: ['',[Validators.required]],
       employeeGmail: ['',[Validators.required,Validators.pattern(/\b[\w.%-]+@[-.\w]+\.[A-Za-z]{2,4}\b/)]],
       employeeIdCard: ['',[Validators.required, Validators.pattern(/^[\d]{9}|[\d]{12}$/gmu)]],
       employeeAddress: ['',[Validators.required]],
-      employeePhone: ['',[Validators.required]],
-      employeeSalary: ['',[Validators.required]],
-      position: [],
+      employeePhone: ['',[Validators.required, Validators.pattern(/^(0|\+84)[\d]{9}|[\d]{11}$/gmu)]],
+      employeeSalary: ['',[Validators.required,Validators.max(20),Validators.pattern(/^[0-9]+$/)]],
+      position: ['',[Validators.required]],
       account: this.fb.group({
         userName: [],
       }),
@@ -100,8 +112,10 @@ export class EmployeeEditComponent implements OnInit {
 
   editEmployee(){
     if (this.formEdit.valid){
+      this.showLoading = true;
       this.employeeService.editEmployee(this.formEdit.value,this.id).subscribe(
         () => {
+          this.showLoading = false;
           this.toastrService.success(
             'Sửa thành công!',
             'Thông báo!',
@@ -109,6 +123,7 @@ export class EmployeeEditComponent implements OnInit {
           );
         },
         error => {
+          this.showLoading = false;
           this.toastrService.error(
             'Dữ liệu không đúng',
             'Có lỗi xảy ra',
@@ -123,44 +138,22 @@ export class EmployeeEditComponent implements OnInit {
   saveImage(){
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const fileRef = this.storage.ref(nameImg);
-    this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
+    return this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.formEdit.patchValue({urlImage: url});
-          console.log(this.formEdit.value);
-          if (this.formEdit.valid){
-            this.employeeService.createEmployee(this.formEdit.value).subscribe(
-              () => {
-                this.toastrService.success(
-                  'Thêm mới thành công!',
-                  'Thông báo!',
-                  {timeOut: 3000, extendedTimeOut: 1500}
-                );
-              },
-              error => {
-                this.toastrService.error(
-                  'Dữ liệu không đúng',
-                  'Có lỗi xảy ra',
-                  {timeOut: 3000, extendedTimeOut: 1500}
-                );
-              }
-            );
-          }
+          this.editEmployee();
         });
       })
     ).subscribe();
   }
 
-  editEmployeeAndUpLoadImage() {
-    console.log(this.formEdit.value);
-    console.log(this.fileChange);
-
+  async editEmployeeAndUpLoadImage() {
     if(!this.fileChange) {
       this.editEmployee();
     }
     else {
       this.saveImage();
-      this.editEmployee();
     }
   }
 

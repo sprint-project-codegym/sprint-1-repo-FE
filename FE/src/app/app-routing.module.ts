@@ -8,7 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('./customer/customer.module').then(module => module.CustomerModule)
   },
   {
-    path: 'employee-create',
+    path: 'employee',
     loadChildren: () => import('./employee/employee.module').then(module => module.EmployeeModule)
   },
   {

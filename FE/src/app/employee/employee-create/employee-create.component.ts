@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {IEmployee} from '../../model/employee-create/IEmployee';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EmployeeService} from '../../service/employee.service';
@@ -9,19 +9,39 @@ import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
 // import {url} from 'inspector';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {EmployeeCustomValidator} from "../../model/employee-create/EmployeeCustomValidator";
+
+// https://stackoverflow.com/questions/9229213/convert-iso-date-to-milliseconds-in-javascript
+function timeSince(date): any {
+
+  // @ts-ignore
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = seconds / 31536000;
+
+  if (interval > 1) {
+    return Math.floor(interval);
+  }
+
+  return 0;
+}
 
 @Component({
   selector: 'app-employee-create',
   templateUrl: './employee-create.component.html',
   styleUrls: ['./employee-create.component.scss']
 })
+
 export class EmployeeCreateComponent implements OnInit {
   formCreate: FormGroup;
   employee: IEmployee;
   listPosition: IPosition[];
   selectedImage: any = null;
   url: string;
-  public filePath = '../../../assets/images/add-image-employee.png';
+  showLoading = false;
+  public employeeCustomValidator: EmployeeCustomValidator = new EmployeeCustomValidator();
+  public filePath = 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png';
+
 
   constructor(private activeRouter: ActivatedRoute,
               private fb: FormBuilder,
@@ -37,16 +57,16 @@ export class EmployeeCreateComponent implements OnInit {
   createForm(){
     this.getAllPosition();
     this.formCreate = this.fb.group({
-      employeeName: ['',[Validators.required, Validators.pattern(/^([^0-9]*)$/)]],
-      employeeBirthday: ['',[Validators.required]],
+      employeeName: ['',[Validators.required,Validators.maxLength(30), Validators.pattern(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/)]],
+      employeeBirthday: ['',[Validators.required, Validators.compose([this.employeeCustomValidator.ageLimitValidator(18, 30)])]],
       employeeGender: ['',[Validators.required]],
-      employeeGmail: ['',[Validators.required, Validators.pattern(/\b[\w.%-]+@[-.\w]+\.[A-Za-z]{2,4}\b/)]],
+      employeeGmail: ['',[Validators.required,Validators.pattern(/\b[\w.%-]+@[-.\w]+\.[A-Za-z]{2,4}\b/)]],
       employeeIdCard: ['',[Validators.required, Validators.pattern(/^[\d]{9}|[\d]{12}$/gmu)]],
       employeeAddress: ['',[Validators.required]],
-      employeePhone: ['',[Validators.required]],
-      employeeSalary: ['',[Validators.required]],
+      employeePhone: ['',[Validators.required, Validators.pattern(/^(0|\+84)[\d]{9}|[\d]{11}$/gmu)]],
+      employeeSalary: ['',[Validators.required,Validators.max(20),Validators.pattern(/^[0-9]+$/)]],
       position: ['',[Validators.required]],
-      urlImage: ['',[Validators.required]],
+      urlImage: [],
     });
   }
 
@@ -62,10 +82,33 @@ export class EmployeeCreateComponent implements OnInit {
     return c1 && c2 ? c1.positionId === c2.positionId : c1 === c2;
   }
 
+
+ // https://codinglatte.com/posts/angular/angular-building-custom-validators/
+  ageLimitValidator(minAge: number, maxAge: number): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+
+      // if control value is not null and is a number
+      if (control.value !== null) {
+
+        let date = new Date(control.value);
+        let age = timeSince(date.getTime());
+        console.log(age+ " tuổi");
+        // return null  if it's in between the minAge and maxAge and is A valid Number
+        return age < minAge || // checks if its below the minimum age
+              age > maxAge // checks if its above the maximum age
+              ? { ageLimit: true } // return this incase of error
+              : null; // there was not error
+      }
+      return null;
+    };
+  }
+
+
+
   createEmployee(): void{
     if(this.selectedImage == null){
         this.toastrService.error(
-          'Chưa chọn hình ảnh',
+          'Hãy chọn hình ảnh',
           'Có lỗi xảy ra',
           {timeOut: 3000, extendedTimeOut: 1500}
         );
@@ -79,8 +122,10 @@ export class EmployeeCreateComponent implements OnInit {
             this.formCreate.patchValue({urlImage: url});
           console.log(this.formCreate.value);
           if (this.formCreate.valid){
+            this.showLoading = true;
             this.employeeService.createEmployee(this.formCreate.value).subscribe(
               () => {
+                this.showLoading = false;
                 this.toastrService.success(
                   'Thêm mới thành công!',
                   'Thông báo!',
@@ -88,8 +133,9 @@ export class EmployeeCreateComponent implements OnInit {
                 );
               },
               error => {
+                this.showLoading = false;
                 this.toastrService.error(
-                  'Dữ liệu không đúng',
+                  'Trùng thông tin email, CMND hoặc Số điện thoại',
                   'Có lỗi xảy ra',
                   {timeOut: 3000, extendedTimeOut: 1500}
                 );

@@ -7,8 +7,10 @@ import {Observable} from 'rxjs';
 })
 export class EmployeeService {
 
-  public ApiEmployeeCreate: string = 'http://localhost:8080/api/home/employee';
-  public ApiGetAllPosition: string = 'http://localhost:8080/api/home/position';
+  public ApiEmployeeList: string = 'http://localhost:8080/api/home/employee';
+  public ApiEmployeeCreate: string = 'http://localhost:8080/api/home/employee/create';
+  public ApiEmployeeEdit: string = 'http://localhost:8080/api/home/employee/edit';
+  public ApiGetAllPosition: string = 'http://localhost:8080/api/home/employee/position';
   constructor(public http: HttpClient) { }
 
   createEmployee(employee: any):Observable<any>{
@@ -16,11 +18,11 @@ export class EmployeeService {
   }
 
   editEmployee(employee: any, id: any):Observable<any>{
-    return this.http.put(`${this.ApiEmployeeCreate}/${id}`,employee);
+    return this.http.put(`${this.ApiEmployeeEdit}/${id}`,employee);
   }
 
   getEmployeeById(id: any):Observable<any>{
-    return this.http.get(`${this.ApiEmployeeCreate}/${id}`,);
+    return this.http.get(`${this.ApiEmployeeList}/${id}`,);
   }
 
   getAllPosition(): Observable<any> {
