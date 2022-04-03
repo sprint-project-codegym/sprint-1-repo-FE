@@ -11,7 +11,6 @@ import {NgxSpinnerService} from "ngx-spinner";
   styleUrls: ['./security-reset-password.component.scss']
 })
 export class SecurityResetPasswordComponent implements OnInit {
-
   formGroup:FormGroup;
   isSubmited = false;
   constructor(private formBuilder:FormBuilder,
@@ -48,8 +47,8 @@ export class SecurityResetPasswordComponent implements OnInit {
   load() {
     this.spinner.show();
     setTimeout(() => {
-      /** spinner ends after 2 seconds */
+      /** spinner ends after 8 seconds */
       this.spinner.hide();
-    }, 2000);
+    }, 8000);
   }
 }

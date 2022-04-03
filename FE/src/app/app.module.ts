@@ -13,6 +13,9 @@ import { FooterComponent } from './component/footer/footer.component';
 import { HomeComponent } from './component/home/home.component';
 import { CommonModule } from '@angular/common';
 import {NgxSpinnerModule} from "ngx-spinner";
+import {EmployeeModule} from "./employee/employee.module";
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import {NgxSpinnerModule} from "ngx-spinner";
     CommonModule,
     FormsModule,
     NgxSpinnerModule,
-    ToastrModule.forRoot()
+    EmployeeModule,
+    ToastrModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

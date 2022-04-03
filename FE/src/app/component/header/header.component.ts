@@ -3,6 +3,7 @@ import {TokenStorageService} from "../../service/token-storage.service";
 import {ShareService} from "../../service/share.service";
 import {Route, Router} from "@angular/router";
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -50,10 +51,9 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  getUsernameAccount(){
+  getUsernameAccount() {
     if (this.tokenStorageService.getToken()) {
-      this.accountId= this.tokenStorageService.getUser().id;
+      this.accountId = this.tokenStorageService.getUser().id;
     }
   }
-
 }

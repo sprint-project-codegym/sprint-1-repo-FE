@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {ToastrService} from "ngx-toastr";
-
 @Component({
   selector: 'app-security-verify-reset-password',
   templateUrl: './security-verify-reset-password.component.html',
@@ -71,5 +70,4 @@ export class SecurityVerifyResetPasswordComponent implements OnInit {
       {type: 'maxlength', message: 'Mật khẩu tối đa 30 ký tự!'},
     ]
   };
-
 }
