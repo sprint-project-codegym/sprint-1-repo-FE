@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
 
   username: string;
   accountId: number;
-  idEmployee: string;
   currentUser: string;
   role: string;
   isLoggedIn: boolean = false;
@@ -53,7 +52,6 @@ export class HeaderComponent implements OnInit {
 
   getUsernameAccount(){
     if (this.tokenStorageService.getToken()) {
-      // this.idEmployee= this.tokenStorageService.getUser().employee.employeeId;
       this.accountId= this.tokenStorageService.getUser().id;
     }
   }

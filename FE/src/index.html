@@ -8,8 +8,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="assets/bootstrap-4.6.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/fontawesome-5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="assets/fontawesome-5.15.4/css/fontawesome.css">
-
+  <!--  <link rel="stylesheet" href="assets/fontawesome-5.15.4/css/fontawesome.css">-->
 </head>
 <body>
   <app-root></app-root>
@@ -17,4 +16,16 @@
 <script src="assets/bootstrap-4.6.1/js/bootstrap.min.js"></script>
 <script src="assets/bootstrap-4.6.1/js/jquery-3.6.0.min.js"></script>
 <script src="assets/bootstrap-4.6.1/js/bootstrap.bundle.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $(window).scroll(function () {
+      // sticky navbar on scroll script
+      if (this.scrollY > 20) {
+        $('.shadow-sm').addClass("sticky");
+      } else {
+        $('.shadow-sm').removeClass("sticky");
+      }
+    });
+  });
+</script>
 </html>
