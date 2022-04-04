@@ -150,6 +150,6 @@ export class GroundEditComponent implements OnInit {
   }
 
   refresh() {
-    window.location.reload();
+    this.ngOnInit();
   }
 }
