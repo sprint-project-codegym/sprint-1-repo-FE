@@ -134,7 +134,7 @@ export class ContractCreateComponent implements OnInit {
 
   myForm() {
     this.formGroup = this.formBuilder.group({
-      contractId: ['', [Validators.required, Validators.pattern('^(HD)[-][\\d]{4}$')]],
+      contractId: ['', [Validators.required, Validators.pattern('^(HD)[-][\\d]{3}$')]],
       contractDate: [this.getFormattedDate()],
       startDate: ['', [Validators.required, this.smallerThanOtherTime('endDate')]],
       endDate: ['', [Validators.required, this.greaterThanOtherTime('startDate')]],
