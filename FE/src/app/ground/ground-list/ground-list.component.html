@@ -2,7 +2,7 @@
   <h3 class="text-center m-3">DANH SÁCH MẶT BẰNG</h3>
   <div class="row mb-3">
     <div class="col-4">
-      <button class="btn btn-primary" type="button"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</button>
+      <button class="btn btn-primary" type="button" routerLink="/ground/add"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</button>
     </div>
     <div class="col-8 ">
       <div class="row ">
@@ -42,7 +42,7 @@
         <td class="text-center">{{ground.rentCost}}</td>
         <td class="text-center">{{ground.manageCost}}</td>
         <td class="">
-          <button class="btn-sm btn-success"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
+          <button class="btn-sm btn-success" routerLink="/ground/edit/{{ground.groundId}}"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
           <button class="btn-sm btn-danger" data-target="#exampleModal" data-toggle="modal"
                   (click)="deleteId = ground.groundId"><i
             class="fas fa-trash-alt mr-1"></i>Xóa
