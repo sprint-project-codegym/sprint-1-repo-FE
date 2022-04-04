@@ -2,13 +2,19 @@
   <h3 class="text-center m-3">DANH SÁCH MẶT BẰNG</h3>
   <div class="row mb-3">
     <div class="col-4">
-      <button class="btn btn-primary" type="button" routerLink="/ground/add"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</button>
+      <button class="btn btn-primary" type="button" routerLink="/ground/add"><i class="fas fa-plus-circle mr-1"></i>Thêm
+        mới
+      </button>
     </div>
     <div class="col-8 ">
       <div class="row ">
         <div class="col-12 d-flex justify-content-end">
-          <input class="search form-control mr-3" placeholder="Tìm kiếm theo mã mặt bằng" #id>
-          <input class="search form-control mr-3" placeholder="Tìm kiếm theo tên khách hàng" #type>
+          <input class="search form-control mr-3" placeholder="Tìm kiếm mã mặt bằng"
+                 (keyup.enter)="search(0,
+id, type)" aria-describedby="basic-addon2" #id>
+          <input class="search form-control mr-3" placeholder="Tìm kiếm loại mặt bằng"
+                 (keyup.enter)="search(0,
+id, type)" aria-describedby="basic-addon2" #type>
           <button class="btn btn-light btn-outline-secondary" type="submit" (click)="search(0, id, type)"><i
             class="fas fa-search mr-1"></i>Tìm
             kiếm
@@ -24,7 +30,7 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th scope="col">Mã Mặt bằng</th>
+        <th scope="col">Mã mặt bằng</th>
         <th scope="col">Loại mặt bằng</th>
         <th scope="col">Diện tích(m²)</th>
         <th scope="col">Trạng thái</th>
@@ -35,15 +41,17 @@
       </thead>
       <tbody>
       <tr *ngFor="let ground of grounds">
-        <td scope="row">{{ground.groundId}}</td>
-        <td>{{ground.groundType}}</td>
+        <td scope="row" class="text-center">{{ground.groundId}}</td>
+        <td class="text-center">{{ground.groundType}}</td>
         <td class="text-center">{{ground.area}}</td>
         <td>{{ground.status}}</td>
-        <td class="text-center">{{ground.rentCost}}</td>
-        <td class="text-center">{{ground.manageCost}}</td>
+        <td class="text-center">{{ground.rentCost | currency:"VND"}}</td>
+        <td class="text-center">{{ground.manageCost | currency: "VND"}}</td>
         <td class="">
-          <button class="btn-sm btn-success" routerLink="/ground/edit/{{ground.groundId}}"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
-          <button class="btn-sm btn-danger" data-target="#exampleModal" data-toggle="modal"
+          <button class="btn btn-success" routerLink="/ground/edit/{{ground.groundId}}"><i
+            class="fas fa-pencil-alt mr-1"></i>Sửa
+          </button>
+          <button class="btn btn-danger" data-target="#exampleModal" data-toggle="modal"
                   (click)="deleteId = ground.groundId"><i
             class="fas fa-trash-alt mr-1"></i>Xóa
           </button>

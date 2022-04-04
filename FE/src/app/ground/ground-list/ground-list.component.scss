@@ -16,6 +16,9 @@
 th {
   text-align: center;
 }
+.pagination {
+  cursor:pointer;
+}
 th {
   text-align: center;
   background: #607D8B;
@@ -23,7 +26,6 @@ th {
 }
 .search {
   width: 240px;
-  border: 0;
-  border-bottom: 1px solid lightgray;
+  border: 1px solid lightgray;
   border-radius: 0
 }
