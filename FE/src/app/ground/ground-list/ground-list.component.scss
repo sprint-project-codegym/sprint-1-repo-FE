@@ -29,3 +29,11 @@ th {
   border: 1px solid lightgray;
   border-radius: 0
 }
+.text_ellipsis{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+

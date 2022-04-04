@@ -24,25 +24,27 @@ id, type)" aria-describedby="basic-addon2" #type>
     </div>
   </div>
   <div style="text-align: center" *ngIf="!grounds.length; else row">
-    <h4>Không tìm thấy hợp đồng.</h4>
+    <h3 class="text-danger text-center">Không có dữ liệu trả về.</h3>
   </div>
   <ng-template #row>
     <table class="table table-striped">
       <thead>
       <tr>
-        <th scope="col">Mã mặt bằng</th>
-        <th scope="col">Loại mặt bằng</th>
-        <th scope="col">Diện tích(m²)</th>
-        <th scope="col">Trạng thái</th>
-        <th scope="col">Giá bán(VND)</th>
-        <th scope="col">Phí quản lý(VND)</th>
-        <th scope="col"></th>
+        <th scope="col" width="10%">Mã mặt bằng</th>
+        <th scope="col" width="20%">Loại mặt bằng</th>
+        <th scope="col" width="10%">Diện tích(m²)</th>
+        <th scope="col" width="18%">Trạng thái</th>
+        <th scope="col" width="15%">Giá bán(VND)</th>
+        <th scope="col" width="15%">Phí quản lý(VND)</th>
+        <th scope="col" width="12%"></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let ground of grounds">
-        <td scope="row" class="text-center">{{ground.groundId}}</td>
-        <td class="text-center">{{ground.groundType}}</td>
+<!--        <td scope="row" class="text-center">{{ground.groundId}}</td>-->
+        <td scope="row" class="text-center" ><span class="text_ellipsis"  data-toggle="tooltip" title="{{ground.groundId}}">
+  {{ground.groundId}}</span></td>
+        <td>{{ground.groundType}}</td>
         <td class="text-center">{{ground.area}}</td>
         <td>{{ground.status}}</td>
         <td class="text-center">{{ground.rentCost | currency:"VND"}}</td>
@@ -116,3 +118,8 @@ id, type)" aria-describedby="basic-addon2" #type>
     </div>
   </div>
 </div>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
