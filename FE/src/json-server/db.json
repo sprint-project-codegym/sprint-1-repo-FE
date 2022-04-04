@@ -1,0 +1,166 @@
+{"contract":[
+              {
+                "contractId": "CT002",
+                "startDate": "2022-06-03",
+                "endDate": "2022-07-30",
+                "contractDate": "2022-06-02",
+                "rentCost": 10000000,
+                "totalCost": 120000000,
+                "contractContent": "Hợp đồng số 2 được tạo ngày x tháng y năm z",
+                "deleteFlag": true,
+                "customer": {
+                  "customerId": "C002",
+                  "customerName": "Cao Hạ Ly",
+                  "customerBirthday": "1995-04-02",
+                  "customerIdCard": "232348986",
+                  "customerEmail": "chaly@gmail.com",
+                  "customerAddress": "Đà Nẵng",
+                  "customerPhone": "0365456686",
+                  "customerCompany": "VinGroup",
+                  "status": "Đang thuê",
+                  "deleteFlag": false
+                },
+                "employee": {
+                  "employeeId": "E006",
+                  "employeeName": "Trần Bỉ Ngạn",
+                  "employeeBirthday": "2001-09-10",
+                  "employeeGender": false,
+                  "employeeIdCard": "232348986",
+                  "employeeGmail": "tbingan@gmail.com",
+                  "employeeAddress": "Quảng Bình",
+                  "employeePhone": "0365456686",
+                  "employeeSalary": 2000,
+                  "deleteFlag": true,
+                  "position": {
+                    "positionId": "4",
+                    "positionName": "Giám đốc"
+                  }
+                },
+                "ground": {
+                  "groundId": "2",
+                  "groundType": "Vip",
+                  "area": 200,
+                  "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.agiusa.com%2Fhow-to-test-for-land-subsidence-before-breaking-ground&psig=AOvVaw1Y54PIx8yoUsaxPjao-7IG&ust=1647396516755000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCKCUqbqEx_YCFQAAAAAdAAAAABAU",
+                  "status": "stutas",
+                  "rentCost": 2222,
+                  "manageCost": 2222,
+                  "note": "note",
+                  "version": 1,
+                  "deleteFlag": true,
+                  "floor": {
+                    "floorId": "2",
+                    "floorName": "Jollibee",
+                    "area": 30,
+                    "capacity": 20,
+                    "status": "ok",
+                    "floorType": "Normal",
+                    "deleteFlag": true,
+                    "building": {
+                      "buildingId": "1",
+                      "buildingName": "854363854",
+                      "taxCode": "Đà Nẵng",
+                      "phoneNumber": "lotte@gmail.com",
+                      "fax": "sd324s",
+                      "email": "0368596545",
+                      "address": "Lotte"
+                    }
+                  }
+                }
+              },
+              {
+                "contractId": "CT001",
+                "startDate": "2022-06-03",
+                "endDate": "2022-07-30",
+                "contractDate": "2022-06-02",
+                "rentCost": 10000000,
+                "totalCost": 120000000,
+                "contractContent": "Hợp đồng số 2 được tạo ngày x tháng y năm z",
+                "deleteFlag": true,
+                "customer": {
+                  "customerId": "C002",
+                  "customerName": "Cao Hạ Ly",
+                  "customerBirthday": "1995-04-02",
+                  "customerIdCard": "232348986",
+                  "customerEmail": "chaly@gmail.com",
+                  "customerAddress": "Đà Nẵng",
+                  "customerPhone": "0365456686",
+                  "customerCompany": "VinGroup",
+                  "status": "Đang thuê",
+                  "deleteFlag": false
+                },
+                "employee": {
+                  "employeeId": "E006",
+                  "employeeName": "Trần Bỉ Ngạn",
+                  "employeeBirthday": "2001-09-10",
+                  "employeeGender": false,
+                  "employeeIdCard": "232348986",
+                  "employeeGmail": "tbingan@gmail.com",
+                  "employeeAddress": "Quảng Bình",
+                  "employeePhone": "0365456686",
+                  "employeeSalary": 2000,
+                  "deleteFlag": true,
+                  "position": {
+                    "positionId": "4",
+                    "positionName": "Giám đốc"
+                  }
+                },
+                "ground": {
+                  "groundId": "2",
+                  "groundType": "Vip",
+                  "area": 200,
+                  "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.agiusa.com%2Fhow-to-test-for-land-subsidence-before-breaking-ground&psig=AOvVaw1Y54PIx8yoUsaxPjao-7IG&ust=1647396516755000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCKCUqbqEx_YCFQAAAAAdAAAAABAU",
+                  "status": "stutas",
+                  "rentCost": 2222,
+                  "manageCost": 2222,
+                  "note": "note",
+                  "version": 1,
+                  "deleteFlag": true,
+                  "floor": {
+                    "floorId": "2",
+                    "floorName": "Jollibee",
+                    "area": 30,
+                    "capacity": 20,
+                    "status": "ok",
+                    "floorType": "Normal",
+                    "deleteFlag": true,
+                    "building": {
+                      "buildingId": "1",
+                      "buildingName": "854363854",
+                      "taxCode": "Đà Nẵng",
+                      "phoneNumber": "lotte@gmail.com",
+                      "fax": "sd324s",
+                      "email": "0368596545",
+                      "address": "Lotte"
+                    }
+                  }
+                }
+              }
+            ],
+
+        "customer":[
+        {
+        "customerId": "1",
+        "customerName":"A"
+        },
+        {
+        "customerId": "2",
+        "customerName":"B"
+        },
+        {
+        "customerId": "3",
+        "customerName":"Cx"
+        }
+        ],
+        "ground":[
+        {
+        "groundId":"1"
+        },
+        {
+                "groundId":"2"
+                },
+                {
+                        "groundId":"3"
+                        }
+        ]
+}
+
