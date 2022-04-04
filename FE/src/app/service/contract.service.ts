@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
 import {ContractDTO} from '../dto/ContractDTO';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {EMPTY, Observable} from 'rxjs';
 import {IContract} from '../entity/IContract';
 
 @Injectable({
@@ -14,7 +14,6 @@ export class ContractService {
   }
 
 
-
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -23,7 +22,7 @@ export class ContractService {
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
   };
 
-  searchContractByIdAndCusName(page: number, id: string, cusName: string ): Observable<any> {
+  searchContractByIdAndCusName(page: number, id: string, cusName: string): Observable<any> {
     return this.httpClient.get(this.API + '/list?page=' + page + '&id=' + id + '&customerName=' + cusName);
   }
 
@@ -42,10 +41,10 @@ export class ContractService {
   createContract(contractDTO: ContractDTO): Observable<ContractDTO> {
     console.log(JSON.stringify(contractDTO));
     return this.httpClient.post<ContractDTO>(this.API + '/create', JSON.stringify(contractDTO), this.httpOptions);
-  };
+  }
 
   getContractById(contractId): Observable<any> {
-    return this.httpClient.get(this.API + '/' + contractId, this.httpOptions);
+    return this.httpClient.get<any>(this.API + '/' + contractId, this.httpOptions);
   }
 
   updateContract(id: any, obj: IContract): Observable<any> {
@@ -53,7 +52,15 @@ export class ContractService {
   }
 
   getAllContract(page: number, size: number): Observable<any> {
-    return this.httpClient.get(this.API + '/list?page=' + page + '&size=' + size, this.httpOptions);
+    return this.httpClient.get<any>(this.API + '/list?page=' + page + '&size=' + size, this.httpOptions);
+  }
+
+  getIdContract(id: string): Observable<any> {
+    if (id == null) {
+      return EMPTY;
+    } else {
+      return this.httpClient.get<any>(this.API + '/list/' + id, this.httpOptions);
+    }
   }
 }
 

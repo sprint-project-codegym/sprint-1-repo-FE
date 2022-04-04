@@ -2,7 +2,9 @@
   <h1 class="text-center m-3">DANH SÁCH HỢP ĐỒNG</h1>
   <div class="row mb-3">
     <div class="col-4">
-      <button class="btn btn-primary" type="button"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</button>
+      <button class="btn btn-primary" [routerLink]="['/contract/create']" type="button"><i
+        class="fas fa-plus-circle mr-1"></i>Thêm mới
+      </button>
     </div>
     <div class="col-8 ">
       <div class="row ">
@@ -46,7 +48,9 @@
         <td>{{cont.contractDate}}</td>
         <td style="text-align: right">{{cont.totalCost | currency: "VND" }}</td>
         <td class="" style="text-align: center">
-          <button class="btn btn-success mr-3 "><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
+          <button [routerLink]="['/contract/edit/'+ cont.contractId]" class="btn btn-success mr-3 "><i
+            class="fas fa-pencil-alt mr-1"></i>Sửa
+          </button>
           <button class="btn btn-danger " data-toggle="modal" data-target="#exampleModal"
                   (click)="deleteId = cont.contractId"><i
             class="fas fa-trash-alt mr-1"></i>Xóa

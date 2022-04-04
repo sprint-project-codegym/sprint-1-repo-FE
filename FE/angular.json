@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "a0321i1-project"
+  "defaultProject": "a0321i1-project",
+  "cli": {
+    "analytics": false
+  }
 }
