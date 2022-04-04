@@ -24,10 +24,12 @@ th {
 
 .search {
   width: 200px;
-  border: 0;
-  border-bottom: 1px solid lightgray;
+  border: 1px solid lightgray;
   border-radius: 0
 }
 .header_top{
   margin-top: 75px;
+}
+.pagination {
+  cursor:pointer;
 }
