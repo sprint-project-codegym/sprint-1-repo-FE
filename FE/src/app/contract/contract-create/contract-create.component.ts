@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ICustomer} from '../../entity/ICustomer';
 import {ContractService} from '../../service/contract.service';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
@@ -21,7 +21,8 @@ export class ContractCreateComponent implements OnInit {
   public datePipe: DatePipe = new DatePipe('en-US');
   public pipeRentCost = 0;
   public pipeTotalCost = 0;
-  origMenaces = [];
+  public contract = null;
+  @ViewChild('contractId') contractId: ElementRef;
 
 
   constructor(private contractService: ContractService,
@@ -69,7 +70,7 @@ export class ContractCreateComponent implements OnInit {
       }
       const thisValue = control.value;
       const otherValue = control.parent.get(otherControlName).value;
-      if (thisValue < otherValue) {
+      if (thisValue < otherValue && thisValue >= this.getFormattedDate()) {
         return null;
       }
 
@@ -159,24 +160,54 @@ export class ContractCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formGroup.value);
     if (this.formGroup.invalid) {
-      (document.getElementById('button') as HTMLInputElement).disabled = false;
+      this.toastrService.error(
+        'Không thể tạo Hợp đồng!',
+        'Có lỗi xảy ra',
+        {timeOut: 1000, extendedTimeOut: 1500}
+      );
+    } else {
+      this.contractService.getIdContract(this.formGroup.value.contractId).subscribe(
+        data => {
+          this.contract = data;
+          if (this.contract != null) {
+            this.contractId.nativeElement.focus();
+            this.toastrService.error(
+              'Mã Hợp đồng đã tồn tại!',
+              'Có lỗi xảy ra',
+              {timeOut: 1000, extendedTimeOut: 1500}
+            );
+          } else {
+            this.createContract();
+          }
+        },
+        error => {
+          this.toastrService.error(
+            'Không thể tạo Hợp đồng!',
+            'Có lỗi xảy ra',
+            {timeOut: 1000, extendedTimeOut: 1500}
+          );
+        }
+      );
     }
+  }
+
+  createContract() {
     this.contractService.createContract(this.formGroup.value).subscribe(data => {
+        this.formGroup.reset();
         this.toastrService.success(
           'Thêm mới thành công!',
           'Thông báo!',
-          {timeOut: 3000, extendedTimeOut: 1500}
+          {timeOut: 1000, extendedTimeOut: 1500}
         );
-        console.log(data);
       },
       error => {
         this.toastrService.error(
-          'Mã Hợp Đồng đã tồn tại!',
+          'Không thể tạo Hợp đồng!',
           'Có lỗi xảy ra',
-          {timeOut: 3000, extendedTimeOut: 1500}
+          {timeOut: 1000, extendedTimeOut: 1500}
         );
-      });
+      }
+    );
   }
 }

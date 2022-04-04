@@ -9,7 +9,7 @@
           <h4 class="mb-5 text-center text">Thêm mới hợp đồng</h4>
           <form [formGroup]="formGroup" class="form-horizontal mt-4 mb-5 px-3">
             <div class="form-group row">
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Mặt bằng<span
                     class="text-danger">*</span></label>
@@ -29,11 +29,10 @@
                   </p>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Họ Và Tên Khách Hàng<span
                     class="text-danger">*</span></label>
-                  (<a class="btn_register" href="#">Đăng Ký</a>)
                   <select class="form-control" id="exampleFormControlSelect1" formControlName="customerId">
                     <option *ngFor="let customer of customerList" [value]="customer.customerId">
                       {{customer.customerName}}
@@ -50,10 +49,10 @@
                   </p>
                   <p
                     *ngIf="formGroup.controls.startDate.touched&&formGroup.controls.startDate.errors?.smallerThanOtherTime"
-                    class="text-danger">Ngày bắt đàu phải trước Ngày kết thúc!</p>
+                    class="text-danger">Ngày bắt đầu phải là Ngày hôm nay hoặc sau và phải trước Ngày kết thúc!</p>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <div class="form-group">
                   <label for="exampleFormControlSelect1">Họ Và Tên Nhân Viên<span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="exampleFormControlInput1"
@@ -75,10 +74,10 @@
               </div>
             </div>
             <div class="form-group row">
-              <div class="form-group col-4">
+              <div class="form-group col-sm-4">
                 <label for="exampleFormControlSelect1">Mã Hợp Đồng<span
                   class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="contractId" formControlName="contractId">
+                <input type="text" class="form-control" id="contractId" #contractId formControlName="contractId">
                 <p class="text-danger"
                       *ngIf="formGroup.controls.contractId.errors?.required&&formGroup.controls.contractId.touched">
                   Không được để trống. Vui lòng nhập!
@@ -88,7 +87,7 @@
                   Mã hợp đồng không đúng định dạng (VD: HD-0001)!
                 </p>
               </div>
-              <div class="form-group col-4">
+              <div class="form-group col-sm-4">
                 <div class="d-flex justify-content-between">
                   <label for="exampleFormControlSelect1">
                     <span>Giá Tiền Mỗi Tháng(VNĐ)</span>
@@ -107,9 +106,11 @@
                   Không hợp lệ! Giá tiền không được bắt đầu từ 0 và không được nhập chữ!
                 </p>
                 <p class="text-danger"
-                      *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.smallerThan">Phải nhỏ hơn hoặc bằng Tổng tiền</p>
+                      *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.smallerThan">
+                  Giá tiền mỗi tháng phải nhỏ hơn hoặc bằng Tổng tiền
+                </p>
               </div>
-              <div class="form-group col-4">
+              <div class="form-group col-sm-4">
                 <div class="d-flex justify-content-between">
                   <label for="exampleFormControlSelect1">
                     <span>Tổng Tiền(VNĐ)</span>
@@ -122,7 +123,7 @@
                 <p
                   *ngIf="formGroup.controls.totalCost.dirty&&formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.pattern"
                   class="text-danger">
-                  Không hợp lệ! Tổng tiền hông được bắt đầu từ 0!
+                  Không hợp lệ! T không được bắt đầu từ 0 và không được nhập chữ!
                 </p>
                 <p class="text-danger"
                       *ngIf="formGroup.controls.totalCost.errors?.required&&formGroup.controls.totalCost.touched">
