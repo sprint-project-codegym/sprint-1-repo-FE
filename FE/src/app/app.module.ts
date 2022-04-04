@@ -36,7 +36,7 @@ import {ContractService} from './service/contract.service';
     MatInputModule,
     FormsModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [ContractService],
   bootstrap: [AppComponent]
