@@ -7,11 +7,12 @@ import {ToastrService} from "ngx-toastr";
 @Component({
   selector: 'app-contract-list',
   templateUrl: './contract-list.component.html',
-  styleUrls: ['./contract-list.component.scss']
+  styleUrls: ['./contract-list.component.scss'],
+
 })
 export class ContractListComponent implements OnInit {
   contracts: IContract[];
-  size = 1;
+  size = 3;
   pageClicked = 0;
   totalPages = 1;
   pages = [];

@@ -18,6 +18,8 @@
 ​
 th {
   text-align: center;
+  background: #607D8B;
+  color: white;
 }
 
 .search {
@@ -25,4 +27,7 @@ th {
   border: 0;
   border-bottom: 1px solid lightgray;
   border-radius: 0
+}
+.header_top{
+  margin-top: 75px;
 }
