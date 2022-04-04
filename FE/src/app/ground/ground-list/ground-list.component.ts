@@ -34,12 +34,14 @@ export class GroundListComponent implements OnInit {
 
   onFirst() {
     this.pageClicked = 0;
+    // @ts-ignore
     this.search(this.pageClicked);
   }
 
   onPrevious() {
     if (this.pageClicked > 0) {
       this.pageClicked--;
+      // @ts-ignore
       this.search(this.pageClicked);
     }
   }
@@ -58,12 +60,14 @@ export class GroundListComponent implements OnInit {
   onNext() {
     if (this.pageClicked < this.totalPages - 1) {
       this.pageClicked++;
+      // @ts-ignore
       this.search(this.pageClicked);
     }
   }
 
   onLast() {
     this.pageClicked = this.totalPages - 1;
+    // @ts-ignore
     this.search(this.pageClicked);
   }
 
@@ -76,10 +80,7 @@ export class GroundListComponent implements OnInit {
     this.groundService.searchGround(this.idInput, this.typeInput, page).subscribe(
       data => {
         if (data === null) {
-          this.toastrService.info('Không tìm thấy khách hàng theo điều kiện đã tìm kiếm');
-          this.onSubmit(0);
-          this.idInput = "";
-          this.typeInput = "";
+          this.grounds = [];
         } else {
           this.grounds = data['content'];
           this.pageClicked = page;
