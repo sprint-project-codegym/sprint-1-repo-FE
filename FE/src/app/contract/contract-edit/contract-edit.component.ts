@@ -142,10 +142,6 @@ export class ContractEditComponent implements OnInit {
     });
   }
 
-  refresh() {
-    window.location.reload();
-  }
-
   smallerThan(otherControlName: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.parent) {
@@ -216,5 +212,9 @@ export class ContractEditComponent implements OnInit {
 
   Submit() {
     this.editContract();
+  }
+
+  reloadPage(){
+    this.ngOnInit();
   }
 }

@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatNativeDateModule} from "@angular/material/core"
 
 
 @NgModule({
@@ -29,9 +30,12 @@ import {MatInputModule} from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
-  ]
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    MatNativeDateModule
+  ],
+  providers: [MatDatepickerModule]
 })
-export class ContractModule { }
+export class ContractModule {
+}
 
 
