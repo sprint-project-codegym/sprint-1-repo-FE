@@ -45,4 +45,14 @@ export class GroundService {
     return this.http.post<GroundCreateDTO>(this.GROUND_API + '/create', JSON.stringify(groundDto), this.httpOptions);
   }
 
+  getAllGround(page: number, size:number): Observable<any> {
+    return this.http.get(this.GROUND_API +'/list'+'?page=' + page + "&size=" + size);
+  }
+
+  searchGround(id: string, type: string, page: number): Observable<any> {
+    return this.http.get(this.GROUND_API +'/list'+'?id=' + id + '&groundType=' + type + '&page=' + page);
+  }
+  deleteGroundById(deleteId: string) {
+    return this.http.delete(this.GROUND_API + '/delete/' + deleteId);
+  }
 }

@@ -1,1 +1,110 @@
-<p>ground-list works!</p>
+<div class="container-fluid">
+  <h3 class="text-center m-3">DANH SÁCH MẶT BẰNG</h3>
+  <div class="row mb-3">
+    <div class="col-4">
+      <button class="btn btn-primary" type="button" routerLink="/ground/add"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</button>
+    </div>
+    <div class="col-8 ">
+      <div class="row ">
+        <div class="col-12 d-flex justify-content-end">
+          <input class="search form-control mr-3" placeholder="Tìm kiếm theo mã mặt bằng" #id>
+          <input class="search form-control mr-3" placeholder="Tìm kiếm theo tên khách hàng" #type>
+          <button class="btn btn-light btn-outline-secondary" type="submit" (click)="search(0, id, type)"><i
+            class="fas fa-search mr-1"></i>Tìm
+            kiếm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align: center" *ngIf="!grounds.length; else row">
+    <h4>Không tìm thấy hợp đồng.</h4>
+  </div>
+  <ng-template #row>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Mã Mặt bằng</th>
+        <th scope="col">Loại mặt bằng</th>
+        <th scope="col">Diện tích(m²)</th>
+        <th scope="col">Trạng thái</th>
+        <th scope="col">Giá bán(VND)</th>
+        <th scope="col">Phí quản lý(VND)</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ground of grounds">
+        <td scope="row">{{ground.groundId}}</td>
+        <td>{{ground.groundType}}</td>
+        <td class="text-center">{{ground.area}}</td>
+        <td>{{ground.status}}</td>
+        <td class="text-center">{{ground.rentCost}}</td>
+        <td class="text-center">{{ground.manageCost}}</td>
+        <td class="">
+          <button class="btn-sm btn-success" routerLink="/ground/edit/{{ground.groundId}}"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
+          <button class="btn-sm btn-danger" data-target="#exampleModal" data-toggle="modal"
+                  (click)="deleteId = ground.groundId"><i
+            class="fas fa-trash-alt mr-1"></i>Xóa
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <!--  Pagination-->
+    <div class="col-12">
+      <nav aria-label="Page navigation example" class="float-right">
+        <ul class="pagination">
+          <div *ngIf="pageClicked==0; else show1"></div>
+          <ng-template #show1>
+            <li class="page-item" (click)="onFirst()">
+              <a class="page-link">Đầu</a>
+            </li>
+            <li class="page-item" (click)="onPrevious()">
+              <a class="page-link"><<</a>
+            </li>
+          </ng-template>
+          <li *ngIf="pageClicked != 0" class="page-item" (click)="search(pages[pageClicked-1],id,type)">
+            <a class="page-link">{{pageClicked}}</a>
+          </li>
+          <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+              (click)="search(pages[pageClicked],id,type)">
+            <a class="page-link">{{pageClicked + 1}}</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="search(pages[pageClicked+1],id,type)">
+            <a class="page-link">{{pageClicked + 2}}</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length -2" class="page-item">
+            <a class="page-link">...</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
+            <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
+          </li>
+          <div *ngIf="pageClicked===totalPages-1; else show2"></div>
+          <ng-template #show2>
+            <li class="page-item" (click)="onNext()">
+              <a class="page-link">>></a>
+            </li>
+            <li class="page-item" (click)="onLast()"><a
+              class="page-link">Cuối</a></li>
+          </ng-template>
+        </ul>
+      </nav>
+    </div>
+  </ng-template>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-ground-delete [deleteId]="deleteId" (deleteComplete)="deleteSuccess()"></app-ground-delete>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
