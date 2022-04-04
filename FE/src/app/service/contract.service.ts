@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ContractDTO} from '../dto/ContractDTO';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {EMPTY, Observable} from 'rxjs';
 import {IContract} from '../entity/IContract';
 
 @Injectable({
@@ -48,5 +48,13 @@ export class ContractService {
 
   searchContractByIdAndCusName(id: string, cusName: string) {
     return this.httpClient.get<any>(this.API + '/list/' + '?id=' + id + '&customerName=' + cusName, this.httpOptions);
+  }
+
+  getIdContract(id: string): Observable<any> {
+    if (id == null) {
+      return EMPTY;
+    } else {
+      return this.httpClient.get<any>(this.API + '/list/' + id, this.httpOptions);
+    }
   }
 }
