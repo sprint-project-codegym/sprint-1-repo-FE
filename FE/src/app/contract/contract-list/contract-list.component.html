@@ -26,14 +26,14 @@
     <table class="table table-striped">
       <thead>
       <tr style="text-align: center">
-        <th scope="col" style="background: #607D8B; color: white">ID</th>
-        <th scope="col" style="background: #607D8B; color: white">Tên khách hàng</th>
-        <th scope="col" style="background: #607D8B; color: white">Mã mặt bằng</th>
-        <th scope="col" style="background: #607D8B; color: white">Ngày bắt đầu</th>
-        <th scope="col" style="background: #607D8B; color: white">Ngày kết thúc</th>
-        <th scope="col" style="background: #607D8B; color: white">Ngày làm hợp đồng</th>
-        <th scope="col" style="background: #607D8B; color: white">Tổng tiền (Vnđ)</th>
-        <th scope="col" style="background: #607D8B; color: white"></th>
+        <th scope="col" style="width: 7%; background: #607D8B; color: white">ID</th>
+        <th scope="col" style="width: 15%; background: #607D8B; color: white">Tên khách hàng</th>
+        <th scope="col" style="width: 5%; background: #607D8B; color: white">Mã mặt bằng</th>
+        <th scope="col" style="width:15%; background: #607D8B; color: white">Ngày bắt đầu</th>
+        <th scope="col" style="width: 15%; background: #607D8B; color: white">Ngày kết thúc</th>
+        <th scope="col" style="width: 15%;background: #607D8B; color: white">Ngày làm hợp đồng</th>
+        <th scope="col" style="width: 15%;background: #607D8B; color: white">Tổng tiền (Vnđ)</th>
+        <th scope="col" style="width: 13%;background: #607D8B; color: white"></th>
       </tr>
       </thead>
       <tbody>
@@ -60,7 +60,7 @@
     <div class="col-12">
       <nav aria-label="Page navigation example" class="float-right">
         <ul class="pagination">
-          <div *ngIf="pageClicked==0; else show1" ></div>
+          <div *ngIf="pageClicked==0; else show1"></div>
           <ng-template #show1>
             <li class="page-item" (click)="onFirst()">
               <a class="page-link">Đầu</a>
@@ -85,7 +85,7 @@
           <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
             <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
           </li>
-          <div  *ngIf="pageClicked===totalPages-1; else show2" ></div>
+          <div *ngIf="pageClicked===totalPages-1; else show2"></div>
           <ng-template #show2>
             <li class="page-item" (click)="onNext()">
               <a class="page-link">>></a>
