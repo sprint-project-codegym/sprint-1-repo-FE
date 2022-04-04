@@ -23,6 +23,7 @@ import {MatInputModule} from '@angular/material/input';
     CommonModule,
     ContractRoutingModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
@@ -31,6 +32,6 @@ import {MatInputModule} from '@angular/material/input';
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ]
 })
+export class ContractModule { }
 
-export class ContractModule {
-}
+

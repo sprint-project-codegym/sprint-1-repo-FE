@@ -13,6 +13,7 @@ export class ContractService {
   constructor(private httpClient: HttpClient) {
   }
 
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -21,13 +22,21 @@ export class ContractService {
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
   };
 
+  searchContractByIdAndCusName(page: number, id: string, cusName: string): Observable<any> {
+    return this.httpClient.get(this.API + '/list?page=' + page + '&id=' + id + '&customerName=' + cusName);
+  }
+
+  deleteContractById(deleteId: string) {
+    return this.httpClient.get(this.API + '/list/delete/' + deleteId)
+  }
+
   getAllCustomer(): Observable<any> {
     return this.httpClient.get<any>(this.API + '/list-customer');
   }
 
   getAllGround(): Observable<any> {
     return this.httpClient.get<any>(this.API + '/list-ground');
-  }
+  };
 
   createContract(contractDTO: ContractDTO): Observable<ContractDTO> {
     console.log(JSON.stringify(contractDTO));
@@ -46,10 +55,6 @@ export class ContractService {
     return this.httpClient.get<any>(this.API + '/list?page=' + page + '&size=' + size, this.httpOptions);
   }
 
-  searchContractByIdAndCusName(id: string, cusName: string) {
-    return this.httpClient.get<any>(this.API + '/list/' + '?id=' + id + '&customerName=' + cusName, this.httpOptions);
-  }
-
   getIdContract(id: string): Observable<any> {
     if (id == null) {
       return EMPTY;
@@ -58,3 +63,4 @@ export class ContractService {
     }
   }
 }
+

@@ -24,7 +24,7 @@
                   <input [placeholder]="getFormattedDate()" [min]="" class="form-control" formControlName="contractDate"
                          readonly>
                   <p class="text-danger"
-                        *ngIf="formGroup.controls.contractDate.errors?.required&&formGroup.controls.contractDate.touched">
+                     *ngIf="formGroup.controls.contractDate.errors?.required&&formGroup.controls.contractDate.touched">
                     Vui lòng chọn thời gian!
                   </p>
                 </div>
@@ -44,7 +44,7 @@
                     class="text-danger">*</span></label>
                   <input type="date" class="form-control" formControlName="startDate">
                   <p class="text-danger"
-                        *ngIf="formGroup.controls.startDate.errors?.required&&formGroup.controls.startDate.touched">
+                     *ngIf="formGroup.controls.startDate.errors?.required&&formGroup.controls.startDate.touched">
                     Vui lòng chọn thời gian!
                   </p>
                   <p
@@ -64,7 +64,7 @@
                   <br>
                   <input type="date" class="form-control" formControlName="endDate">
                   <p class="text-danger"
-                        *ngIf="formGroup.controls.endDate.errors?.required&&formGroup.controls.endDate.touched">
+                     *ngIf="formGroup.controls.endDate.errors?.required&&formGroup.controls.endDate.touched">
                     Vui lòng chọn thời gian!
                   </p>
                   <p
@@ -79,11 +79,11 @@
                   class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="contractId" #contractId formControlName="contractId">
                 <p class="text-danger"
-                      *ngIf="formGroup.controls.contractId.errors?.required&&formGroup.controls.contractId.touched">
+                   *ngIf="formGroup.controls.contractId.errors?.required&&formGroup.controls.contractId.touched">
                   Không được để trống. Vui lòng nhập!
                 </p>
                 <p class="text-danger"
-                      *ngIf="formGroup.controls.contractId.errors?.pattern&&formGroup.controls.contractId.touched">
+                   *ngIf="formGroup.controls.contractId.errors?.pattern&&formGroup.controls.contractId.touched">
                   Mã hợp đồng không đúng định dạng (VD: HD-0001)!
                 </p>
               </div>
@@ -98,15 +98,15 @@
                 <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="rentCost"
                        [(ngModel)]="pipeRentCost">
                 <p class="text-danger"
-                      *ngIf="formGroup.controls.rentCost.errors?.required&&formGroup.controls.rentCost.touched">
+                   *ngIf="formGroup.controls.rentCost.errors?.required&&formGroup.controls.rentCost.touched">
                   Không được để trống. Vui lòng nhập!
                 </p>
                 <p *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.pattern"
-                      class="text-danger">
+                   class="text-danger">
                   Không hợp lệ! Giá tiền không được bắt đầu từ 0 và không được nhập chữ!
                 </p>
                 <p class="text-danger"
-                      *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.smallerThan">
+                   *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.smallerThan">
                   Giá tiền mỗi tháng phải nhỏ hơn hoặc bằng Tổng tiền
                 </p>
               </div>
@@ -126,11 +126,11 @@
                   Không hợp lệ! T không được bắt đầu từ 0 và không được nhập chữ!
                 </p>
                 <p class="text-danger"
-                      *ngIf="formGroup.controls.totalCost.errors?.required&&formGroup.controls.totalCost.touched">
+                   *ngIf="formGroup.controls.totalCost.errors?.required&&formGroup.controls.totalCost.touched">
                   Không được để trống. Vui lòng nhập!
                 </p>
                 <p *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.greaterThan"
-                      class="text-danger">Tổng tiền phải lớn hơn hoặc bằng Giá tiền mỗi tháng!</p>
+                   class="text-danger">Tổng tiền phải lớn hơn hoặc bằng Giá tiền mỗi tháng!</p>
               </div>
             </div>
             <div class="form-group row">

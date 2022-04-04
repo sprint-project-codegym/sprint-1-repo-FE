@@ -1,88 +1,119 @@
-<div class="container-fluid">
-  <h3 class="text-center m-3">DANH SÁCH HỢP ĐỒNG</h3>
+<div class="container-fluid header_top">
+  <h1 class="text-center m-3">DANH SÁCH HỢP ĐỒNG</h1>
   <div class="row mb-3">
     <div class="col-4">
-      <button [routerLink]="['/contract/create']"  class="btn btn-primary" type="button"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</button>
+      <button class="btn btn-primary" [routerLink]="['/contract/create']" type="button"><i
+        class="fas fa-plus-circle mr-1"></i>Thêm mới
+      </button>
     </div>
     <div class="col-8 ">
       <div class="row ">
         <div class="col-12 d-flex justify-content-end">
           <input class="search form-control mr-3"
-                 placeholder="Tìm theo tên khách hàng">
+                 placeholder="Tìm theo tên khách hàng" #cusName>
           <input class="search form-control mr-3"
-                 placeholder="Tìm theo mã hợp đồng">
-          <button class="btn btn-light btn-outline-secondary" type="button"><i class="fas fa-search mr-1"></i>Tìm
+                 placeholder="Tìm theo mã hợp đồng" #id>
+          <button class="btn btn-light btn-outline-secondary" type="submit" (click)="search(0, id, cusName)"><i
+            class="fas fa-search mr-1"></i>Tìm
             kiếm
           </button>
         </div>
       </div>
     </div>
   </div>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Tên khách hàng</th>
-      <th scope="col">Mã mặt bằng</th>
-      <th scope="col">Ngày bắt đầu</th>
-      <th scope="col">Ngày kết thúc</th>
-      <th scope="col">Ngày làm hợp đồng</th>
-      <th scope="col">Tổng tiền (Vnđ)</th>
-      <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let cont of contractList">
-      <td> {{cont.contractId}} </td>
-      <td>{{cont.customer.customerName}}</td>
-      <td>{{cont.ground.groundId}}</td>
-      <td>{{cont.startDate}}</td>
-      <td>{{cont.endDate}}</td>
-      <td>{{cont.contractDate}}</td>
-      <td style="text-align: right">{{cont.totalCost}}</td>
-      <td class="" style="text-align: center">
-        <button [routerLink]="['/contract/edit/'+ cont.contractId]" class="btn btn-success mr-3" type="button"><i
-          class="fas fa-pencil-alt mr-1"></i>Sửa
-        </button>
-        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#exampleModal"><i
-          class="fas fa-trash-alt mr-1"></i>Xóa
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <!--  Pagination-->
-  <div class="col-12">
-    <nav aria-label="Page navigation example" class="float-right">
-      <ul class="pagination">
-        <li class="page-item" (click)="onFirst()" [ngClass]="pageClicked==0?'disabled':''">
-          <a class="page-link">Đầu</a>
-        </li>
-        <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
-          <a class="page-link">Trước</a>
-        </li>
-        <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmit(pages[pageClicked-1])">
-          <a class="page-link">{{pageClicked}}</a>
-        </li>
-        <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
-            (click)="onSubmit(pages[pageClicked])">
-          <a class="page-link">{{pageClicked + 1}}</a>
-        </li>
-        <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="onSubmit(pages[pageClicked+1])">
-          <a class="page-link">{{pageClicked + 2}}</a>
-        </li>
-        <!--        <li *ngIf="pageClicked < pages.length -2" class="page-item">-->
-        <!--          <a class="page-link">...</a>-->
-        <!--        </li>-->
-        <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
-          <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
-        </li>
-        <li class="page-item" (click)="onNext()" [ngClass]="pageClicked==totalPages-1?'disabled':''">
-          <a class="page-link">Sau</a>
-        </li>
-        <li class="page-item" (click)="onLast()" [ngClass]="pageClicked==totalPages-1?'disabled':''"><a
-          class="page-link">Cuối</a></li>
-      </ul>
-    </nav>
+  <div style="text-align: center" *ngIf="!contracts.length; else row">
+    <h4>Không tìm thấy hợp đồng.</h4>
+  </div>
+  <ng-template #row>
+    <table class="table table-striped">
+      <thead>
+      <tr style="text-align: center">
+        <th scope="col" style="width: 7%; background: #607D8B; color: white">ID</th>
+        <th scope="col" style="width: 15%; background: #607D8B; color: white">Tên khách hàng</th>
+        <th scope="col" style="width: 5%; background: #607D8B; color: white">Mã mặt bằng</th>
+        <th scope="col" style="width:15%; background: #607D8B; color: white">Ngày bắt đầu</th>
+        <th scope="col" style="width: 15%; background: #607D8B; color: white">Ngày kết thúc</th>
+        <th scope="col" style="width: 15%;background: #607D8B; color: white">Ngày làm hợp đồng</th>
+        <th scope="col" style="width: 15%;background: #607D8B; color: white">Tổng tiền (Vnđ)</th>
+        <th scope="col" style="width: 13%;background: #607D8B; color: white"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cont of contracts">
+        <td> {{cont.contractId}} </td>
+        <td>{{cont.customer.customerName}}</td>
+        <td>{{cont.ground.groundId}}</td>
+        <td>{{cont.startDate }}</td>
+        <td>{{cont.endDate}}</td>
+        <td>{{cont.contractDate}}</td>
+        <td style="text-align: right">{{cont.totalCost | currency: "VND" }}</td>
+        <td class="" style="text-align: center">
+          <button [routerLink]="['/contract/edit/'+ cont.contractId]" class="btn btn-success mr-3 "><i
+            class="fas fa-pencil-alt mr-1"></i>Sửa
+          </button>
+          <button class="btn btn-danger " data-toggle="modal" data-target="#exampleModal"
+                  (click)="deleteId = cont.contractId"><i
+            class="fas fa-trash-alt mr-1"></i>Xóa
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <!--  Pagination-->
+    <div class="col-12">
+      <nav aria-label="Page navigation example" class="float-right">
+        <ul class="pagination">
+          <div *ngIf="pageClicked==0; else show1"></div>
+          <ng-template #show1>
+            <li class="page-item" (click)="onFirst()">
+              <a class="page-link">Đầu</a>
+            </li>
+            <li class="page-item" (click)="onPrevious()">
+              <a class="page-link"><<</a>
+            </li>
+          </ng-template>
+          <li *ngIf="pageClicked != 0" class="page-item" (click)="search(pages[pageClicked-1],id,cusName)">
+            <a class="page-link">{{pageClicked}}</a>
+          </li>
+          <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+              (click)="search(pages[pageClicked],id,cusName)">
+            <a class="page-link">{{pageClicked + 1}}</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="search(pages[pageClicked+1],id,cusName)">
+            <a class="page-link">{{pageClicked + 2}}</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length -2" class="page-item">
+            <a class="page-link">...</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
+            <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
+          </li>
+          <div *ngIf="pageClicked===totalPages-1; else show2"></div>
+          <ng-template #show2>
+            <li class="page-item" (click)="onNext()">
+              <a class="page-link">>></a>
+            </li>
+            <li class="page-item" (click)="onLast()"><a
+              class="page-link">Cuối</a></li>
+          </ng-template>
+        </ul>
+      </nav>
+    </div>
+  </ng-template>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-contract-delete [deleteId]="deleteId" (deleteComplete)="deleteSuccess()"></app-contract-delete>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
