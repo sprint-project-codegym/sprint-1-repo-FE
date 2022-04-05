@@ -25,6 +25,7 @@ const routes: Routes = [
   }
 ];
 
+// @ts-ignore
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

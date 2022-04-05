@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {EmployeeService} from "../../service/employee.service";
+import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-employee-delete',
@@ -6,10 +9,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee-delete.component.scss']
 })
 export class EmployeeDeleteComponent implements OnInit {
+  @Input()
+    deleteName: string;
 
-  constructor() { }
+  @Input()
+    deleteId: string;
 
-  ngOnInit(): void {
+  @Output()
+    deleteComplete = new EventEmitter<boolean>();
+    constructor(private employeeService: EmployeeService, private router: Router, private toast: ToastrService) { }
+
+    ngOnInit(): void {
+    }
+
+    deleteEmployee() {
+      this.employeeService.deleteEmployeeById(this.deleteId).subscribe(data => {
+        document.getElementById('closeModal').click();
+        this.deleteComplete.emit(true);
+        this.toast.success("Xóa thành công","Thông báo");
+
+      }, error => {this.toast.success("Xóa không thành công","Thông báo");})
   }
-
 }

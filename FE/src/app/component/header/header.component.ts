@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  isLoggedIn: any;
+  username: any;
+  role: string;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  logOut() {
+
+  }
 }

@@ -21,6 +21,14 @@ import {NgxSpinnerModule} from 'ngx-spinner';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(
+      {
+        timeOut: 2000,
+        progressBar: true,
+        progressAnimation: "increasing"
+      }
+    ),
     ToastrModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
