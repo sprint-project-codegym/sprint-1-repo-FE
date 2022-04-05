@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
 })
 export class CustomerService {
 
-  private API = 'http://localhost:8080/customer/list';
+  private API = 'http://localhost:8080/api/manager/customer/list';
 
   httpOptions = {
     headers: new HttpHeaders({

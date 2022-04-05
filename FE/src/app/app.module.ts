@@ -4,24 +4,36 @@ import {ToastrModule} from 'ngx-toastr';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import { HeaderComponent } from './component/header/header.component';
-import { FooterComponent } from './component/footer/footer.component';
+import {SecurityModule} from "./security/security.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../environments/environment';
-import {NgxSpinnerModule} from 'ngx-spinner';
-
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HeaderComponent} from './component/header/header.component';
+import {FooterComponent} from './component/footer/footer.component';
+import {HomeComponent} from './component/home/home.component';
+import {CommonModule} from '@angular/common';
+import {NgxSpinnerModule} from "ngx-spinner";
+import {EmployeeModule} from "./employee/employee.module";
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    SecurityModule,
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+    NgxSpinnerModule,
+    EmployeeModule,
     ToastrModule.forRoot(
       {
         timeOut: 2000,
@@ -29,14 +41,11 @@ import {NgxSpinnerModule} from 'ngx-spinner';
         progressAnimation: "increasing"
       }
     ),
-    ToastrModule.forRoot(),
-    HttpClientModule,
-    BrowserAnimationsModule,
-    NgxSpinnerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
