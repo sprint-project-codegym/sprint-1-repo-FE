@@ -9,6 +9,6 @@ export interface ICustomer {
   customerAddress: string;
   customerPhone: string;
   customerCompany: string;
-  customerStatus: string;
+  status: string;
   deleteFlag: boolean;
 }

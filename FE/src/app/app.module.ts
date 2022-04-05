@@ -11,6 +11,7 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {NgxSpinnerModule} from 'ngx-spinner';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,9 +29,9 @@ import {NgxSpinnerModule} from 'ngx-spinner';
         progressAnimation: "increasing"
       }
     ),
+    ToastrModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
     NgxSpinnerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
