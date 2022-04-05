@@ -1,0 +1,39 @@
+.table-striped td, .table-striped th {
+  border: 1px solid #dee2e6;
+  vertical-align: middle;
+  padding: 5px;
+}
+
+.table-striped th:last-child {
+  width: 170px;
+}
+
+.table-striped td:last-child {
+  display: flex;
+  justify-content: space-around;
+}
+
+th {
+  text-align: center;
+}
+.pagination {
+  cursor:pointer;
+}
+th {
+  text-align: center;
+  background: #607D8B;
+  color: white;
+}
+.search {
+  width: 240px;
+  border: 1px solid lightgray;
+  border-radius: 0
+}
+.text_ellipsis{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+

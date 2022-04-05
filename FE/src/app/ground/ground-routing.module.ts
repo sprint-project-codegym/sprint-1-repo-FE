@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'list', component: GroundListComponent
   },
   {
-    path: 'add', component: GroundCreateComponent
+    path: 'create', component: GroundCreateComponent
   },
   {
     path: 'edit/:id', component: GroundEditComponent
