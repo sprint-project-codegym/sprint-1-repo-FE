@@ -70,22 +70,22 @@ export class EmployeeCreateComponent implements OnInit {
 
   createEmployee(): void{
     if(this.selectedImage == null){
-        this.toastrService.error(
-          'Hãy chọn hình ảnh',
-          'Có lỗi xảy ra',
-          {timeOut: 3000, extendedTimeOut: 1500}
-        );
-        return;
+      this.toastrService.error(
+        'Hãy chọn hình ảnh',
+        'Có lỗi xảy ra',
+        {timeOut: 3000, extendedTimeOut: 1500}
+      );
+      return;
     }
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const fileRef = this.storage.ref(nameImg);
+    this.showLoading = true;
     this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
-            this.formCreate.patchValue({urlImage: url});
+          this.formCreate.patchValue({urlImage: url});
           console.log(this.formCreate.value);
           if (this.formCreate.valid){
-            this.showLoading = true;
             this.employeeService.createEmployee(this.formCreate.value).subscribe(
               () => {
                 this.showLoading = false;
@@ -106,11 +106,11 @@ export class EmployeeCreateComponent implements OnInit {
             );
           }
           else {
-              this.toastrService.error(
-                'Dữ liệu không đúng',
-                'Có lỗi xảy ra',
-                {timeOut: 3000, extendedTimeOut: 1500}
-                );
+            this.toastrService.error(
+              'Dữ liệu không đúng',
+              'Có lỗi xảy ra',
+              {timeOut: 3000, extendedTimeOut: 1500}
+            );
           }
         });
       })

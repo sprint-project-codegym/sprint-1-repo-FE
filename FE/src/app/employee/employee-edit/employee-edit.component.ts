@@ -28,11 +28,11 @@ export class EmployeeEditComponent implements OnInit {
   public filePath = 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png';
 
   constructor(private activeRouter: ActivatedRoute,
-             private fb: FormBuilder,
-             private router: Router,
-             private employeeService: EmployeeService,
-             public toastrService: ToastrService,
-             @Inject(AngularFireStorage) private storage: AngularFireStorage) { }
+              private fb: FormBuilder,
+              private router: Router,
+              private employeeService: EmployeeService,
+              public toastrService: ToastrService,
+              @Inject(AngularFireStorage) private storage: AngularFireStorage) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -46,11 +46,7 @@ export class EmployeeEditComponent implements OnInit {
         this.employeeService.getEmployeeById(id).subscribe(
           (data => {
             this.employee = data;
-
-            this.deleteKeyNotUse();
-
-
-            this.formEdit.setValue(this.employee);
+            this.formEdit.patchValue(this.employee);
             console.log(this.employee);
             console.log(this.formEdit.value);
             this.filePath = this.employee.urlImage;
@@ -60,20 +56,6 @@ export class EmployeeEditComponent implements OnInit {
       })
 
   };
-
-  deleteKeyNotUse(): void {
-    // delete key
-    delete this.employee.position.positionName;
-    delete this.employee.account.accountId;
-    delete this.employee.account.email;
-    delete this.employee.account.token;
-    delete this.employee.account.isEnable;
-    delete this.employee.account.verificationCode;
-    delete this.employee.account.enable;
-    delete this.employee.account.encryptPw;
-    delete this.employee.deleteFlag;
-    delete this.employee.employeeId;
-  }
 
   createForm(){
     this.formEdit = this.fb.group({
@@ -107,7 +89,6 @@ export class EmployeeEditComponent implements OnInit {
 
   editEmployee(){
     if (this.formEdit.valid){
-      this.showLoading = true;
       this.employeeService.editEmployee(this.formEdit.value,this.id).subscribe(
         () => {
           this.showLoading = false;
@@ -125,6 +106,13 @@ export class EmployeeEditComponent implements OnInit {
             {timeOut: 3000, extendedTimeOut: 1500}
           );
         }
+      );
+    } else {
+      this.showLoading = false;
+      this.toastrService.error(
+        'Dữ liệu không đúng',
+        'Có lỗi xảy ra',
+        {timeOut: 3000, extendedTimeOut: 1500}
       );
     }
   }
@@ -144,6 +132,7 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   async editEmployeeAndUpLoadImage() {
+    this.showLoading = true;
     if(!this.fileChange) {
       this.editEmployee();
     }
