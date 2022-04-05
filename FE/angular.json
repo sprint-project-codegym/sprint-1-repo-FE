@@ -130,6 +130,6 @@
   },
   "defaultProject": "a0321i1-project",
   "cli": {
-    "analytics": false
+    "analytics": "c0be45f1-0759-45e5-9f7c-7e30beba250e"
   }
 }

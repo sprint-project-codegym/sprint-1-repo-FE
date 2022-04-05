@@ -6,7 +6,7 @@ import {IGround} from '../../entity/IGround';
 import {ICustomer} from '../../entity/ICustomer';
 import {IContract} from '../../entity/IContract';
 import {ToastrService} from 'ngx-toastr';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
 
 @Component({
   selector: 'app-contract-edit',
