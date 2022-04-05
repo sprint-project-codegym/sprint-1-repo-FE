@@ -123,14 +123,12 @@ export class CustomerListComponent implements OnInit {
     this.ngOnInit();
   }
 
-  // renderToolTip(str: string, limit = 40) {
-  //   if (str.length > limit) {
+  // renderToolTip(str: string, limit: number) {
+  //   if (str.length < limit) {
   //     return `<span>${str}</span>`;
   //   }
   //
   //   return str;
   // }
-
-
 
 }
