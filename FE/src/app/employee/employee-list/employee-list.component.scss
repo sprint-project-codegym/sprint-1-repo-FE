@@ -1,13 +1,12 @@
 .table-striped td, .table-striped th {
-  border: 1px solid #dee2e6;
+  border: 1px solid #f3f5fa;
   vertical-align: middle;
   padding: 5px;
 }
 .table-striped {
   th {
-    &:last-child {
-      width: 170px;
-    }
+    background-color: #607D8B;
+    color: white;
   }
   td {
     &:last-child {
@@ -21,7 +20,18 @@ th {
 }
 .search {
   width: 200px;
-  border: 0;
-  border-bottom: 1px solid lightgray;
+  border: 1px solid lightgray;
   border-radius: 0;
+}
+
+.text-address{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  //white-space: nowrap;
+  overflow: hidden;
+  //text-overflow: ellipsis;
+}
+.header_top{
+  margin-top: 75px;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Optional} from '@angular/core';
 import {IEmployee} from "../model/employee";
 import {EmployeeService} from "../../service/employee.service";
 import {ToastrService} from "ngx-toastr";
@@ -13,7 +13,7 @@ export class EmployeeListComponent implements OnInit {
   employees: IEmployee[];
   pageClicked: number = 0;
   pages = [];
-  size =5;
+  size = 5;
   totalPages: 1;
   idSearch: "";
   nameSearch: "";
@@ -42,6 +42,9 @@ export class EmployeeListComponent implements OnInit {
 
   onSubmit(page) {
     this.employeeService.getAllEmployees(page, this.size).subscribe(data => {
+      if(data == null){
+        this.employees=[];
+      }
       this.employees=data['content'];
       this.pageClicked = page;
       this.totalPages = data.totalPages;
@@ -68,18 +71,17 @@ export class EmployeeListComponent implements OnInit {
   }
 
   getSearch(page: number, id, name) {
-    if (this.idSearch === undefined) {
-      this.idSearch = "";
-    }
-    if (this.nameSearch === undefined) {
-      this.nameSearch = "";
-    }
+    // if (this.idSearch === undefined) {
+    //   this.idSearch = "";
+    // }
+    // if (this.nameSearch === undefined) {
+    //   this.nameSearch = "";
+    // }
     if (id !== undefined && name !== undefined) {
       this.idSearch = id.value;
       this.nameSearch = name.value;
     }
     if (this.idSearch === '' && this.nameSearch === '') {
-      // @ts-ignore
       this.router.navigate(['/employee/list'], {
         queryParams: {}
       });
@@ -100,10 +102,11 @@ export class EmployeeListComponent implements OnInit {
     }
       this.employeeService.findEmployeeByIdAndName(this.idSearch, this.nameSearch, page).subscribe(data => {
         if (data === null) {
-          this.toast.info("không có dữ liệu","Thông báo");
-          this.onSubmit(0);
-          this.idSearch = "";
-          this.nameSearch = "";
+          this.employees = [];
+          // this.toast.info("không có dữ liệu","Thông báo");
+          // this.onSubmit(0);
+          // this.idSearch = "";
+          // this.nameSearch = "";
         } else {
           this.employees = data['content'];
           this.pageClicked = page;

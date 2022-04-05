@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
   providedIn: 'root'
 })
 export class EmployeeService {
-  private API_URL = 'http://localhost:8080/api/admin/employee/';
+  private API_URL = 'http://localhost:8080/api/home/employee';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,14 +20,14 @@ export class EmployeeService {
   constructor(private http: HttpClient) { }
 
   getAllEmployees(page: number, size: number): Observable<any> {
-    return this.http.get(this.API_URL + '?page=' + page + '&size=' + size);
+    return this.http.get(this.API_URL + '/list?page=' + page + '&size=' + size);
   }
   findEmployeeByIdAndName(id: string, name: string, page:number) {
-    return this.http.get(this.API_URL + '?name=' +name+ '&id=' +id+ '&page=' + page);
+    return this.http.get(this.API_URL + '/list?name=' +name+ '&id=' +id+ '&page=' + page);
   }
 
   deleteEmployeeById(id: string) {
-    return this.http.get(this.API_URL  + 'delete' + '/' + id, this.httpOptions);
+    return this.http.get(this.API_URL  + '/delete' + '/' + id, this.httpOptions);
   }
   // getAllCars(): Observable<IEmployee[]>{
   //   return this.http.get<IEmployee[]>(this.API_URL);
