@@ -1,1 +1,130 @@
-<p>employee-list works!</p>
+<div class="container-fluid">
+  <h3 class="text-center m-3">DANH SÁCH NHÂN VIÊN</h3>
+  <div class="row mb-3">
+    <div class="col-4">
+      <button class="btn btn-primary" type="button"><i class="fas fa-plus-circle mr-1"></i>Thêm mới</button>
+    </div>
+    <div class="col-8 ">
+      <div class="row ">
+        <div class="col-12 d-flex justify-content-end">
+          <input class="search form-control mr-3" (keyup.enter)="getSearch(0, id, name)" #id
+                 placeholder="Tìm theo mã nhân viên">
+          <input class="search form-control mr-3" (keyup.enter)="getSearch(0, id, name)" #name
+                 placeholder="Tìm theo tên nhân viên">
+          <button class="btn btn-light btn-outline-secondary" type="button" (click)="getSearch(0, id, name)"><i
+            class="fas fa-search mr-1"></i>Tìm kiếm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!employees.length; else elseBlock">
+    <h3 class="text-danger text-center">Không có dữ liệu được trả về.</h3>
+  </div>
+  <ng-template #elseBlock>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Mã Nhân Viên</th>
+        <th>Họ Tên</th>
+        <th>Ngày Sinh</th>
+        <th>Giới Tính</th>
+        <th>Địa Chỉ</th>
+        <th>SĐT</th>
+        <th>Email</th>
+        <th>Cấp bậc lương</th>
+        <th>Bộ Phận</th>
+        <th>Thao Tác</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let e of employees">
+        <td width="8%" style="text-align: center">{{e.employeeId}}</td>
+        <td width="12%">{{e.employeeName}}</td>
+        <td width="8%">{{e.employeeBirthday | date:'dd/MM/yyyy'}}</td>
+        <td width="8%">
+          <div *ngIf="e.employeeGender;else elseBlock">Nam</div>
+          <ng-template #elseBlock>Nữ</ng-template>
+        </td>
+<!--        <td width="10%">{{e.employeeAddress}}</td>-->
+        <td width="10%"><span class="text-address"  data-toggle="tooltip" title="{{e.employeeAddress}}">
+              {{e.employeeAddress}}</span></td>
+        <td width="9%" style="text-align: right">{{e.employeePhone}}</td>
+        <td width="13%">{{e.employeeGmail}}</td>
+        <td width="8%" style="text-align: center">{{e.employeeSalary}}</td>
+        <td width="12%">{{e.position.positionName}}</td>
+        <td>
+          <button class="btn btn-success"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
+          <button class="btn btn-danger" (click)="deleteId=e.employeeId; deleteName=e.employeeName" data-toggle="modal"
+                  data-target="#exampleModal">
+            <i class="fas fa-trash-alt mr-1"></i>Xóa
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <!--  Pagination-->
+    <div class="col-12">
+      <nav aria-label="Page navigation example" class="float-right">
+        <ul class="pagination">
+          <div *ngIf="pageClicked==0; else show1"></div>
+          <ng-template #show1>
+            <li class="page-item" (click)="onFirst()">
+              <a class="page-link">Đầu</a>
+            </li>
+            <li class="page-item" (click)="onPrevious()">
+              <a class="page-link">Trước</a>
+            </li>
+          </ng-template>
+          <li *ngIf="pageClicked != 0" class="page-item" (click)="getSearch(pages[pageClicked-1], id, name)">
+            <a class="page-link">{{pageClicked}}</a>
+          </li>
+          <li [ngClass]="(pageClicked == pages[pageClicked]) ? 'active' : ''" class="page-item"
+              (click)="getSearch(pages[pageClicked], id, name)">
+            <a class="page-link">{{pageClicked + 1}}</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length -1" class="page-item"
+              (click)="getSearch(pages[pageClicked+1], id, name)">
+            <a class="page-link">{{pageClicked + 2}}</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length -2" class="page-item">
+            <a class="page-link">...</a>
+          </li>
+          <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
+            <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
+          </li>
+          <div *ngIf="pageClicked===totalPages-1; else show2"></div>
+          <ng-template #show2>
+            <li class="page-item" (click)="onNext()">
+              <a class="page-link">Sau</a>
+            </li>
+            <li class="page-item" (click)="onLast()"><a
+              class="page-link">Cuối</a></li>
+          </ng-template>
+        </ul>
+      </nav>
+    </div>
+  </ng-template>
+  <!--  modal-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-employee-delete [deleteId]="deleteId" [deleteName]="deleteName"
+                               (deleteComplete)="deleteSuccess()"></app-employee-delete>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>

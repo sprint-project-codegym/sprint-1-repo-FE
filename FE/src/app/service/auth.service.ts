@@ -1,9 +1,12 @@
+// @ts-ignore
 import {Injectable} from '@angular/core';
+// @ts-ignore
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 const AUTH_API = 'http://localhost:8080/api/home/';
 
+// @ts-ignore
 @Injectable({
   providedIn: 'root'
 })

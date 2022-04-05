@@ -9,13 +9,14 @@ import {EmployeeDetailComponent} from './employee-detail/employee-detail.compone
 import {EmployeeEditComponent} from './employee-edit/employee-edit.component';
 import {EmployeeChangePasswordComponent} from './employee-change-password/employee-change-password.component';
 import {HttpClientModule} from '@angular/common/http';
-import {EmployeeAccountDetailComponent} from './employee-account-detail/employee-account-detail.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import { EmployeeAccountDetailComponent } from './employee-account-detail/employee-account-detail.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+
 
 @NgModule({
-  declarations: [EmployeeListComponent, EmployeeDeleteComponent, EmployeeCreateComponent,
-    EmployeeDetailComponent, EmployeeEditComponent, EmployeeChangePasswordComponent,
-    EmployeeAccountDetailComponent],
+  declarations: [EmployeeListComponent, EmployeeDeleteComponent,
+    EmployeeCreateComponent, EmployeeDetailComponent,
+    EmployeeEditComponent, EmployeeChangePasswordComponent, EmployeeAccountDetailComponent],
   exports: [
     EmployeeCreateComponent,
     EmployeeEditComponent
@@ -24,6 +25,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     CommonModule,
     EmployeeRoutingModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ]
 })
