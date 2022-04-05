@@ -11,6 +11,7 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {NgxSpinnerModule} from 'ngx-spinner';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,9 +21,9 @@ import {NgxSpinnerModule} from 'ngx-spinner';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ToastrModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
     NgxSpinnerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
