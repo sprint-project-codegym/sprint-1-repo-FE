@@ -13,7 +13,7 @@ export class EmployeeListComponent implements OnInit {
   employees: IEmployee[];
   pageClicked: number = 0;
   pages = [];
-  size = 5;
+  size = 10;
   totalPages: 1;
   idSearch: "";
   nameSearch: "";
@@ -81,25 +81,7 @@ export class EmployeeListComponent implements OnInit {
       this.idSearch = id.value;
       this.nameSearch = name.value;
     }
-    if (this.idSearch === '' && this.nameSearch === '') {
-      this.router.navigate(['/employee/list'], {
-        queryParams: {}
-      });
-    } else if (this.idSearch === ''){
-      this.router.navigate(['/employee/list'], {
-        queryParams: {page, name: this.nameSearch}
-      });
-    } else if (this.nameSearch === ''){
-      this.router.navigate(['/employee/list'], {
-        queryParams: {page, id: this.idSearch}
-      });
-    }else {
-      {
-        this.router.navigate(['/employee/list'], {
-          queryParams: {page, id: this.idSearch, name: this.nameSearch}
-        });
-      }
-    }
+
       this.employeeService.findEmployeeByIdAndName(this.idSearch, this.nameSearch, page).subscribe(data => {
         if (data === null) {
           this.employees = [];

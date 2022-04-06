@@ -7,6 +7,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DateAdapter} from '@angular/material/core';
 import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
+import {TokenStorageService} from "../../service/token-storage.service";
+import {PersonalInfoService} from "../../service/personal-info-service";
 
 @Component({
   selector: 'app-contract-create',
@@ -14,6 +16,8 @@ import {DatePipe} from '@angular/common';
   styleUrls: ['./contract-create.component.scss']
 })
 export class ContractCreateComponent implements OnInit {
+  accountId;
+  accountName;
 
   public customerList: ICustomer[];
   public groundList: IGround[];
@@ -30,6 +34,8 @@ export class ContractCreateComponent implements OnInit {
               private route: Router,
               private routeActive: ActivatedRoute,
               private toastrService: ToastrService,
+              private tokenStorageService: TokenStorageService,
+              private personalInfoService: PersonalInfoService,
               private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('en-GB');
   }
@@ -54,6 +60,14 @@ export class ContractCreateComponent implements OnInit {
       onlySelf: true,
       emitEvent: false
     }));
+    this.accountId = this.tokenStorageService.getUser().id;
+    this.personalInfoService.findEmployeeByAccountId(this.accountId).subscribe((data1: any) => {
+
+      console.log(data1);
+      this.formGroup.patchValue(data1);
+      this.accountId = data1.account.accountId;
+      this.accountName = data1.account.userName;
+    });
   }
 
   getFormattedDate() {
@@ -134,7 +148,7 @@ export class ContractCreateComponent implements OnInit {
 
   myForm() {
     this.formGroup = this.formBuilder.group({
-      contractId: ['', [Validators.required, Validators.pattern('^(HD)[-][\\d]{3}$')]],
+      contractId: ['', [Validators.required, Validators.pattern('^(HD)[-][\\d]{4}$')]],
       contractDate: [this.getFormattedDate()],
       startDate: ['', [Validators.required, this.smallerThanOtherTime('endDate')]],
       endDate: ['', [Validators.required, this.greaterThanOtherTime('startDate')]],
@@ -143,7 +157,7 @@ export class ContractCreateComponent implements OnInit {
       totalCost: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$'), Validators.min(0), this.greaterThan('rentCost')]],
       customerId: ['', [Validators.required]],
       groundId: ['', [Validators.required]],
-      employeeId: ['E006']
+      employeeId: ['']
     });
   }
 

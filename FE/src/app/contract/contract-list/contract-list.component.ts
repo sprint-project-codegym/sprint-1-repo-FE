@@ -12,7 +12,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class ContractListComponent implements OnInit {
   contracts: IContract[];
-  size = 3;
+  size = 10;
   pageClicked = 0;
   totalPages = 1;
   pages = [];

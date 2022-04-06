@@ -58,7 +58,7 @@ export class CustomerListComponent implements OnInit {
         if (data == null) {
           this.customers = [];
         }else {
-          this.customers = data['content'];
+          this.customers = data.content;
           this.pageClicked = page;
           this.totalPages = data.totalPages;
           this.pages = Array.apply(null, {length: this.totalPages}).map(Number.call, Number);
@@ -85,25 +85,6 @@ export class CustomerListComponent implements OnInit {
     if (id !== undefined && name !== undefined){
       this.idInput = id.value;
       this.nameInput = name.value;
-    }
-    if (this.idInput === '' && this.nameInput === '') {
-      this.router.navigate(['/customer/list'], {
-        queryParams: {}
-      });
-    } else if (this.idInput === ''){
-      this.router.navigate(['/customer/list'], {
-        queryParams: {page, name: this.nameInput}
-      });
-    } else if (this.nameInput === ''){
-      this.router.navigate(['/customer/list'], {
-        queryParams: {page, id: this.idInput}
-      });
-    }else {
-      {
-        this.router.navigate(['/customer/list'], {
-          queryParams: {page, id: this.idInput, name: this.nameInput}
-        });
-      }
     }
     this.customerService.searchCustomerByIdAndName(page, this.idInput, this.nameInput).subscribe(
         data => {

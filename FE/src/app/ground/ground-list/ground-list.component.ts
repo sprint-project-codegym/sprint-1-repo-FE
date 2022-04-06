@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class GroundListComponent implements OnInit {
   grounds: IGround[];
-  size = 5;
+  size = 10;
   pageClicked = 0;
   totalPages = 1;
   pages = [];

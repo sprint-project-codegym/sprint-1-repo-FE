@@ -47,8 +47,8 @@
       <td>{{floor.status}}</td>
       <td>{{floor.floorType}}</td>
       <td class="text-center">
-        <button class="btn btn-sm btn-success mr-1"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
-        <button class="btn btn-sm btn-danger ml-1" data-target="#exampleModal" data-toggle="modal" (click)="deleteId = floor.floorId; deleteName = floor.floorName"><i
+        <button class="btn btn-success mr-1"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
+        <button class="btn btn-danger ml-1" data-target="#exampleModal" data-toggle="modal" (click)="deleteId = floor.floorId; deleteName = floor.floorName"><i
           class="fas fa-trash-alt mr-1"></i>Xóa
         </button>
       </td>
@@ -57,15 +57,20 @@
   </table>
   ​
   <!--  Pagination-->
-  <div class="col-12 mb-5" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+  <!--  Pagination-->
+  <div class="col-12 mb-5"
+       *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
     <nav aria-label="Page navigation example" class="float-right">
       <ul class="pagination">
-        <li class="page-item" (click)="onFirst()" [ngClass]="pageClicked==0?'disabled':''">
-          <a class="page-link">Đầu</a>
-        </li>
-        <li class="page-item" (click)="onPrevious()" [ngClass]="pageClicked==0?'disabled':''">
-          <a class="page-link"><<</a>
-        </li>
+        <div *ngIf="pageClicked==0; else show1"></div>
+        <ng-template #show1>
+          <li class="page-item" (click)="onFirst()">
+            <a class="page-link">Đầu</a>
+          </li>
+          <li class="page-item" (click)="onPrevious()">
+            <a class="page-link"><<</a>
+          </li>
+        </ng-template>
         <li *ngIf="pageClicked != 0" class="page-item" (click)="onSubmit(pages[pageClicked-1])">
           <a class="page-link">{{pageClicked}}</a>
         </li>
@@ -76,14 +81,20 @@
         <li *ngIf="pageClicked < pages.length -1" class="page-item" (click)="onSubmit(pages[pageClicked+1])">
           <a class="page-link">{{pageClicked + 2}}</a>
         </li>
+        <li *ngIf="pageClicked < pages.length -2" class="page-item">
+          <a class="page-link">...</a>
+        </li>
         <li *ngIf="pageClicked < pages.length-2" class="page-item" (click)="onLast()">
           <a class="page-link">{{pages[pages.length - 1] + 1}}</a>
         </li>
-        <li class="page-item" (click)="onNext()" [ngClass]="pageClicked==totalPages-1?'disabled':''">
-          <a class="page-link">>></a>
-        </li>
-        <li class="page-item" (click)="onLast()" [ngClass]="pageClicked==totalPages-1?'disabled':''"><a
-          class="page-link">Cuối</a></li>
+        <div *ngIf="pageClicked===totalPages-1; else show2"></div>
+        <ng-template #show2>
+          <li class="page-item" (click)="onNext()">
+            <a class="page-link">>></a>
+          </li>
+          <li class="page-item" (click)="onLast()"><a
+            class="page-link">Cuối</a></li>
+        </ng-template>
       </ul>
     </nav>
   </div>

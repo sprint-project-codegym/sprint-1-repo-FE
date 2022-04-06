@@ -28,9 +28,9 @@
                 Danh sách
               </a>
               <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" [routerLink]="['floor/list']">Tầng</a>
+                <a class="dropdown-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1" routerLink='/floor/list'>Tầng</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Mặt bằng</a>
+                <a class="dropdown-item" routerLink='/ground/list'>Mặt bằng</a>
               </div>
             </div>
           </li>
@@ -39,11 +39,11 @@
               Khách hàng
             </a>
             <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownCustomer">
-              <a class="dropdown-item" href="" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">Danh sách khách hàng</a>
+              <a class="dropdown-item" href="" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1" routerLink='/customer/list'>Danh sách khách hàng</a>
               <div class="dropdown-divider" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"></div>
-              <a class="dropdown-item" href="#">Hợp đồng</a>
+              <a class="dropdown-item" routerLink='/contract/list'>Hợp đồng</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Dịch vụ</a>
+<!--              <a class="dropdown-item" href="#">Dịch vụ</a>-->
             </div>
           </li>
           <li class="nav-item" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1; else elseBlock">
@@ -71,8 +71,8 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right mt-13" aria-labelledby="dropdownMenuLinkAdmin">
           <a class="dropdown-item" routerLink="/employee/acc-detail"><i class="fa fa-user pr-2"></i>Thông tin</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><i class="fa fa-th-list pr-2"></i>Nhiệm vụ</a>
+<!--          <div class="dropdown-divider"></div>-->
+<!--          <a class="dropdown-item" href="#"><i class="fa fa-th-list pr-2"></i>Nhiệm vụ</a>-->
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="logOut()" href="#"><i class="fa fa-power-off pr-2"></i>Đăng xuất</a>
         </div>
