@@ -10,13 +10,16 @@ import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgxSpinnerModule} from "ngx-spinner";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     SecurityLoginComponent,
     SecurityResetPasswordComponent,
     SecurityVerificationComponent,
-    SecurityVerifyResetPasswordComponent],
+    SecurityVerifyResetPasswordComponent,
+    PageNotFoundComponent,
+    ],
   exports: [
     SecurityLoginComponent
   ],

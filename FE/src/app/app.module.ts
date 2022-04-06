@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {ToastrModule} from 'ngx-toastr';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {SecurityModule} from "./security/security.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -15,13 +15,16 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {EmployeeModule} from "./employee/employee.module";
 import {AngularFireModule} from "@angular/fire";
 import {environment} from "../environments/environment";
+import {AuthenErrorPageComponent} from "./authen-error-page/authen-error-page.component";
+import {AuthInterceptor} from "./helpers/auth.interceptor";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    AuthenErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,7 @@ import {environment} from "../environments/environment";
     ),
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 

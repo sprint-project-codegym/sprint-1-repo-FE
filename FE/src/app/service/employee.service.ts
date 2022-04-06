@@ -25,7 +25,7 @@ export class EmployeeService {
   }
 
   getEmployeeById(id: any): Observable<any> {
-    return this.http.get(`${this.ApiEmployeeList}/${id}`,);
+    return this.http.get(`${this.ApiEmployeeList}/${id}`);
   }
 
   getAllPosition(): Observable<any> {
