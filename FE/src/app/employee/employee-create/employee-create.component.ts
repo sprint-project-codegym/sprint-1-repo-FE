@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {IEmployee} from '../../dto/IEmployee';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EmployeeService} from '../../service/employee.service';
@@ -10,6 +10,7 @@ import {finalize} from 'rxjs/operators';
 // import {url} from 'inspector';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {EmployeeCustomValidator} from "../../dto/EmployeeCustomValidator";
+
 
 @Component({
   selector: 'app-employee-create',
@@ -24,6 +25,8 @@ export class EmployeeCreateComponent implements OnInit {
   selectedImage: any = null;
   url: string;
   showLoading = false;
+  employeeName: any;
+  username: any= "";
   public employeeCustomValidator: EmployeeCustomValidator = new EmployeeCustomValidator();
   public filePath = 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png';
 
@@ -42,7 +45,7 @@ export class EmployeeCreateComponent implements OnInit {
   createForm(){
     this.getAllPosition();
     this.formCreate = this.fb.group({
-      employeeName: ['',[Validators.required,Validators.maxLength(30), Validators.pattern(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/)]],
+      employeeName: ['', [Validators.required, Validators.max(50), Validators.pattern(/^([A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+)[ ])+[A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]*)$/)]],
       employeeBirthday: ['',[Validators.required, Validators.compose([this.employeeCustomValidator.ageLimitValidator(18, 30)])]],
       employeeGender: ['',[Validators.required]],
       employeeGmail: ['',[Validators.required,Validators.pattern(/\b[\w.%-]+@[-.\w]+\.[A-Za-z]{2,4}\b/)]],
@@ -68,23 +71,23 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   createEmployee(): void{
-    if(this.selectedImage == null){
-        this.toastrService.error(
-          'Hãy chọn hình ảnh',
-          'Có lỗi xảy ra',
-          {timeOut: 3000, extendedTimeOut: 1500}
-        );
-        return;
+    if (this.selectedImage == null){
+      this.toastrService.error(
+        'Hãy chọn hình ảnh',
+        'Có lỗi xảy ra',
+        {timeOut: 3000, extendedTimeOut: 1500}
+      );
+      return;
     }
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const fileRef = this.storage.ref(nameImg);
+    this.showLoading = true;
     this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
-            this.formCreate.patchValue({urlImage: url});
+          this.formCreate.patchValue({urlImage: url});
           console.log(this.formCreate.value);
           if (this.formCreate.valid){
-            this.showLoading = true;
             this.employeeService.createEmployee(this.formCreate.value).subscribe(
               () => {
                 this.showLoading = false;
@@ -105,11 +108,11 @@ export class EmployeeCreateComponent implements OnInit {
             );
           }
           else {
-              this.toastrService.error(
-                'Dữ liệu không đúng',
-                'Có lỗi xảy ra',
-                {timeOut: 3000, extendedTimeOut: 1500}
-                );
+            this.toastrService.error(
+              'Dữ liệu không đúng',
+              'Có lỗi xảy ra',
+              {timeOut: 3000, extendedTimeOut: 1500}
+            );
           }
         });
       })
@@ -133,5 +136,17 @@ export class EmployeeCreateComponent implements OnInit {
   resetForm() {
     this.formCreate.reset();
     this.filePath="";
+  }
+
+  getUsername(value: any) {
+    // @ts-ignore
+    this.employeeService.createUsername({"name": value}).subscribe(
+      data=> {
+        this.username = data.username;
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 }

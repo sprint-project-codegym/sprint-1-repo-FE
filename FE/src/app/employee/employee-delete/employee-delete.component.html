@@ -1,1 +1,6 @@
-<p>employee-delete works!</p>
+<h5 style="font-size: 17px">Bạn Có Chắc Muốn Xóa Nhân Viên <label style="color: red"> {{deleteName}}</label> Không ?</h5>
+<p style="color: red; font-size: 15px">Hành động này không thể được hoàn tác !</p>
+<div class="row d-flex justify-content-end">
+  <button class="btn btn-secondary" style="width: 65px;margin-right: 10px" data-dismiss="modal" id="closeModal" >Hủy</button>
+  <button class="btn btn-danger mr-3" style="width: 65px" (click)="deleteEmployee()"  data-dismiss="modal">Xóa</button>
+</div>

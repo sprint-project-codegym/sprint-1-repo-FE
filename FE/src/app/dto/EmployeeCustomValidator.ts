@@ -27,7 +27,6 @@ export class EmployeeCustomValidator {
 
         let date = new Date(control.value);
         let age = this.timeSince(date.getTime());
-        console.log(age+ " tuổi");
         // return null  if it's in between the minAge and maxAge and is A valid Number
         return age < minAge || // checks if its below the minimum age
         age > maxAge // checks if its above the maximum age

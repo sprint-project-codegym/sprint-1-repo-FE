@@ -28,8 +28,8 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
-
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
@@ -94,7 +94,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": []
           }
@@ -125,6 +127,11 @@
           }
         }
       }
-    }},
-  "defaultProject": "a0321i1-project"
+    }
+  },
+  "defaultProject": "a0321i1-project",
+  "cli": {
+    "analytics": "f3154737-8153-4fe9-831a-22a4f3d7325f",
+    "analytics": "c0be45f1-0759-45e5-9f7c-7e30beba250e"
+  }
 }
