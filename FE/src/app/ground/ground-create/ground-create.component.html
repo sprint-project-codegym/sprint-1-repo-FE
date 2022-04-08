@@ -21,7 +21,8 @@
                 <div class="form-group mb-0">
                   <label for="exampleFormControlInput2">Mã mặt bằng<span
                     class="text-danger">*</span></label>
-                  <input type="text" class="form-control" #groundId formControlName="groundId" id="exampleFormControlInput2">
+                  <input type="text" class="form-control" #groundId formControlName="groundId"
+                         id="exampleFormControlInput2">
                   <p class="text-danger" *ngIf="formAddGround.controls.groundId.errors?.required &&
                   formAddGround.controls.groundId.touched">Mã mặt bằng không được để trống!</p>
                   <p class="text-danger" *ngIf="formAddGround.controls.groundId.errors?.pattern &&
@@ -95,8 +96,8 @@
                              id="exampleFormControlInput4">
                       <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.required &&
                   formAddGround.controls.rentCost.touched">Giá tiền thuê không được để trống!</p>
-                      <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.pattern &&
-                  formAddGround.controls.rentCost.touched">Giá tiền thuê phải là số dương!</p>
+                      <p class="text-danger" *ngIf="formAddGround.controls.rentCost.errors?.pattern || formAddGround.controls.rentCost.errors?.min &&
+formAddGround.controls.rentCost.touched">Giá tiền thuê phải là số và tối thiểu là 1.000.000đ!</p>
                     </div>
                   </div>
                   <div class="col-12 mb-3 p-0">
@@ -110,8 +111,8 @@
                              id="exampleFormControlInput5">
                       <p class="text-danger" *ngIf="formAddGround.controls.manageCost.errors?.required &&
                   formAddGround.controls.manageCost.touched">Phí quản lý không được để trống!</p>
-                      <p class="text-danger" *ngIf="formAddGround.controls.manageCost.errors?.pattern &&
-                  formAddGround.controls.manageCost.touched">Phí quản lý phải là số dương!</p>
+                      <p class="text-danger" *ngIf="formAddGround.controls.manageCost.errors?.pattern || formAddGround.controls.manageCost.errors?.min &&
+formAddGround.controls.manageCost.touched">Phí quản lý phải là số và tối thiểu là 100.000đ!</p>
                     </div>
                   </div>
                 </div>

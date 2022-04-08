@@ -59,7 +59,7 @@ export class EmployeeEditComponent implements OnInit {
 
   createForm(){
     this.formEdit = this.fb.group({
-      employeeName: ['',[Validators.required,Validators.maxLength(30), Validators.pattern(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s|_]+$/)]],
+      employeeName: ['', [Validators.required, Validators.max(50), Validators.pattern(/^([A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+)[ ])+[A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]*)$/)]],
       employeeBirthday: ['',[Validators.required, Validators.compose([this.employeeCustomValidator.ageLimitValidator(18, 30)])]],
       employeeGender: ['',[Validators.required]],
       employeeGmail: ['',[Validators.required,Validators.pattern(/\b[\w.%-]+@[-.\w]+\.[A-Za-z]{2,4}\b/)]],
@@ -92,6 +92,7 @@ export class EmployeeEditComponent implements OnInit {
       this.employeeService.editEmployee(this.formEdit.value,this.id).subscribe(
         () => {
           this.showLoading = false;
+          this.router.navigateByUrl("/employee/list");
           this.toastrService.success(
             'Sửa thành công!',
             'Thông báo!',
@@ -154,4 +155,5 @@ export class EmployeeEditComponent implements OnInit {
     };
     reader.readAsDataURL(this.selectedImage);
   }
+
 }

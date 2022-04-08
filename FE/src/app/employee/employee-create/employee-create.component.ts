@@ -25,6 +25,8 @@ export class EmployeeCreateComponent implements OnInit {
   selectedImage: any = null;
   url: string;
   showLoading = false;
+  employeeName: any;
+  username: any= "";
   public employeeCustomValidator: EmployeeCustomValidator = new EmployeeCustomValidator();
   public filePath = 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png';
 
@@ -44,7 +46,6 @@ export class EmployeeCreateComponent implements OnInit {
     this.getAllPosition();
     this.formCreate = this.fb.group({
       employeeName: ['', [Validators.required, Validators.max(50), Validators.pattern(/^([A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]+)[ ])+[A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]*)$/)]],
-      employeeBirthday: ['',[Validators.required, Validators.compose([this.employeeCustomValidator.ageLimitValidator(18, 30)])]],
       employeeGender: ['',[Validators.required]],
       employeeGmail: ['',[Validators.required,Validators.pattern(/\b[\w.%-]+@[-.\w]+\.[A-Za-z]{2,4}\b/)]],
       employeeIdCard: ['',[Validators.required, Validators.pattern(/^[\d]{9}|[\d]{12}$/gmu)]],
@@ -88,6 +89,7 @@ export class EmployeeCreateComponent implements OnInit {
           if (this.formCreate.valid){
             this.employeeService.createEmployee(this.formCreate.value).subscribe(
               () => {
+                this.router.navigateByUrl("/employee/list");
                 this.showLoading = false;
                 this.toastrService.success(
                   'Thêm mới thành công!',
@@ -134,5 +136,17 @@ export class EmployeeCreateComponent implements OnInit {
   resetForm() {
     this.formCreate.reset();
     this.filePath="";
+  }
+
+  getUsername(value: any) {
+    // @ts-ignore
+    this.employeeService.createUsername({"name": value}).subscribe(
+      data=> {
+        this.username = data.username;
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 }

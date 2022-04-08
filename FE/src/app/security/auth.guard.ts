@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {TokenStorageService} from "../service/token-storage.service";
 import {Observable} from "rxjs";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import {Observable} from "rxjs";
 export class AuthGuard implements CanActivate {
 
   constructor(private router: Router,
-              private tokenStorageService:TokenStorageService) {
+              private tokenStorageService:TokenStorageService,
+              private toastService: ToastrService) {
   }
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -19,15 +21,19 @@ export class AuthGuard implements CanActivate {
     if(currentUser!==null){
       let role = currentUser.roles[0];
       if(route.data.roles.indexOf(role) === -1){
-        this.router.navigate(['/login'], {
+        this.router.navigate(['/403'], {
           queryParams: { returnUrl: state.url }});
         return false;
       }
       return true;
     }
-    this.router.navigate(['login'], { queryParams: { returnUrl: state.url } });
+    this.showAuthMessage();
+    this.router.navigate(['403'], { queryParams: { returnUrl: state.url } });
     return false;
 
+  }
+  showAuthMessage() {
+    this.toastService.error('Bạn không có quyền truy cập vào trang này !', 'Lỗi xác thực');
   }
 
 }

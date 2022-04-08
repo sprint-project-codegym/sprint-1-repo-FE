@@ -4,7 +4,7 @@ import {PersonalInfoService} from '../../service/personal-info-service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {TokenStorageService} from "../../service/token-storage.service";
-
+​
 @Component({
   selector: 'app-employee-change-password',
   templateUrl: './employee-change-password.component.html',
@@ -18,7 +18,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
   oldPass;
   notification: string;
   notificationPassNew: string;
-
+​
   constructor(
     private router: Router,
     private personalInfoService: PersonalInfoService,
@@ -31,7 +31,7 @@ export class EmployeeChangePasswordComponent implements OnInit {
       this.id = +paramMap.get('id');
     });
   }
-
+​
   ngOnInit(): void {
     this.userId = this.tokenStorageService.getUser().id;
     this.formAccount = this.fb.group({
@@ -42,23 +42,29 @@ export class EmployeeChangePasswordComponent implements OnInit {
       confirmNewPassword: ['', [Validators.required]]
     }, {validators: this.comparePassword});
   }
-
+​
   comparePassword(c: AbstractControl) {
     const value = c.value;
     return (value.newPassword === value.confirmNewPassword) ? null : {
       passwordNotMatch: true
     };
   }
-
+​
   updatePassword() {
     if (this.formAccount.valid) {
       this.personalInfoService.changePassword(this.userId, this.formAccount.value).subscribe(
         () => {
-          this.toastr.success("Cập nhật thông tin cá nhân thành công!", "Thành công: ", {
+          this.toastr.success("Đổi mật khẩu thành công!", "Thành công: ", {
             timeOut: 2500,
             extendedTimeOut: 1500
           });
           this.router.navigateByUrl("/employee/acc-detail");
+        },
+        error => {
+          this.toastr.error("Mật khẩu cũ không đúng, vui lòng nhập lại!", "Thất bại: ", {
+            timeOut: 2500,
+            extendedTimeOut: 1500
+          });
         });
     } else {
       this.toastr.error("Mật khẩu không đúng, vui lòng nhập lại!", "Thất bại: ", {

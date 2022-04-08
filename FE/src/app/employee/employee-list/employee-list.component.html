@@ -54,7 +54,7 @@
         <td width="8%" style="text-align: center">{{e.employeeSalary}}</td>
         <td width="12%">{{e.position.positionName}}</td>
         <td>
-          <button class="btn btn-success"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
+          <button class="btn btn-success" [routerLink]="['/employee/edit',e.employeeId]"><i class="fas fa-pencil-alt mr-1"></i>Sửa</button>
           <button class="btn btn-danger" (click)="deleteId=e.employeeId; deleteName=e.employeeName" data-toggle="modal"
                   data-target="#exampleModal">
             <i class="fas fa-trash-alt mr-1"></i>Xóa

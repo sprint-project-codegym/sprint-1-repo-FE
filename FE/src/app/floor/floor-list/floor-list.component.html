@@ -27,19 +27,18 @@
   <table class="table table-striped" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
     <thead>
     <tr>
-      <th class="text-center background_th" scope="col" width="11.11%">Tên tòa nhà</th>
-      <th class="text-center background_th" scope="col" width="11.11%">Tên tầng lầu</th>
-      <th class="text-center background_th" scope="col" width="11.11%">Mã tầng lầu</th>
-      <th class="text-center background_th" scope="col" width="11.11%">Diện tích</th>
-      <th class="text-center background_th" scope="col" width="11.11%">Sức chứa</th>
-      <th class="text-center background_th" scope="col" width="11.11%">Trạng thái</th>
-      <th class="text-center background_th" scope="col" width="11.11%">Loại tầng</th>
-      <th class="text-center background_th" scope="col" width="11.12%"></th>
+      <th class="text-center background_th" scope="col" width="14.29%">Tên tầng lầu</th>
+      <th class="text-center background_th" scope="col" width="14.26%">Mã tầng lầu</th>
+      <th class="text-center background_th" scope="col" width="14.29%">Diện tích(m<sup>2</sup>)</th>
+      <th class="text-center background_th" scope="col" width="14.29%">Sức chứa(người)</th>
+      <th class="text-center background_th" scope="col" width="14.29%">Trạng thái</th>
+      <th class="text-center background_th" scope="col" width="14.29%">Loại tầng</th>
+      <th class="text-center background_th" scope="col" width="14.29%"></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let floor of floors">
-      <td>{{floor.building.buildingName}}</td>
+
       <td>{{floor.floorName}}</td>
       <td>{{floor.floorId}}</td>
       <td class="text-right">{{floor.area}}</td>

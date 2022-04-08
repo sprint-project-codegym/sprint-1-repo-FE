@@ -91,8 +91,8 @@
                       <input type="text" class="form-control" [(ngModel)]="rentCostVal" formControlName="rentCost" id="exampleFormControlInput4">
                       <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.required &&
                   formEditGround.controls.rentCost.touched">Vui lòng nhập giá tiền thuê!</p>
-                      <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.pattern &&
-                  formEditGround.controls.rentCost.touched">Giá tiền thuê phải là số dương!</p>
+                      <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.pattern || formEditGround.controls.rentCost.errors?.min &&
+formEditGround.controls.rentCost.touched">Giá tiền thuê phải là số và tối thiểu là 1.000.000đ!</p>
                     </div>
                   </div>
                   <div class="col-12 mb-3 p-0">
@@ -105,8 +105,8 @@
                       <input type="text" class="form-control" [(ngModel)]="manageCostVal" formControlName="manageCost" id="exampleFormControlInput5">
                       <p class="text-danger" *ngIf="formEditGround.controls.manageCost.errors?.required &&
                   formEditGround.controls.manageCost.touched">Vui lòng nhập phí quản lý!</p>
-                      <p class="text-danger" *ngIf="formEditGround.controls.rentCost.errors?.pattern &&
-                  formEditGround.controls.manageCost.touched">Phí quản lý phải là số dương!</p>
+                      <p class="text-danger" *ngIf="formEditGround.controls.manageCost.errors?.pattern || formEditGround.controls.manageCost.errors?.min &&
+formEditGround.controls.manageCost.touched">Phí quản lý phải là số và tối thiểu là 100.000đ!</p>
 
                     </div>
                   </div>

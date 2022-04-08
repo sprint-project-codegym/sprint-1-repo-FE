@@ -75,6 +75,8 @@
               <label class="small mb-1" for="employeeBirthday"><h6>Ngày sinh</h6></label>
               <input class="form-control" id="employeeBirthday" type="date"
                      formControlName="employeeBirthday">
+              <label class="text-danger" *ngIf="formUpdateEmployee.controls.employeeBirthday.touched && formUpdateEmployee.controls.employeeBirthday.errors?.required" >Dữ liệu không được để trống</label>
+              <label class="text-danger" *ngIf="formUpdateEmployee.controls.employeeBirthday.touched && formUpdateEmployee.controls.employeeBirthday.errors?.ageLimit" >Ngày sinh phải từ 18 đến 30 tuổi</label>
             </div>
           </div>
 

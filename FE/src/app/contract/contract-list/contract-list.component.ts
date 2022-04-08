@@ -45,6 +45,55 @@ export class ContractListComponent implements OnInit {
       this.search(this.pageClicked);
     }
   }
+  sort3(page: number, id, cusName) {
+    if (this.idInput === undefined) {
+      this.idInput = "";
+    }
+    if (this.cusNameInput === undefined) {
+      this.cusNameInput = "";
+    }
+    if (id !== undefined && name !== undefined) {
+      this.idInput = id.value;
+      this.cusNameInput = cusName.value;
+    }
+    if (this.idInput === '' && this.cusNameInput === '') {
+      // @ts-ignore
+      this.router.navigate(['contract/list'], {
+        queryParams: {}
+      });
+    } else if (this.idInput === ''){
+      this.router.navigate(['contract/list'], {
+        queryParams: {page, name: this.cusNameInput}
+      });
+    } else if (this.cusNameInput === ''){
+      this.router.navigate(['contract/list'], {
+        queryParams: {page, id: this.idInput}
+      });
+    }else {
+      {
+        this.router.navigate(['contract/list'], {
+          queryParams: {page, id: this.idInput, name: this.cusNameInput}
+        });
+      }
+    }
+    this.contractService.searchContractByIdAndCusName(page, this.idInput, this.cusNameInput ).subscribe(
+      data => {
+        if (data === null) {
+          // this.toast.info('Không tìm thấy hợp đồng theo điều kiện đã tìm kiếm');
+          this.contracts = [];
+          // this.onSubmit(0);
+          // this.idInput = "";
+          // this.cusNameInput = "";
+        } else {
+          this.contracts = data['content'];
+          this.contracts.sort((b, a) => new Date(b.contractDate).getTime() - new Date(a.contractDate).getTime());
+          this.pageClicked = page;
+          this.totalPages = data.totalPages;
+          this.pages = Array.apply(null, {length: this.totalPages}).map(Number.call, Number);
+        }
+      }
+    );
+  }
 
   onSubmit(page) {
     this.contractService.getAllContract(page, this.size).subscribe(
@@ -57,6 +106,7 @@ export class ContractListComponent implements OnInit {
           this.contracts = [];
         } else {
           this.contracts = data['content'];
+          // this.contracts.sort((b, a) => new Date(b.contractDate).getTime() - new Date(a.contractDate).getTime());
           this.pageClicked = page;
           this.totalPages = data.totalPages;
           this.pages = Array.apply(null, { length: this.totalPages }).map(Number.call, Number);
@@ -127,7 +177,6 @@ export class ContractListComponent implements OnInit {
       }
     );
   }
-
   deleteSuccess() {
     this.ngOnInit();
   }

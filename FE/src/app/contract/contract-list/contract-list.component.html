@@ -11,33 +11,41 @@
         <div class="col-12 d-flex justify-content-end">
           <label>
             <input class="search form-control mr-3"
-                   placeholder="Tìm theo tên khách hàng" #cusName>
+                   placeholder="Tìm theo tên khách hàng" #cusName>
           </label>
           <label>
             <input class="search form-control mr-3"
-                   placeholder="Tìm theo mã hợp đồng" #id>
+                   placeholder="Tìm theo mã hợp đồng" #id>
           </label>
-          <button class="btn btn-light btn-outline-secondary" type="submit" (click)="search(0, id, cusName)"><i
-            class="fas fa-search mr-1"></i>Tìm
-            kiếm
-          </button>
+          <label>
+            <button class="btn btn-light btn-outline-secondary" type="submit" (click)="search(0, id, cusName)"><i
+              class="fas fa-search mr-1"></i>Tìm
+              kiếm
+            </button>
+          </label>
         </div>
       </div>
     </div>
   </div>
-  <div style="text-align: center" *ngIf="!contracts.length; else row">
+  <div style="text-align: center"
+       *ngIf
+         ="!contracts.length; else row">
     <h3 class="text-danger text-center">Không có dữ liệu trả về.</h3>
   </div>
   <ng-template #row>
     <table class="table table-striped">
       <thead>
       <tr style="text-align: center">
-        <th scope="col" style="width: 7%; background: #607D8B; color: white">ID</th>
+        <th scope="col" style="width: 7%; background: #607D8B; color: white">ID
+          <span class="fa fa-caret-down" (click)="search(0, id, cusName)"></span></th>
         <th scope="col" style="width: 15%; background: #607D8B; color: white">Tên khách hàng</th>
         <th scope="col" style="width: 11%; background: #607D8B; color: white">Mã mặt bằng</th>
-        <th scope="col" style="width:13%; background: #607D8B; color: white">Ngày bắt đầu</th>
-        <th scope="col" style="width: 13%; background: #607D8B; color: white">Ngày kết thúc</th>
-        <th scope="col" style="width: 13%;background: #607D8B; color: white">Ngày làm hợp đồng</th>
+        <th scope="col" style="width:13%; background: #607D8B; color: white">Ngày bắt đầu
+          <!--          <span class="fa fa-caret-down" (click)="sort1(0, id, cusName)"></span></th>-->
+        <th scope="col" style="width: 13%; background: #607D8B; color: white">Ngày kết thúc
+          <!--          <span class="fa fa-caret-down" (click)="sort2(0, id, cusName)"></span></th>-->
+        <th scope="col" style="width: 13%;background: #607D8B; color: white">Ngày làm hợp đồng
+          <span class="fa fa-caret-down" (click)="sort3(0, id, cusName)"></span></th>
         <th scope="col" style="width: 15%;background: #607D8B; color: white">Tổng tiền (Vnđ)</th>
         <th scope="col" style="width: 13%;background: #607D8B; color: white"></th>
       </tr>
