@@ -1,0 +1,166 @@
+<div class="container-fluid">
+  <div class="col-sm-12 col-xs-12 content p-3 pl-0">
+    <h3 class="mb-0"><strong>Thêm mới hợp đồng</strong></h3>
+    <span class="text-secondary">Khách hàng <i class="fa fa-angle-right"></i> Hợp đồng <i
+      class="fa fa-angle-right"></i> Thêm hợp đồng</span>
+    <div class="row mt-3">
+      <div class="col-sm-12">
+        <div class="mt-1 mb-3 p-3 button-container bg-white border shadow p-3 mb-5 bg-white rounded">
+          <h4 class="mb-5 text-center text">Thêm mới hợp đồng</h4>
+          <form [formGroup]="formGroup" class="form-horizontal mt-4 mb-5 px-3">
+            <div class="form-group row">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Mặt bằng<span
+                    class="text-danger">*</span></label>
+                  <select class="form-control" id="exampleFormControlSelect1" formControlName="groundId">
+                    <option *ngFor="let ground of groundList" [value]="ground.groundId">
+                      {{ground.groundType}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Ngày làm hợp đồng<span class="text-danger">*</span></label>
+                  <input [placeholder]="getFormattedDate()" [min]="" class="form-control" formControlName="contractDate"
+                         readonly>
+                  <p class="text-danger"
+                        *ngIf="formGroup.controls.contractDate.errors?.required&&formGroup.controls.contractDate.touched">
+                    Vui lòng chọn thời gian!
+                  </p>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Họ Và Tên Khách Hàng<span
+                    class="text-danger">*</span></label>
+                  (<a class="btn_register" href="#">Đăng Ký</a>)
+                  <select class="form-control" id="exampleFormControlSelect1" formControlName="customerId">
+                    <option *ngFor="let customer of customerList" [value]="customer.customerId">
+                      {{customer.customerName}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Ngày bắt đầu thuê<span
+                    class="text-danger">*</span></label>
+                  <input type="date" class="form-control" formControlName="startDate">
+                  <p class="text-danger"
+                        *ngIf="formGroup.controls.startDate.errors?.required&&formGroup.controls.startDate.touched">
+                    Vui lòng chọn thời gian!
+                  </p>
+                  <p
+                    *ngIf="formGroup.controls.startDate.touched&&formGroup.controls.startDate.errors?.smallerThanOtherTime"
+                    class="text-danger">Phải trước Ngày kết thúc</p>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Họ Và Tên Nhân Viên<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="exampleFormControlInput1"
+                         value="Johnny Dang" readonly formControlName="employeeId">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Ngày kết thúc thuê<span
+                    class="text-danger">*</span></label>
+                  <br>
+                  <input type="date" class="form-control" formControlName="endDate">
+                  <p class="text-danger"
+                        *ngIf="formGroup.controls.endDate.errors?.required&&formGroup.controls.endDate.touched">
+                    Vui lòng chọn thời gian!
+                  </p>
+                  <p
+                    *ngIf="formGroup.controls.endDate.touched&&formGroup.controls.endDate.errors?.greaterThanOtherTime"
+                    class="text-danger">Phải sau Ngày bắt đầu</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-4">
+                <label for="exampleFormControlSelect1">Mã Hợp Đồng<span
+                  class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="contractId" formControlName="contractId">
+                <p class="text-danger"
+                      *ngIf="formGroup.controls.contractId.errors?.required&&formGroup.controls.contractId.touched">
+                  Không được để trống. Vui lòng nhập!
+                </p>
+                <p class="text-danger"
+                      *ngIf="formGroup.controls.contractId.errors?.pattern&&formGroup.controls.contractId.touched">
+                  Mã hợp đồng không đúng định dạng (VD: HD-0001)!
+                </p>
+              </div>
+              <div class="form-group col-4">
+                <div class="d-flex justify-content-between">
+                  <label for="exampleFormControlSelect1">
+                    <span>Giá Tiền Mỗi Tháng(VNĐ)</span>
+                    <span class="text-danger">*</span>
+                  </label>
+                  <span>{{pipeRentCost | currency : "VND"}}</span>
+                </div>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="rentCost"
+                       [(ngModel)]="pipeRentCost">
+                <p class="text-danger"
+                      *ngIf="formGroup.controls.rentCost.errors?.required&&formGroup.controls.rentCost.touched">
+                  Không được để trống. Vui lòng nhập!
+                </p>
+                <p *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.pattern"
+                      class="text-danger">
+                  Không hợp lệ! Không được bắt đầu từ 0, không được nhập chữ
+                </p>
+                <p class="text-danger"
+                      *ngIf="formGroup.controls.rentCost.touched&&formGroup.controls.rentCost.errors?.smallerThan">Phải nhỏ hơn hoặc bằng Tổng tiền</p>
+              </div>
+              <div class="form-group col-4">
+                <div class="d-flex justify-content-between">
+                  <label for="exampleFormControlSelect1">
+                    <span>Tổng Tiền(VNĐ)</span>
+                    <span class="text-danger">*</span>
+                  </label>
+                  <span>{{pipeTotalCost | currency : "VND"}}</span>
+                </div>
+                <input placeholder="VD: 35 tỷ" type="text" class="form-control" id="exampleFormControlInput1"
+                       formControlName="totalCost" [(ngModel)]="pipeTotalCost">
+                <p
+                  *ngIf="formGroup.controls.totalCost.dirty&&formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.pattern"
+                  class="text-danger">
+                  Không hợp lệ! Không được bắt đầu từ 0
+                </p>
+                <p class="text-danger"
+                      *ngIf="formGroup.controls.totalCost.errors?.required&&formGroup.controls.totalCost.touched">
+                  Không được để trống. Vui lòng nhập!
+                </p>
+                <p *ngIf="formGroup.controls.totalCost.touched&&formGroup.controls.totalCost.errors?.greaterThan"
+                      class="text-danger">Phải lớn hơn hoặc bằng Giá tiền mỗi tháng</p>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-12">
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Nội Dung Hợp Đồng</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            formControlName="contractContent"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-12 d-flex justify-content-center">
+                <button class="btn btn-success text-white mr-3" type="button">
+                  <i class="fas fa-chevron-left mr-2"></i>
+                  <span>Trở về</span>
+                </button>
+                <button class="btn btn-success text-white mr-3" type="button">
+                  <i class="fas fa-sync mr-2"></i>
+                  <span>Làm mới</span>
+                </button>
+                <button [disabled]="formGroup.invalid" class="btn btn-primary" type="submit" (click)="onSubmit()">
+                  <i class="fas fa-save mr-2"></i>
+                  <span>Lưu</span>
+                </button>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
